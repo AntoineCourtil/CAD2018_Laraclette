@@ -26,6 +26,6 @@ du joueur et de l’ordinateur, et la partie est terminée quand il n’y a plus
 
 ### Comportement général
 
-![Diagramme de séquence : comportement général](../blob/master/conception/seq_comportement_general.png?raw=true)
+![Diagramme de séquence : comportement général](conception/seq_comportement_general.png)
 
  
