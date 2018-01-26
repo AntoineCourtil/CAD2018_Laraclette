@@ -28,4 +28,8 @@ du joueur et de l’ordinateur, et la partie est terminée quand il n’y a plus
 
 ![Diagramme de séquence : comportement général](conception/seq_comportement_general.png)
 
+### Interfaces
+
+![Interface : menu principal](conception/draw.io/menu_principal.png)
+
  
