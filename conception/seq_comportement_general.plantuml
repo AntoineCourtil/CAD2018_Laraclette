@@ -1,0 +1,62 @@
+@startuml
+
+skinparam NoteBackgroundColor White
+skinparam NoteBorderColor Black
+
+skinparam sequence {
+    ArrowColor Black
+    ActorBorderColor Black
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor White
+    
+    ParticipantBorderColor Black
+    ParticipantBackgroundColor White
+    
+    ParticipantFontColor Black
+    
+    ActorBackgroundColor White
+    ActorFontColor Black
+    
+}
+
+title Comportement général de l'application
+
+actor Joueur
+participant Application
+
+Joueur -> Application : Le joueur lance l'application
+Application --> Joueur : Affichage du menu principal
+
+alt Nouvelle partie
+
+    Application --> Joueur : Affichage des choix d'époque
+
+    Joueur -> Application : Le joueur choisi une époque
+
+    Application --> Joueur : Affichage du plateau
+
+    Joueur -> Application : Le joueur place ses bateaux
+
+    Application -> Application : L'application place les bateaux de l'ordinateur
+
+    note over Joueur, Application
+        La partie commence et suit son cours    
+    end note
+
+else Reprise d'une partie
+
+    Application --> Joueur : Affichage des parties sauvegardées
+
+    Joueur -> Application : Le joueur choisi une partie
+
+    Application -> Application : Charge l'état de la partie sauvegardée
+
+    note over Joueur, Application
+        La partie commence et suit son cours    
+    end note
+
+end
+
+
+
+@enduml
