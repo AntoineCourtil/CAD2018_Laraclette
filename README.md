@@ -31,5 +31,7 @@ du joueur et de l’ordinateur, et la partie est terminée quand il n’y a plus
 ### Interfaces
 
 ![Interface : menu principal](conception/draw.io/menu_principal.png)
+![Interface : menu époque](conception/draw.io/select_epoque.png)
+![Interface : menu principal](conception/draw.io/partie_en_cours.png)
 
  
