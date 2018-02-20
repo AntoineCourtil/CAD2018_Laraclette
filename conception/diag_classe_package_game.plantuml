@@ -1,0 +1,40 @@
+@startuml
+
+
+package game {
+    
+    enum GameState {
+        MENU,
+        RUNNING,
+        EPOCH_CHOOSE
+    }
+
+    class Game {
+        - gameState : GameState
+        - painter : Painter
+    }
+    Game --"1" modele.BatailleNavale
+
+    class Painter {
+        - drawMenu()
+        - drawEpochChoose()
+        - drawRunning()
+    }
+    Painter ..> engine.GamePainter
+    Painter -- "1" modele.BatailleNavale
+
+    class Controller
+    Controller ..> engine.GameController
+
+}
+
+package engine {
+    interface GameController
+    interface GamePainter
+}
+
+package modele {
+    class BatailleNavale
+}
+
+@enduml

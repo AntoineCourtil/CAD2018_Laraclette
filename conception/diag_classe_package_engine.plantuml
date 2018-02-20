@@ -1,0 +1,45 @@
+@startuml
+
+title Moteur du jeux
+
+package engine {
+
+    class DrawingPanel {
+        + paint(g : Graphics)
+        + drawGame() 
+    }
+    DrawingPanel --> JPanel
+    DrawingPanel --"1" GamePainter
+
+    interface Game {
+        + evolve(userCmd : Cmd);
+        + isFinished() : boolean
+    }
+
+    interface GameController {
+        + getCommand() : Cmd
+    }
+
+    interface GamePainter {
+        + draw(BufferedImage image)
+        + getWidth() : int
+	    + getHeight() : int
+    }
+
+    class GameEngineGraphical {
+        + run()
+    }
+    GameEngineGraphical --"1" Game
+    GameEngineGraphical --"1" GamePainter
+    GameEngineGraphical --"1" GameController
+    GameEngineGraphical --"1" GraphicalInterface
+
+    class GraphicalInterface {
+        + paint()
+    }
+    GraphicalInterface --"1" DrawingPanel
+    GraphicalInterface --"1" GamePainter
+    GraphicalInterface --"1" GameController   
+}
+
+@enduml
