@@ -105,6 +105,7 @@ package boatFactory #DDDDDD {
             - int portee
             - Point2D position
             - int munitions
+            - List<Point2D> pointsTouches
 
             + {abstract} int getHP();
             + {abstract} int getSize();
@@ -113,6 +114,7 @@ package boatFactory #DDDDDD {
             + {abstract} int getPortee();
             + {abstract} Point2D getPosition();
             + int getMunition();
+            + List<Point2D> getPointsTouches();
         }
 
         abstract class Bateau5Cases {
