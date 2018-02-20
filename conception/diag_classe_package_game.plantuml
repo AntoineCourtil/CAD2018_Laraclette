@@ -12,8 +12,12 @@ package game {
     class Game {
         - gameState : GameState
         - painter : Painter
+        - evolveRunning(cmd : Cmd)
+        - evolveMenu(cmd : Cmd)
+        - evolveEpochChoose(cmd : Cmd)
     }
     Game --"1" modele.BatailleNavale
+    Game ..> engine.Game
 
     class Painter {
         - drawMenu()
@@ -23,7 +27,9 @@ package game {
     Painter ..> engine.GamePainter
     Painter -- "1" modele.BatailleNavale
 
-    class Controller
+    class Controller {
+        + keyPressed(e : KeyEvent) 
+    }
     Controller ..> engine.GameController
 
 }

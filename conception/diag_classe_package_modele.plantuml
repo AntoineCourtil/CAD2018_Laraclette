@@ -3,21 +3,20 @@
 package modele {
 
     class Player {
-
+        - currentBoatIndex : int
     }
-    Player --"*" jesaispasencorequoi.Boat
+    Player --"*" boatFactory.Boat
+    Player -- "*" Point2D : "Tires échoués"
 
     class BatailleNavale {
         - width : int
         - height : int
         - turn : boolean
+        - epoch : int
     }
     BatailleNavale --"1" Player : "Humain"
     BatailleNavale --"1" Player : "IA"
 }
 
-package jesaispasencorequoi {
-    abstract class Boat
-}
 
 @enduml
