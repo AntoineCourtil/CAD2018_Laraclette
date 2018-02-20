@@ -1,0 +1,207 @@
+@startuml
+
+title Diagramme de Classe - package Factory
+
+package boatFactory #DDDDDD {
+    
+    abstract class AbstractBateauFactory {
+        + AbstractBateauFactory getFactoryByEpoque(int epoque);
+    }
+
+
+    '########################### BATEAU XVIII #################################
+
+    package boatXVIII #FFFFFF {
+
+        class XVIIIBateauFactory {
+            + Bateau getBateau5Cases();
+            + Bateau getBateau4Cases();
+            + Bateau getBateau3Cases();
+            + Bateau getBateau2Cases();
+        }
+
+        class XVIIIBateau5Cases {
+            + int getHP();
+            + int getPrecision();
+            + int getDegat();
+            + int getPortee();
+        }
+
+        class XVIIIBateau4Cases {
+            + int getHP();
+            + int getPrecision();
+            + int getDegat();
+            + int getPortee();
+        }
+
+        class XVIIIBateau3Cases {
+            + int getHP();
+            + int getPrecision();
+            + int getDegat();
+            + int getPortee();
+        }
+
+        class XVIIIBateau2Cases {
+            + int getHP();
+            + int getPrecision();
+            + int getDegat();
+            + int getPortee();
+        }
+    }
+
+
+
+    '########################### BATEAU XIX #################################
+
+    package boatXIX #FFFFFF {
+
+        class XIXBateauFactory {
+            + Bateau getBateau5Cases();
+            + Bateau getBateau4Cases();
+            + Bateau getBateau3Cases();
+            + Bateau getBateau2Cases();
+        }
+
+        class XIXBateau2Cases {
+            + int getHP();
+            + int getPrecision();
+            + int getDegat();
+            + int getPortee();
+        }
+
+        class XIXBateau3Cases {
+            + int getHP();
+            + int getPrecision();
+            + int getDegat();
+            + int getPortee();
+        }
+
+        class XIXBateau4Cases {
+            + int getHP();
+            + int getPrecision();
+            + int getDegat();
+            + int getPortee();
+        }
+
+        class XIXBateau5Cases {
+            + int getHP();
+            + int getPrecision();
+            + int getDegat();
+            + int getPortee();
+        }
+    }
+
+
+
+    '########################### BATEAU ABSTRACT #################################
+
+
+    package abstractBoat #FFFFFF {
+
+        abstract class Bateau {
+            + {abstract} int getHP();
+            + {abstract} int getSize();
+            + {abstract} int getPrecision();
+            + {abstract} int getDegat();
+            + {abstract} int getPortee();
+            + {abstract} Pair<Integer, Integer> getPosition();
+        }
+
+        abstract class Bateau5Cases {
+            + int getSize()
+            + Pair<Integer, Integer> getPosition();
+        }
+
+        abstract class Bateau4Cases {
+            + int getSize()
+            + Pair<Integer, Integer> getPosition();
+        }
+
+        abstract class Bateau3Cases {
+            + int getSize()
+            + Pair<Integer, Integer> getPosition();
+        }
+
+        abstract class Bateau2Cases {
+            + int getSize()
+            + Pair<Integer, Integer> getPosition();
+        }
+
+    }
+
+
+
+
+
+
+
+    '########################### RELATIONS #################################
+
+
+
+    XVIIIBateauFactory -up-|> AbstractBateauFactory
+    XIXBateauFactory -up-|> AbstractBateauFactory
+
+
+    XVIIIBateauFactory --> XVIIIBateau5Cases
+    XIXBateauFactory --> XIXBateau5Cases
+
+    XVIIIBateau5Cases --|> Bateau5Cases
+    XIXBateau5Cases --|> Bateau5Cases
+
+    Bateau5Cases -down-|> Bateau
+
+    XVIIIBateauFactory --> XVIIIBateau4Cases
+    XIXBateauFactory --> XIXBateau4Cases
+
+    XVIIIBateau4Cases --|> Bateau4Cases
+    XIXBateau4Cases --|> Bateau4Cases
+
+    Bateau4Cases -down-|> Bateau
+
+    XVIIIBateauFactory --> XVIIIBateau3Cases
+    XIXBateauFactory --> XIXBateau3Cases
+
+    XVIIIBateau3Cases --|> Bateau3Cases
+    XIXBateau3Cases --|> Bateau3Cases
+
+    Bateau3Cases -down-|> Bateau
+
+    XVIIIBateauFactory --> XVIIIBateau2Cases
+    XIXBateauFactory --> XIXBateau2Cases
+
+    XVIIIBateau2Cases --|> Bateau2Cases
+    XIXBateau2Cases --|> Bateau2Cases
+
+    Bateau2Cases -down-|> Bateau
+
+
+
+
+
+    '########################### POSITIONNING #################################
+
+    XVIIIBateau5Cases -[hidden]right-> XVIIIBateau4Cases
+    XVIIIBateau4Cases -[hidden]right-> XVIIIBateau3Cases
+    XVIIIBateau3Cases -[hidden]right-> XVIIIBateau2Cases
+    XVIIIBateau2Cases -[hidden]right-> XIXBateau5Cases
+    XIXBateau5Cases -[hidden]right-> XIXBateau4Cases
+    XIXBateau4Cases -[hidden]right-> XIXBateau3Cases
+    XIXBateau3Cases -[hidden]right-> XIXBateau2Cases
+
+    Bateau5Cases -[hidden]right-> Bateau4Cases
+    Bateau4Cases -[hidden]right-> Bateau3Cases
+    Bateau3Cases -[hidden]right-> Bateau2Cases
+
+
+    
+
+
+
+
+
+    
+
+}
+
+@enduml
