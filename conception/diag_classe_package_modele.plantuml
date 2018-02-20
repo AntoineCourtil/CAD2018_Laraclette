@@ -4,6 +4,8 @@ package modele {
 
     class Player {
         - currentBoatIndex : int
+        + shoot(pos : Point2D)
+        + findBoatAtPos(pos : Point2D) : Boat
     }
     Player --"*" boatFactory.Boat
     Player -- "*" Point2D : "Tires échoués"
@@ -13,6 +15,7 @@ package modele {
         - height : int
         - turn : boolean
         - epoch : int
+        + shoot(pos : Point2D)
     }
     BatailleNavale --"1" Player : "Humain"
     BatailleNavale --"1" Player : "IA"
