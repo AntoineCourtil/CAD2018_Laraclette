@@ -99,32 +99,40 @@ package boatFactory #DDDDDD {
     package abstractBoat #FFFFFF {
 
         abstract class Bateau {
+            - int HP
+            - float precision
+            - int degat
+            - int portee
+            - Point2D position
+            - int munitions
+
             + {abstract} int getHP();
             + {abstract} int getSize();
             + {abstract} int getPrecision();
             + {abstract} int getDegat();
             + {abstract} int getPortee();
-            + {abstract} Pair<Integer, Integer> getPosition();
+            + {abstract} Point2D getPosition();
+            + int getMunition();
         }
 
         abstract class Bateau5Cases {
             + int getSize()
-            + Pair<Integer, Integer> getPosition();
+            + Point2D getPosition();
         }
 
         abstract class Bateau4Cases {
             + int getSize()
-            + Pair<Integer, Integer> getPosition();
+            + Point2D getPosition();
         }
 
         abstract class Bateau3Cases {
             + int getSize()
-            + Pair<Integer, Integer> getPosition();
+            + Point2D getPosition();
         }
 
         abstract class Bateau2Cases {
             + int getSize()
-            + Pair<Integer, Integer> getPosition();
+            + Point2D getPosition();
         }
 
     }
