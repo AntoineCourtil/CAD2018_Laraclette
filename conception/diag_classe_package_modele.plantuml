@@ -1,0 +1,23 @@
+@startuml
+
+package modele {
+
+    class Player {
+
+    }
+    Player --"*" jesaispasencorequoi.Boat
+
+    class BatailleNavale {
+        - width : int
+        - height : int
+        - turn : boolean
+    }
+    BatailleNavale --"1" Player : "Humain"
+    BatailleNavale --"1" Player : "IA"
+}
+
+package jesaispasencorequoi {
+    abstract class Boat
+}
+
+@enduml
