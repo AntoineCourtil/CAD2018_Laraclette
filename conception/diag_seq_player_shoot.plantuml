@@ -1,0 +1,21 @@
+@startuml
+
+title En cours
+
+actor Joueur
+Game -> Joueur : "Choisissez un bateau"
+Joueur -> Game : Clique (x, y)
+Game -> Game : playerChooseBoat(x, y)
+Game -> Player : chooseBoat(x, y)
+Player -> Player : getBoatIndexFromPos(x, y)
+Player --> Player : 3 (Le bateau d'index 3 était en x, y)
+Player --> Player : currentBoatIndex = 3
+Player --> Game : true (Il y avait un bateau en x, y)
+
+Game -> Joueur : "Choisissez une case"
+Joueur -> Game : Clique (x, y)
+Game -> Game : playerChooseShoot(x, y)
+Game -> Player : shoot(x, y)
+
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+
+[*] --> Menu_principal
+Menu_principal --> Menu_choix_epoque : "Nouvelle partie"
+Menu_principal --> Menu_reprendre_partie : "Reprendre une partie"
+Menu_principal --> [*] : "Quitter"
+
+Menu_choix_epoque --> En_jeux : "Commencer la partie"
+Menu_choix_epoque --> Menu_principal : "Retourner au menu"
+
+Menu_reprendre_partie --> En_jeux : "Commencer la partie"
+Menu_reprendre_partie --> Menu_principal : "Retourner au menu"
+
+En_jeux --> Menu_principal : "Sauvegarder et quitter"
+En_jeux --> Menu_principal : "Quitter sans sauvegarder"
+
+@enduml
