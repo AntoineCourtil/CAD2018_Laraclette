@@ -6,7 +6,8 @@ package game {
     enum GameState {
         MENU,
         RUNNING,
-        EPOCH_CHOOSE
+        EPOCH_CHOOSE,
+        RESUME_GAME
     }
 
     class Game {
@@ -15,6 +16,7 @@ package game {
         - evolveRunning(cmd : Cmd)
         - evolveMenu(cmd : Cmd)
         - evolveEpochChoose(cmd : Cmd)
+        - evolveResumeGame(cmd : Cmd)
         - playerChooseBoat(pos : Point2D)
         - playerShoot(pos : Point2D)
     }
@@ -25,6 +27,7 @@ package game {
         - drawMenu()
         - drawEpochChoose()
         - drawRunning()
+        - drawResumeGame()
     }
     Painter ..> engine.GamePainter
     Painter -- "1" modele.BatailleNavale
