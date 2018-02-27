@@ -5,7 +5,7 @@ package modele {
     class Player {
         - currentBoatIndex : int
         + shoot(pos : Point2D)
-        + findBoatAtPos(pos : Point2D) : Boat
+        + getBoatIndexFromPos(pos : Point2D) : int
     }
     Player --"*" boatFactory.Boat
     Player -- "*" Point2D : "Tires échoués"
