@@ -1,0 +1,7 @@
++ Changer nom Boat en bateau pour player connait * Boat.
++ Paufiner et finir diagramme séquence joueur selectinne bateau
++ Diag séquence evolve dans game.
++ Diagramme classe mettre à jour en fonction des ajouts.
++ Rapport Google doc.
+	- Serialize
+	- Pourquoi pas de plateau
