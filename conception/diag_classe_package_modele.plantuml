@@ -23,6 +23,8 @@ package modele {
         - turn : boolean
         - epoch : int
         + playerShoot(pos : Point2D)
+        + {static} loadFromFile(filename : String) : BatailleNavale
+        + saveToFile(filename : String)
     }
     BatailleNavale --"1" Player : "Humain"
     BatailleNavale --"1" Player : "IA"
