@@ -1,6 +1,6 @@
 @startuml
 
-title Diagrame de classe du package game
+title Diagramme de classe du package game
 
 package game {
     
