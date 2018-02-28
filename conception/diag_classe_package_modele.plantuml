@@ -1,21 +1,27 @@
 @startuml
 
+title Diagrame de classe du package modele
+
 package modele {
 
     class Player {
         - currentBoatIndex : int
         + shoot(pos : Point2D)
+        + receiveShoot(pos: Point2D, damage : int) : boolean
+        + chooseBoat(pos : Point2D) : boolean
         + getBoatIndexFromPos(pos : Point2D) : int
+        + getCurrentBoat() : Boat
+        + addFailedShoot(pos : Point2D)
     }
     Player --"*" boatFactory.Boat
-    Player -- "*" Point2D : "Tires échoués"
+    Player -- "*" Point2D : "Tirs échoués"
 
     class BatailleNavale {
         - width : int
         - height : int
         - turn : boolean
         - epoch : int
-        + shoot(pos : Point2D)
+        + playerShoot(pos : Point2D)
     }
     BatailleNavale --"1" Player : "Humain"
     BatailleNavale --"1" Player : "IA"

@@ -1,5 +1,7 @@
 @startuml
 
+title Les différents états de l'application
+
 [*] --> Menu_principal
 Menu_principal --> Menu_choix_epoque : "Nouvelle partie"
 Menu_principal --> Menu_reprendre_partie : "Reprendre une partie"

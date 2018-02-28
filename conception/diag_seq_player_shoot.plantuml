@@ -1,40 +1,50 @@
 @startuml
 
-title Le joueur sélectionne un bateau (Point2D = x, y)
+title Le joueur sélectionne un bateau et tir 
 
 actor Joueur
-Joueur -> Game : Clique (x, y)
 
-game -> game : playerChooseBoat(x, y)
-game -> game : player = this.batailleNavale.getPlayer()
-game -> player : player.chooseBoat(x, y)
-player -> player : this.getBoatIndexFromPos(x, y)
-alt Il y a un bateau en x, y
-    player --> player : 3 (Le bateau d'index 3 était en x, y)
-    player --> player : currentBoatIndex = 3 (On set l'index du bateau sélectionné)
-    player --> game : true (Il y avait un bateau en x, y)
-    game -> Joueur : Le bateau est sélectionné
-else
-    player --> player : -1 (Il n'y a pas de bateau en x, y)
-    player --> player : currentBoatIndex = -1
-    player --> game : false (Il n'y a pas de bateau en x, y)
-    game -> Joueur : Aucun bateau n'a été sélectionné
+activate Joueur
+activate game
+activate player
+activate ia
+activate game.batailleNavale
+
+loop Tant qu'aucun bateau n'est sélectionné
+    Joueur -> game : Clique en (x, y) (Point2D dans l'application)
+    game -> game : this.playerChooseBoat(position)
+    game -> game.batailleNavale : player = this.batailleNavale.getPlayer()
+    game -> player : player.chooseBoat(position)
+    player -> player : boat = this.getBoatIndexFromPos(position)
+    alt Le bateau d'index i est en x, y
+        player --> player : currentBoatIndex = i (On set l'index du bateau sélectionné)
+        player --> game : true (Il y avait un bateau en x, y)
+        game -> Joueur : Le bateau est sélectionné
+    else 
+        player --> player : currentBoatIndex = -1
+        player --> game : false (Il n'y a pas de bateau en x, y)
+        game -> Joueur : Aucun bateau n'a été sélectionné
+    end
 end
 
-alt Un bateau a été sélectionné
-    Joueur -> game : Clique (x, y)
-    game -> batailleNavale : batailleNavale.playerShoot(x, y)
-    batailleNavale -> ia : this.ia.shoot(x, y)
-    ia -> ia : findBoatIndexFromPos(x, y)
-    alt Il y a un bateau en x, y
-        ia --> ia : 3 (Il y avait un bateau en x, y)
+opt Un bateau a été sélectionné
+    Joueur -> game : Clique en (x, y) (Point2D dans l'application)
+    game -> game.batailleNavale : this.batailleNavale.playerShoot(position)
+    
+    game.batailleNavale -> player : player.getCurrentBoat()
+    player --> game.batailleNavale : boat
+    game.batailleNavale -> boat : boat.getDamage()
+    boat --> game.batailleNavale : damage
+    
+    game.batailleNavale -> ia : this.ia.receiveShoot(position, damage)
+    ia -> ia : boat = findBoatIndexFromPos(position)
+    alt Le bateau d'index 3 est en x, y
         ia -> ia : boat = boats.get(3)
-        ia -> boat : boat.touched(x, y) 
-        ia --> batailleNavale : true
+        ia -> boat : boat.receiveDamage(pos, damage) 
+        ia --> game.batailleNavale : true
     else 
-        ia --> ia : -1 (Pas de bateau en x, y)
-        ia --> batailleNavale : false
-        batailleNavale -> player : player.addFailedShoot(x, y)
+        ia --> game.batailleNavale : false
+        game.batailleNavale -> player : player.addFailedShoot(position)
     end 
 end
 

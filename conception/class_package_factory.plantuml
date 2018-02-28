@@ -1,6 +1,6 @@
 @startuml
 
-title Diagramme de Classe - package Factory
+title Diagramme de Classe du package Factory
 
 package boatFactory #DDDDDD {
     

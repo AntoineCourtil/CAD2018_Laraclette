@@ -22,16 +22,3 @@ type de bateau (et de son époque). Dans cette version le projectiles sont distr
 du joueur et de l’ordinateur, et la partie est terminée quand il n’y a plus de projectiles disponibles.
 * Un compteur de tirs (dans l’eau et dans un bateau adverse).
 
-## Dossier de conception
-
-### Comportement général
-
-![Diagramme de séquence : comportement général](conception/seq_comportement_general.png)
-
-### Interfaces
-
-![Interface : Menu principal](conception/draw.io/menu_principal.png)
-![Interface : Menu époque](conception/draw.io/select_epoque.png)
-![Interface : Partie en cours](conception/draw.io/partie_en_cours.png)
-
- 
