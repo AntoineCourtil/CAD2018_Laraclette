@@ -1,6 +1,6 @@
 @startuml
 
-title Diagrame de classe du package modele
+title Diagramme de classe du package modele
 
 package modele {
 
@@ -10,11 +10,12 @@ package modele {
         + receiveShoot(pos: Point2D, damage : int) : boolean
         + chooseBoat(pos : Point2D) : boolean
         + getBoatIndexFromPos(pos : Point2D) : int
-        + getCurrentBoat() : Boat
+        + getCurrentBoat() : Bateau
         + addFailedShoot(pos : Point2D)
     }
     Player --"*" boatFactory.Bateau
     Player -- "*" Point2D : "Tirs échoués"
+    Player ..> Serializable
 
     class BatailleNavale {
         - width : int
@@ -25,6 +26,7 @@ package modele {
     }
     BatailleNavale --"1" Player : "Humain"
     BatailleNavale --"1" Player : "IA"
+    BatailleNavale ..> Serializable
 }
 
 
