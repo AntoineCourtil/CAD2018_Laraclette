@@ -6,6 +6,7 @@ package modele {
 
     class Player {
         - currentBoatIndex : int
+        - hasChoosedBoat : boolean
         + shoot(pos : Point2D)
         + receiveShoot(pos: Point2D, damage : int) : boolean
         + chooseBoat(pos : Point2D) : boolean
@@ -20,7 +21,7 @@ package modele {
     class BatailleNavale {
         - width : int
         - height : int
-        - turn : boolean
+        - turnPlayer : boolean
         - epoch : int
         + playerShoot(pos : Point2D)
         + {static} loadFromFile(filename : String) : BatailleNavale
