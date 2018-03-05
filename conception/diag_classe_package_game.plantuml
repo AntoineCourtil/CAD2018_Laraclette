@@ -34,7 +34,10 @@ package game {
     Painter -- "1" modele.BatailleNavale
 
     class Controller {
+        - commandeEnCours : Cmd
+        - clickEnCours : Point2D
         + keyPressed(e : KeyEvent) 
+        + mouseClicked(e : MouseEvent)
     }
     Controller ..> engine.GameController
 
