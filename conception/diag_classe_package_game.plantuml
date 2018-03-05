@@ -4,6 +4,14 @@ title Diagramme de classe du package game
 
 package game {
     
+    enum Cmd {
+        ARROW_LEFT,
+        ARROW_RIGHT,
+        ARROW_UP,
+        ARROW_DOWN,
+        ENTER
+    }
+    
     enum GameState {
         MENU,
         RUNNING,
@@ -14,10 +22,10 @@ package game {
     class Game {
         - gameState : GameState
         - painter : Painter
-        - evolveRunning(cmd : Cmd)
+        - evolveRunning(cmd : Cmd, click Point2D)
         - evolveMenu(cmd : Cmd)
-        - evolveEpochChoose(cmd : Cmd)
-        - evolveResumeGame(cmd : Cmd)
+        - evolveEpochChoose(cmd : Cmd, click Point2D)
+        - evolveResumeGame(cmd : Cmd, click Point2D)
         - playerChooseBoat(pos : Point2D)
         - playerShoot(pos : Point2D)
     }
