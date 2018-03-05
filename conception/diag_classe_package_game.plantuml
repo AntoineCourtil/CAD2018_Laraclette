@@ -13,7 +13,7 @@ package game {
     }
     
     enum GameState {
-        MENU,
+        MENU
         RUNNING,
         EPOCH_CHOOSE,
         RESUME_GAME
@@ -22,8 +22,9 @@ package game {
     class Game {
         - gameState : GameState
         - painter : Painter
+        + evolve(cmd : Cmd, click Point2D)
         - evolveRunning(cmd : Cmd, click Point2D)
-        - evolveMenu(cmd : Cmd)
+        - evolveMenu(cmd : Cmd, click Point2D)
         - evolveEpochChoose(cmd : Cmd, click Point2D)
         - evolveResumeGame(cmd : Cmd, click Point2D)
         - playerChooseBoat(pos : Point2D)
