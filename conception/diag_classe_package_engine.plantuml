@@ -14,12 +14,13 @@ package engine {
     DrawingPanel --"1" GamePainter
 
     interface Game {
-        + evolve(userCmd : Cmd);
+        + evolve(userCmd : Cmd, userClick : Point2D);
         + isFinished() : boolean
     }
 
     interface GameController {
         + getCommand() : Cmd
+        + getClick() : Point2D
     }
 
     interface GamePainter {

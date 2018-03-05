@@ -14,10 +14,10 @@ package game {
     class Game {
         - gameState : GameState
         - painter : Painter
-        - evolveRunning(cmd : Cmd)
+        - evolveRunning(cmd : Cmd, click Point2D)
         - evolveMenu(cmd : Cmd)
-        - evolveEpochChoose(cmd : Cmd)
-        - evolveResumeGame(cmd : Cmd)
+        - evolveEpochChoose(cmd : Cmd, click Point2D)
+        - evolveResumeGame(cmd : Cmd, click Point2D)
         - playerChooseBoat(pos : Point2D)
         - playerShoot(pos : Point2D)
     }
