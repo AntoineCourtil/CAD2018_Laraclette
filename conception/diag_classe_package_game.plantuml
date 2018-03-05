@@ -4,6 +4,14 @@ title Diagramme de classe du package game
 
 package game {
     
+    enum Cmd {
+        ARROW_LEFT,
+        ARROW_RIGHT,
+        ARROW_UP,
+        ARROW_DOWN,
+        ENTER
+    }
+    
     enum GameState {
         MENU,
         RUNNING,
