@@ -7,15 +7,19 @@ package modele {
     class Player {
         - currentBoatIndex : int
         - hasChoosedBoat : boolean
+        - strategie : Strategie
         + shoot(pos : Point2D)
         + receiveShoot(pos: Point2D, damage : int) : boolean
         + chooseBoat(pos : Point2D) : boolean
         + getBoatIndexFromPos(pos : Point2D) : int
         + getCurrentBoat() : Bateau
         + addFailedShoot(pos : Point2D)
+        + getStrategie() : Strategie
+        + setStrategie(strategie : Strategie)
     }
     Player --"*" boatFactory.Bateau
     Player -- "*" Point2D : "Tirs échoués"
+    Player -- "0..1" Strategie
     Player ..> Serializable
 
     class BatailleNavale {
@@ -27,6 +31,24 @@ package modele {
         + {static} loadFromFile(filename : String) : BatailleNavale
         + saveToFile(filename : String)
     }
+    
+    Interface Strategie {
+        + generateShoot() : Point2D
+    }
+    
+    class strategieAlea{
+        - lastShootHasTouched : boolean
+        + generateShoot() : Point2D
+    }
+    
+    class strategieCroix{
+        - lastShootHasTouched : boolean
+        + generateShoot() : Point2D
+    }
+    
+    
+    strategieAlea ..> Strategie
+    strategieCroix ..> Strategie
     BatailleNavale --"1" Player : "Humain"
     BatailleNavale --"1" Player : "IA"
     BatailleNavale ..> Serializable
