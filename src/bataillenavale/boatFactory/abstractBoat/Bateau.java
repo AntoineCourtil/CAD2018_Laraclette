@@ -10,6 +10,7 @@ import java.util.List;
  */
 public abstract class Bateau {
 
+
     public enum Orientation{NORD, SUD, EST, OUEST}
     private int HP;
     private float precision;
@@ -19,8 +20,9 @@ public abstract class Bateau {
     private int munitions;
     private List<Point2D> pointsTouches;
     private Orientation orientation;
+    private int size;
 
-    public Bateau(int HP, float precision, int degat, int portee, Point2D position, int munitions){
+    public Bateau(int HP, float precision, int degat, int portee, Point2D position, int munitions, int size){
         setHP(HP);
         setPrecision(precision);
         setDegat(degat);
@@ -95,6 +97,15 @@ public abstract class Bateau {
     public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
 
 
 }
