@@ -1,6 +1,7 @@
-package boatFactory.abstractBoat;
+package bataillenavale.boatFactory.abstractBoat;
 
-import java.awt.geom.Point2D;
+import bataillenavale.modele.Point2D;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import java.util.List;
  */
 public abstract class Bateau {
 
+
+    public enum Orientation{NORD, SUD, EST, OUEST}
     private int HP;
     private float precision;
     private int degat;
@@ -16,8 +19,10 @@ public abstract class Bateau {
     private Point2D position;
     private int munitions;
     private List<Point2D> pointsTouches;
+    private Orientation orientation;
+    private int size;
 
-    public Bateau(int HP, float precision, int degat, int portee, Point2D position, int munitions){
+    public Bateau(int HP, float precision, int degat, int portee, Point2D position, int munitions, int size){
         setHP(HP);
         setPrecision(precision);
         setDegat(degat);
@@ -83,6 +88,24 @@ public abstract class Bateau {
     public void setPointsTouches(List<Point2D> pointsTouches) {
         this.pointsTouches = pointsTouches;
     }
+
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
 
 
 }

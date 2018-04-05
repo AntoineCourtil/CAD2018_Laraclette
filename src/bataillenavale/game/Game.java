@@ -1,8 +1,7 @@
 package bataillenavale.game;
 
 import bataillenavale.engine.Cmd;
-
-import java.awt.geom.Point2D;
+import bataillenavale.modele.Point2D;
 
 
 public class Game implements bataillenavale.engine.Game {
@@ -12,8 +11,8 @@ public class Game implements bataillenavale.engine.Game {
     private EpochChoose epochChoose;
     private ResumeGame resumeGame;
 
-    public static int XIX = 19;
-    public static int XVIII = 18;
+    public static final int XIX = 19;
+    public static final int XVIII = 18;
 
 	public Game() {
         gameState = GameState.MENU;

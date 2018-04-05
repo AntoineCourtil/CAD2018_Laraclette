@@ -1,11 +1,12 @@
-package boatFactory.boatXVIII;
+package bataillenavale.boatFactory.boatXVIII;
 
-import boatFactory.abstractBoat.Bateau;
+import bataillenavale.boatFactory.AbstractBateauFactory;
+import bataillenavale.boatFactory.abstractBoat.Bateau;
 
 /**
  * Created by simon on 05/04/18.
  */
-public class XVIIIBateauFactory {
+public class XVIIIBateauFactory extends AbstractBateauFactory{
 
     public Bateau getBateau5Cases() {
         return new XVIIIBateau5Cases();
