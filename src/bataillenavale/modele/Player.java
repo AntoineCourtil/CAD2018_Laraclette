@@ -28,8 +28,8 @@ public class Player implements Serializable {
 
     }
 
-    public void shoot(Point2D pos){
-
+    public void shootIA(){
+        getStrategie().generateShoot(tirsEchoues);
     }
 
     public boolean receiveShoot(Point2D pos, int damage){
