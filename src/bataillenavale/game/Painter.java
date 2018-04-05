@@ -14,23 +14,17 @@ import bataillenavale.engine.GamePainter;
  */
 public class Painter implements GamePainter {
 
-	/**
-	 * la taille des cases
-	 */
-	protected static final int WIDTH = 100;
-	protected static final int HEIGHT = 100;
+    private Game game;
 
-	/**
-	 * appelle constructeur parent
-	 * 
-	 * @param game
-	 *            le jeutest a afficher
-	 */
-	public Painter() {
+    private static final int WIDTH = 300;
+	private static final int HEIGHT = 200;
+
+	public Painter(Game game) {
+	    this.game = game;
 	}
 
 	/**
-	 * methode  redefinie de Afficheur retourne une image du jeu
+	 * Méthode  redefinie de Afficheur retourne une image du jeu
 	 */
 	@Override
 	public void draw(BufferedImage im) {
@@ -48,5 +42,21 @@ public class Painter implements GamePainter {
 	public int getHeight() {
 		return HEIGHT;
 	}
+
+	private void drawMenu() {
+
+    }
+
+    private void drawEpochChoose() {
+
+    }
+
+    private void drawRunning() {
+
+    }
+
+    private void drawResumeGame() {
+
+    }
 
 }
