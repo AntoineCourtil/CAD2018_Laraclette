@@ -11,7 +11,7 @@ public class Player implements Serializable {
     private boolean hasChossedBoat;
     private Strategie strategie;
 
-    private List<Boat> boatList;
+    //private List<Boat> boatList;
     private List<Point2D> tirsEchoues;
 
 
@@ -42,11 +42,11 @@ public class Player implements Serializable {
 
     }
 
-    public Boat getCurrentBoat(){
+    /*public Boat getCurrentBoat(){
 
         return null;
 
-    }
+    }*/
 
     public void addFailedShoot(Point2D pos){
 
