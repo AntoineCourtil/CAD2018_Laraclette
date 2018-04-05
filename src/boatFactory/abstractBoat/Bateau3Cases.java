@@ -1,6 +1,6 @@
 package boatFactory.abstractBoat;
 
-import java.awt.geom.Point2D;
+import bataillenavale.modele.Point2D;
 
 /**
  * Created by simon on 05/04/18.

@@ -1,5 +1,7 @@
 package bataillenavale.modele;
 
+import boatFactory.abstractBoat.Bateau;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,14 @@ public class Player implements Serializable {
     }
 
     public boolean receiveShoot(Point2D pos, int damage){
+
+        for(Bateau bateau : boatList){
+
+            if(bateau.getHP() > 0) {
+                Point2D baseBateau = bateau.getPosition();
+            }
+
+        }
 
         return false;
 
