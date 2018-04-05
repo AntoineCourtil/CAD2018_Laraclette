@@ -1,10 +1,8 @@
-package boatFactory;
+package bataillenavale.boatFactory;
 
 import bataillenavale.game.Game;
-import boatFactory.boatXIX.XIXBateauFactory;
-import boatFactory.boatXVIII.XVIIIBateauFactory;
-
-import java.awt.geom.Point2D;
+import bataillenavale.boatFactory.boatXIX.XIXBateauFactory;
+import bataillenavale.boatFactory.boatXVIII.XVIIIBateauFactory;
 
 /**
  * Created by simon on 05/04/18.

@@ -1,4 +1,4 @@
-package boatFactory.abstractBoat;
+package bataillenavale.boatFactory.abstractBoat;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import java.util.List;
  */
 public abstract class Bateau {
 
+    public enum orientation{NORD, SUD, EST, OUEST}
     private int HP;
     private float precision;
     private int degat;
