@@ -15,7 +15,6 @@ public class StrategieCroix implements Strategie{
 
     @Override
     public Point2D generateShoot(List<Point2D> tirsEchoues) {
-        Random rand = new Random();
         Boolean isShootOk = false;
         int x = 0;
         int y = 0;
@@ -33,8 +32,13 @@ public class StrategieCroix implements Strategie{
                 isShootOk = true;
             }else{
                 x += 2;
-                //if(x >= BatailleNavale.WIDTH)
+                if(x >= BatailleNavale.WIDTH){
+                    if(y%2 == 0) x = 0;
+                    else x = 1;
+                    y += 1;
+                }
             }
         }
+        return new Point2D(x,y);
     }
 }
