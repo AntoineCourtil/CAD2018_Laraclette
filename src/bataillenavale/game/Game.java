@@ -1,8 +1,7 @@
 package bataillenavale.game;
 
 import bataillenavale.engine.Cmd;
-
-import java.awt.geom.Point2D;
+import bataillenavale.modele.Point2D;
 
 
 public class Game implements bataillenavale.engine.Game {

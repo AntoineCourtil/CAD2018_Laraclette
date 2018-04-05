@@ -2,8 +2,6 @@ package boatFactory.boatXIX;
 
 import boatFactory.abstractBoat.Bateau;
 
-import java.awt.geom.Point2D;
-
 /**
  * Created by simon on 05/04/18.
  */

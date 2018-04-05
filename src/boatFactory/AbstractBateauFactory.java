@@ -4,8 +4,6 @@ import bataillenavale.game.Game;
 import boatFactory.boatXIX.XIXBateauFactory;
 import boatFactory.boatXVIII.XVIIIBateauFactory;
 
-import java.awt.geom.Point2D;
-
 /**
  * Created by simon on 05/04/18.
  */

@@ -30,4 +30,19 @@ public class BatailleNavale implements Serializable{
 
     }
 
+    public boolean isTurnPlayer() {
+        return turnPlayer;
+    }
+
+    public int getEpoch() {
+        return epoch;
+    }
+
+    public Player getHumain() {
+        return humain;
+    }
+
+    public Player getIa() {
+        return ia;
+    }
 }

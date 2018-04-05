@@ -1,10 +1,11 @@
 package boatFactory.abstractBoat;
 
+import bataillenavale.modele.Point2D;
+
 /**
  * Created by simon on 05/04/18.
  */
 
-import java.awt.geom.Point2D;
 
 public abstract class Bateau4Cases extends Bateau{
 
