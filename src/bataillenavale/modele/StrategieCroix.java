@@ -1,6 +1,7 @@
 package bataillenavale.modele;
 
 
+import java.util.List;
 
 public class StrategieCroix implements Strategie{
 
@@ -12,7 +13,7 @@ public class StrategieCroix implements Strategie{
     }
 
     @Override
-    public Point2D generateShoot() {
-        return null;
+    public Point2D generateShoot(List<Point2D> tirsEchoues) {
+
     }
 }
