@@ -1,22 +1,30 @@
 package bataillenavale.modele;
 
-import java.awt.*;
-import java.awt.geom.Point2D;
+import bataillenavale.boatFactory.abstractBoat.Bateau;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player implements Serializable {
 
     private int currentBoatIndex;
-    private boolean hasChossedBoat;
+    private boolean hasChoosedBoat;
     private Strategie strategie;
 
-    //private List<Boat> boatList;
+
+    private List<Bateau> boatList;
     private List<Point2D> tirsEchoues;
 
 
 
-    public Player(){
+    public Player(ArrayList<Bateau> boatArrayList){
+
+        boatList = boatArrayList;
+        tirsEchoues = new ArrayList<>();
+
+        currentBoatIndex = -1;
+        hasChoosedBoat = false;
 
     }
 
@@ -25,6 +33,42 @@ public class Player implements Serializable {
     }
 
     public boolean receiveShoot(Point2D pos, int damage){
+
+        for(Bateau bateau : boatList){
+
+            if(bateau.getHP() > 0) {
+                Point2D baseBateau = bateau.getPosition();
+                Bateau.Orientation orientation = bateau.getOrientation();
+                int size = bateau.getSize();
+
+                for(int i = 0; i<size; i++){
+
+                    switch (orientation){
+
+                        case NORD:
+
+//                            if(pos == new Point2D(baseBateau.getX() + i, baseBateau.getY()){
+//
+//                            }
+
+                            break;
+
+                        case SUD:
+                            break;
+
+                        case OUEST:
+                            break;
+
+                        case EST:
+                            break;
+
+                    }
+
+                }
+
+            }
+
+        }
 
         return false;
 
@@ -42,15 +86,16 @@ public class Player implements Serializable {
 
     }
 
-    /*public Boat getCurrentBoat(){
 
-        return null;
-
-    }*/
+    public Bateau getCurrentBoat(){
+        return boatList.get(currentBoatIndex);
+    }
 
     public void addFailedShoot(Point2D pos){
-
+        tirsEchoues.add(pos);
     }
+
+    //------------ GETTERS && SETTERS
 
     public Strategie getStrategie() {
         return strategie;
@@ -59,4 +104,6 @@ public class Player implements Serializable {
     public void setStrategie(Strategie s){
         strategie = s;
     }
+
+
 }
