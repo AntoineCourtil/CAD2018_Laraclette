@@ -15,8 +15,8 @@ public class Painter implements GamePainter {
 
     private Game game;
 
-    private static final int WIDTH = 600;
-	private static final int HEIGHT = 400;
+    public static final int WIDTH = 600;
+	public static final int HEIGHT = 400;
 
 	public Painter(Game game) {
 	    this.game = game;
@@ -28,7 +28,18 @@ public class Painter implements GamePainter {
 	@Override
 	public void draw(BufferedImage im) {
 		Graphics2D crayon = (Graphics2D) im.getGraphics();
-        drawMenu(crayon);
+        switch (game.getGameState()) {
+            case MENU:
+                drawMenu(crayon);
+                break;
+            case EPOCH_CHOOSE:
+                drawEpochChoose(crayon);
+                break;
+            case RESUME_GAME:
+                drawResumeGame(crayon);
+                break;
+        }
+
 	}
 
 	@Override
@@ -42,30 +53,19 @@ public class Painter implements GamePainter {
 	}
 
 	private void drawMenu(Graphics2D crayon) {
-        crayon.setFont(new Font(" Serif ", Font.PLAIN, 25)); // restore font
-
-
-        for (int i = 0; i < game.getMenuEntries().length; i++) {
-            if (i == game.getSelectedMenuIndex()) {
-                crayon.setColor(Color.blue);
-                crayon.drawString(game.getMenuEntries()[i], WIDTH / 2 - 50, HEIGHT / 2 + i * 30);
-            } else {
-                crayon.setColor(Color.black);
-                crayon.drawString(game.getMenuEntries()[i], WIDTH / 2 - 50, HEIGHT / 2 + i * 30);
-            }
-
-        }
+        game.getMainMenu().paint(crayon);
     }
 
-    private void drawEpochChoose() {
-
+    private void drawEpochChoose(Graphics2D crayon) {
+        game.getEpochChoose().paint(crayon);
     }
 
-    private void drawRunning() {
-
+    private void drawResumeGame(Graphics2D crayon) {
+        game.getResumeGame().paint(crayon);
     }
 
-    private void drawResumeGame() {
+
+    private void drawRunning(Graphics2D crayon) {
 
     }
 
