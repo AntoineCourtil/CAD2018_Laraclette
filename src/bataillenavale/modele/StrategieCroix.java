@@ -1,6 +1,6 @@
 package bataillenavale.modele;
 
-import java.awt.geom.Point2D;
+
 
 public class StrategieCroix implements Strategie{
 
