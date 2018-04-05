@@ -1,11 +1,12 @@
 package boatFactory.boatXVIII;
 
+import boatFactory.AbstractBateauFactory;
 import boatFactory.abstractBoat.Bateau;
 
 /**
  * Created by simon on 05/04/18.
  */
-public class XVIIIBateauFactory {
+public class XVIIIBateauFactory extends AbstractBateauFactory{
 
     public Bateau getBateau5Cases() {
         return new XVIIIBateau5Cases();

@@ -15,8 +15,8 @@ public class Game implements bataillenavale.engine.Game {
     private int selectedEpochIndex = 0;
     private final String[] epochEntries = {"XIX", "XVIII"};
 
-    public static int XIX = 19;
-    public static int XVIII = 18;
+    public static final int XIX = 19;
+    public static final int XVIII = 18;
 
 	public Game() {
         gameState = GameState.MENU;
