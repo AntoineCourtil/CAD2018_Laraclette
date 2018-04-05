@@ -1,13 +1,13 @@
-package boatFactory.boatXIX;
+package bataillenavale.boatFactory.boatXIX;
 
-import boatFactory.abstractBoat.Bateau2Cases;
+import bataillenavale.boatFactory.abstractBoat.Bateau;
 
 /**
  * Created by simon on 05/04/18.
  */
-public class XIXBateau2Cases extends Bateau2Cases{
+public class XIXBateau5Cases extends Bateau{
 
-    public XIXBateau2Cases() {
+    public XIXBateau5Cases() {
         //HP, precision, degat, portee, position, munitions
         super(10, 10, 10, 10, null, 10);
     }

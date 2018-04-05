@@ -1,6 +1,6 @@
-package boatFactory.boatXVIII;
+package bataillenavale.boatFactory.boatXVIII;
 
-import boatFactory.abstractBoat.Bateau;
+import bataillenavale.boatFactory.abstractBoat.Bateau;
 
 /**
  * Created by simon on 05/04/18.
