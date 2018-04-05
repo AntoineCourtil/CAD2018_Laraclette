@@ -1,36 +1,26 @@
 package bataillenavale.game;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import bataillenavale.engine.Cmd;
 
-/**
- * @author Horatiu Cirstea, Vincent Thomas
- *
- *         Version avec personnage qui peut se deplacer. A completer dans les
- *         versions suivantes.
- * 
- */
+import java.awt.geom.Point2D;
+
+
 public class Game implements bataillenavale.engine.Game {
 
-	/**
-	 * constructeur avec fichier source pour le help
-	 * 
-	 */
-	public Game() {
+	private GameState gameState;
 
+	public Game() {
+        gameState = GameState.MENU;
 	}
 
 	/**
-	 * faire evoluer le jeu suite a une commande
+	 * Fait evoluer le jeu suite a une commande
 	 * 
-	 * @param commande
+	 * @param cmd la commande
 	 */
 	@Override
-	public void evolve(Cmd commande) {
-		System.out.println("Execute "+commande);
+	public void evolve(Cmd cmd) {
+		System.out.println("Execute " + cmd);
 	}
 
 	/**
@@ -41,5 +31,29 @@ public class Game implements bataillenavale.engine.Game {
 		// le jeu n'est jamais fini
 		return false;
 	}
+
+	private void evolveRunning(Cmd cmd) {
+
+    }
+
+    private void evolveMenu(Cmd cmd) {
+
+    }
+
+    private void evolveEpochChoose(Cmd cmd) {
+
+    }
+
+    private void evolveResumeGame(Cmd cmd) {
+
+    }
+
+    private void playerChooseBoat(Point2D pos) {
+
+    }
+
+    private void playerShoot(Point2D pos) {
+
+    }
 
 }
