@@ -7,13 +7,9 @@ import bataillenavale.modele.Point2D;
  */
 public abstract class Bateau3Cases extends Bateau{
 
-    private int size=3;
 
     public Bateau3Cases(int HP, float precision, int degat, int portee, Point2D position, int munitions) {
-        super(HP, precision, degat, portee, position, munitions);
+        super(HP, precision, degat, portee, position, munitions, 3);
     }
 
-    public int getSize(){
-        return size;
-    }
 }
