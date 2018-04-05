@@ -1,4 +1,4 @@
-package boatFactory.abstractBoat;
+package bataillenavale.boatFactory.abstractBoat;
 
 import bataillenavale.modele.Point2D;
 

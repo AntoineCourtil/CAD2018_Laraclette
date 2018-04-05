@@ -1,6 +1,6 @@
 package bataillenavale.modele;
 
-import boatFactory.abstractBoat.Bateau;
+import bataillenavale.boatFactory.abstractBoat.Bateau;
 
 import java.io.Serializable;
 import java.util.ArrayList;
