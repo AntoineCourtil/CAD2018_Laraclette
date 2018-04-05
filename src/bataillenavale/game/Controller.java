@@ -42,12 +42,16 @@ public class Controller implements GameController {
 	 */
 	public void keyPressed(KeyEvent e) {
 
-		switch (e.getKeyChar()) {
-		// si on appuie sur 'q',commande joueur est gauche
-		case 'l':
-		case 'L':
-			this.commandeEnCours = Cmd.LEFT;
-			break;
+		switch (e.getKeyCode()){
+            case KeyEvent.VK_UP:
+                this.commandeEnCours = Cmd.UP;
+                break;
+            case KeyEvent.VK_DOWN:
+                this.commandeEnCours = Cmd.DOWN;
+                break;
+            case KeyEvent.VK_ENTER:
+                this.commandeEnCours = Cmd.ENTER;
+                break;
 		}
 
 	}

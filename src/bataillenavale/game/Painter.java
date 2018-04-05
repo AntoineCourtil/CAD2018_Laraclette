@@ -1,7 +1,6 @@
 package bataillenavale.game;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import bataillenavale.engine.GamePainter;
@@ -16,8 +15,8 @@ public class Painter implements GamePainter {
 
     private Game game;
 
-    private static final int WIDTH = 300;
-	private static final int HEIGHT = 200;
+    private static final int WIDTH = 600;
+	private static final int HEIGHT = 400;
 
 	public Painter(Game game) {
 	    this.game = game;
@@ -29,8 +28,7 @@ public class Painter implements GamePainter {
 	@Override
 	public void draw(BufferedImage im) {
 		Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.setColor(Color.blue);
-		crayon.fillOval(0,0,10,10);
+        drawMenu(crayon);
 	}
 
 	@Override
@@ -43,8 +41,20 @@ public class Painter implements GamePainter {
 		return HEIGHT;
 	}
 
-	private void drawMenu() {
+	private void drawMenu(Graphics2D crayon) {
+        crayon.setFont(new Font(" Serif ", Font.PLAIN, 25)); // restore font
 
+
+        for (int i = 0; i < game.getMenuEntries().length; i++) {
+            if (i == game.getSelectedMenuIndex()) {
+                crayon.setColor(Color.blue);
+                crayon.drawString(game.getMenuEntries()[i], WIDTH / 2 - 50, HEIGHT / 2 + i * 30);
+            } else {
+                crayon.setColor(Color.black);
+                crayon.drawString(game.getMenuEntries()[i], WIDTH / 2 - 50, HEIGHT / 2 + i * 30);
+            }
+
+        }
     }
 
     private void drawEpochChoose() {
