@@ -37,6 +37,34 @@ public class Player implements Serializable {
 
             if(bateau.getHP() > 0) {
                 Point2D baseBateau = bateau.getPosition();
+                Bateau.Orientation orientation = bateau.getOrientation();
+                int size = bateau.getSize();
+
+                for(int i = 0; i<size; i++){
+
+                    switch (orientation){
+
+                        case NORD:
+
+//                            if(pos == new Point2D(baseBateau.getX() + i, baseBateau.getY()){
+//
+//                            }
+
+                            break;
+
+                        case SUD:
+                            break;
+
+                        case OUEST:
+                            break;
+
+                        case EST:
+                            break;
+
+                    }
+
+                }
+
             }
 
         }
