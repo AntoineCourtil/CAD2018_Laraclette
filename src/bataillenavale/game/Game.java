@@ -7,18 +7,18 @@ import bataillenavale.modele.Point2D;
 public class Game implements bataillenavale.engine.Game {
 
 	private GameState gameState;
-
-	private int selectedMenuIndex = 0;
-	private final String[] menuEntries = {"Jouer", "Quitter"};
-
-    private int selectedEpochIndex = 0;
-    private final String[] epochEntries = {"XIX", "XVIII"};
+	private MainMenu mainMenu;
+    private EpochChoose epochChoose;
+    private ResumeGame resumeGame;
 
     public static final int XIX = 19;
     public static final int XVIII = 18;
 
 	public Game() {
         gameState = GameState.MENU;
+        mainMenu = new MainMenu(this);
+        epochChoose = new EpochChoose(this);
+        resumeGame = new ResumeGame(this);
 	}
 
 	/**
@@ -28,8 +28,16 @@ public class Game implements bataillenavale.engine.Game {
 	 */
 	@Override
 	public void evolve(Cmd cmd) {
-		if (gameState == GameState.MENU) {
-		    evolveMenu(cmd);
+        switch (gameState) {
+            case MENU:
+                mainMenu.evolve(cmd);
+                break;
+            case EPOCH_CHOOSE:
+                epochChoose.evolve(cmd);
+                break;
+            case RESUME_GAME:
+                resumeGame.evolve(cmd);
+                break;
         }
 	}
 
@@ -43,50 +51,10 @@ public class Game implements bataillenavale.engine.Game {
 	}
 
 	private void evolveRunning(Cmd cmd) {
-        if (gameState == GameState.MENU) {
-            evolveMenu(cmd);
-        }
+
     }
 
     private void evolveMenu(Cmd cmd) {
-        if (cmd == Cmd.UP) {
-            selectedMenuIndex++;
-            if (selectedMenuIndex == menuEntries.length) selectedMenuIndex = 0;
-        } else if (cmd == Cmd.DOWN) {
-            selectedMenuIndex--;
-            if(selectedMenuIndex == -1) selectedMenuIndex = menuEntries.length - 1;
-        } else if (cmd == Cmd.ENTER) {
-            switch (menuEntries[selectedMenuIndex]) {
-                case "Jouer":
-                    gameState = GameState.EPOCH_CHOOSE;
-                    break;
-                case "Quitter":
-                    System.exit(0);
-                    break;
-            }
-        }
-    }
-
-    private void evolveEpochChoose(Cmd cmd) {
-        if (cmd == Cmd.UP) {
-            selectedEpochIndex++;
-            if (selectedEpochIndex == epochEntries.length) selectedEpochIndex = 0;
-        } else if (cmd == Cmd.DOWN) {
-            selectedMenuIndex--;
-            if(selectedMenuIndex == -1) selectedMenuIndex = menuEntries.length - 1;
-        } else if (cmd == Cmd.ENTER) {
-            switch (menuEntries[selectedMenuIndex]) {
-                case "Jouer":
-                    gameState = GameState.EPOCH_CHOOSE;
-                    break;
-                case "Quitter":
-                    System.exit(0);
-                    break;
-            }
-        }
-    }
-
-    private void evolveResumeGame(Cmd cmd) {
 
     }
 
@@ -102,11 +70,19 @@ public class Game implements bataillenavale.engine.Game {
         return gameState;
     }
 
-    public int getSelectedMenuIndex() {
-        return selectedMenuIndex;
+    public void setGameState(GameState gs) {
+	    this.gameState = gs;
     }
 
-    public String[] getMenuEntries() {
-        return menuEntries;
+    public MainMenu getMainMenu() {
+        return mainMenu;
+    }
+
+    public EpochChoose getEpochChoose() {
+        return epochChoose;
+    }
+
+    public ResumeGame getResumeGame() {
+        return resumeGame;
     }
 }
