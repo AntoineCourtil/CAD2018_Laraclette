@@ -12,6 +12,12 @@ public class Game implements bataillenavale.engine.Game {
 	private int selectedMenuIndex = 0;
 	private final String[] menuEntries = {"Jouer", "Quitter"};
 
+    private int selectedEpochIndex = 0;
+    private final String[] epochEntries = {"XIX", "XVIII"};
+
+    public static int XIX = 19;
+    public static int XVIII = 18;
+
 	public Game() {
         gameState = GameState.MENU;
 	}
@@ -52,14 +58,33 @@ public class Game implements bataillenavale.engine.Game {
             if(selectedMenuIndex == -1) selectedMenuIndex = menuEntries.length - 1;
         } else if (cmd == Cmd.ENTER) {
             switch (menuEntries[selectedMenuIndex]) {
+                case "Jouer":
+                    gameState = GameState.EPOCH_CHOOSE;
+                    break;
                 case "Quitter":
                     System.exit(0);
+                    break;
             }
         }
     }
 
     private void evolveEpochChoose(Cmd cmd) {
-
+        if (cmd == Cmd.UP) {
+            selectedEpochIndex++;
+            if (selectedEpochIndex == epochEntries.length) selectedEpochIndex = 0;
+        } else if (cmd == Cmd.DOWN) {
+            selectedMenuIndex--;
+            if(selectedMenuIndex == -1) selectedMenuIndex = menuEntries.length - 1;
+        } else if (cmd == Cmd.ENTER) {
+            switch (menuEntries[selectedMenuIndex]) {
+                case "Jouer":
+                    gameState = GameState.EPOCH_CHOOSE;
+                    break;
+                case "Quitter":
+                    System.exit(0);
+                    break;
+            }
+        }
     }
 
     private void evolveResumeGame(Cmd cmd) {
