@@ -1,15 +1,13 @@
-package boatFactory.boatXIX;
+package bataillenavale.boatFactory.boatXIX;
 
-import boatFactory.abstractBoat.Bateau;
-
-import java.awt.geom.Point2D;
+import bataillenavale.boatFactory.abstractBoat.Bateau2Cases;
 
 /**
  * Created by simon on 05/04/18.
  */
-public class XIXBateau5Cases extends Bateau{
+public class XIXBateau2Cases extends Bateau2Cases{
 
-    public XIXBateau5Cases() {
+    public XIXBateau2Cases() {
         //HP, precision, degat, portee, position, munitions
         super(10, 10, 10, 10, null, 10);
     }

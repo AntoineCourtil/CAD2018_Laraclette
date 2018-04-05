@@ -1,15 +1,13 @@
-package boatFactory.boatXVIII;
+package bataillenavale.boatFactory.boatXIX;
 
-import boatFactory.abstractBoat.Bateau;
-
-import java.awt.geom.Point2D;
+import bataillenavale.boatFactory.abstractBoat.Bateau3Cases;
 
 /**
  * Created by simon on 05/04/18.
  */
-public class XVIIIBateau3Cases extends Bateau{
+public class XIXBateau3Cases extends Bateau3Cases{
 
-    public XVIIIBateau3Cases() {
+    public XIXBateau3Cases() {
         //HP, precision, degat, portee, position, munitions
         super(10, 10, 10, 10, null, 10);
     }
@@ -18,7 +16,7 @@ public class XVIIIBateau3Cases extends Bateau{
         return super.getHP();
     }
     public float getPrecision(){
-        return super.getPrecision();
+        return super.getPortee();
     }
     public int getDegat(){
         return super.getDegat();

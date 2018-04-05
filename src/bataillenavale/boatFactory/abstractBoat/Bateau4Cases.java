@@ -1,4 +1,4 @@
-package boatFactory.abstractBoat;
+package bataillenavale.boatFactory.abstractBoat;
 
 /**
  * Created by simon on 05/04/18.
