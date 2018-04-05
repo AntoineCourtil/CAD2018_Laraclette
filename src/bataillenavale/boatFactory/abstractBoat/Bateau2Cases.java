@@ -7,15 +7,11 @@ import java.awt.geom.Point2D;
  */
 public abstract class Bateau2Cases extends Bateau{
 
-    private int size=2;
 
     public Bateau2Cases(int HP, float precision, int degat, int portee, Point2D position, int munitions) {
-        super(HP, precision, degat, portee, position, munitions);
+        super(HP, precision, degat, portee, position, munitions, 2);
     }
 
-    public int getSize(){
-        return size;
-    }
 
 
 }
