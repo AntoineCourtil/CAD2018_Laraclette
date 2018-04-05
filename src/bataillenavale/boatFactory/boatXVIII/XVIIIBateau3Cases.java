@@ -1,11 +1,12 @@
 package bataillenavale.boatFactory.boatXVIII;
 
 import bataillenavale.boatFactory.abstractBoat.Bateau;
+import bataillenavale.boatFactory.abstractBoat.Bateau3Cases;
 
 /**
  * Created by simon on 05/04/18.
  */
-public class XVIIIBateau3Cases extends Bateau{
+public class XVIIIBateau3Cases extends Bateau3Cases{
 
     public XVIIIBateau3Cases() {
         //HP, precision, degat, portee, position, munitions
