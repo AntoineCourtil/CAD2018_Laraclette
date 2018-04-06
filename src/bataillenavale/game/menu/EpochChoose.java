@@ -20,6 +20,15 @@ public class EpochChoose extends Menu {
     void handleEnter() {
         String selectedItem = menuEntries[selectedIndex];
         switch (selectedItem) {
+            case "XIX":
+                game.setCurrentEpoch("XIX");
+                game.setGameState(GameState.RUNNING);
+                break;
+
+            case "XVIII":
+                game.setCurrentEpoch("XVIII");
+                game.setGameState(GameState.RUNNING);
+                break;
             case "Retourner au menu":
                 game.setGameState(GameState.MENU);
                 break;

@@ -11,4 +11,6 @@ public enum Cmd {
 	DOWN,
 	IDLE,
     ENTER,
+    QUIT,
+    SAVE
 }

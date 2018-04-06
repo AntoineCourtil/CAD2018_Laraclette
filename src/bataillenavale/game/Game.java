@@ -17,6 +17,8 @@ public class Game implements bataillenavale.engine.Game {
     public static final int XIX = 19;
     public static final int XVIII = 18;
 
+    private String currentEpoch = "";
+
 	public Game() {
         gameState = GameState.MENU;
         mainMenu = new MainMenu(this);
@@ -41,6 +43,8 @@ public class Game implements bataillenavale.engine.Game {
             case RESUME_GAME:
                 resumeGame.evolve(cmd);
                 break;
+            case RUNNING:
+                evolveRunning(cmd);
         }
 	}
 
@@ -54,11 +58,14 @@ public class Game implements bataillenavale.engine.Game {
 	}
 
 	private void evolveRunning(Cmd cmd) {
-
-    }
-
-    private void evolveMenu(Cmd cmd) {
-
+        switch (cmd) {
+            case QUIT:
+                gameState = GameState.MENU;
+                break;
+            case SAVE:
+                // TODO : Ajouter un state pour sauvegarder une partie ? ou juste ouvrir un filechooser ?
+                break;
+        }
     }
 
     private void playerChooseBoat(Point2D pos) {
@@ -87,5 +94,13 @@ public class Game implements bataillenavale.engine.Game {
 
     public ResumeGame getResumeGame() {
         return resumeGame;
+    }
+
+    public String getCurrentEpoch() {
+        return currentEpoch;
+    }
+
+    public void setCurrentEpoch(String currentEpoch) {
+        this.currentEpoch = currentEpoch;
     }
 }

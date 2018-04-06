@@ -42,6 +42,12 @@ public class Controller implements GameController {
 	 */
 	public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_Q:
+                this.commandeEnCours = Cmd.QUIT;
+                break;
+            case KeyEvent.VK_S:
+                this.commandeEnCours = Cmd.SAVE;
+                break;
             case KeyEvent.VK_UP:
                 this.commandeEnCours = Cmd.UP;
                 break;
