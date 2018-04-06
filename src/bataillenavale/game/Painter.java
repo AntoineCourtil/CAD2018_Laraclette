@@ -92,6 +92,9 @@ public class Painter implements GamePainter {
         }
 
         crayon.setFont(new Font(" Serif ", Font.PLAIN, 20));
+        crayon.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         crayon.drawString("Epoch : " + game.getCurrentEpoch(), OFFSET_SIDE, HEIGHT - 100);
         crayon.drawString("Sauvegarder (S)", OFFSET_SIDE, HEIGHT - 70);
         crayon.drawString("Quitter (Q)", OFFSET_SIDE, HEIGHT - 40);

@@ -24,6 +24,9 @@ public abstract class Menu {
     }
 
     public void paint(Graphics2D crayon) {
+        crayon.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         crayon.setFont(new Font(" Serif ", Font.PLAIN, 25)); // restore font
         for (int i = 0; i < menuEntries.length; i++) {
             if (i == selectedIndex) {
