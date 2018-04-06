@@ -1,8 +1,7 @@
-package bataillenavale.game;
+package bataillenavale.game.menu;
 
-import bataillenavale.engine.Cmd;
-
-import java.awt.*;
+import bataillenavale.game.Game;
+import bataillenavale.game.GameState;
 
 public class MainMenu extends Menu {
 

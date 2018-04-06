@@ -41,8 +41,7 @@ public class Controller implements GameController {
 	 * met a jour les commandes en fonctions des touches appuyees
 	 */
 	public void keyPressed(KeyEvent e) {
-
-		switch (e.getKeyCode()){
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 this.commandeEnCours = Cmd.UP;
                 break;
@@ -52,8 +51,7 @@ public class Controller implements GameController {
             case KeyEvent.VK_ENTER:
                 this.commandeEnCours = Cmd.ENTER;
                 break;
-		}
-
+        }
 	}
 
 	@Override
@@ -61,7 +59,7 @@ public class Controller implements GameController {
 	 * met a jour les commandes quand le joueur relache une touche
 	 */
 	public void keyReleased(KeyEvent e) {
-		this.commandeEnCours = Cmd.IDLE;
+        this.commandeEnCours = Cmd.IDLE;
 	}
 
 	@Override

@@ -1,6 +1,9 @@
 package bataillenavale.game;
 
 import bataillenavale.engine.Cmd;
+import bataillenavale.game.menu.EpochChoose;
+import bataillenavale.game.menu.MainMenu;
+import bataillenavale.game.menu.ResumeGame;
 import bataillenavale.modele.Point2D;
 
 

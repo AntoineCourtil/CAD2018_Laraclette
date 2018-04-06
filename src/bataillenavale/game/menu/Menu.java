@@ -1,6 +1,7 @@
-package bataillenavale.game;
+package bataillenavale.game.menu;
 
 import bataillenavale.engine.Cmd;
+import bataillenavale.game.Painter;
 
 import java.awt.*;
 
@@ -9,7 +10,7 @@ public abstract class Menu {
     protected String[] menuEntries;
     protected int selectedIndex;
 
-    void evolve(Cmd cmd) {
+    public void evolve(Cmd cmd) {
         if (cmd == Cmd.UP) {
             selectedIndex--;
             if(selectedIndex == -1) selectedIndex = menuEntries.length - 1;
@@ -22,7 +23,7 @@ public abstract class Menu {
         }
     }
 
-    void paint(Graphics2D crayon) {
+    public void paint(Graphics2D crayon) {
         crayon.setFont(new Font(" Serif ", Font.PLAIN, 25)); // restore font
         for (int i = 0; i < menuEntries.length; i++) {
             if (i == selectedIndex) {

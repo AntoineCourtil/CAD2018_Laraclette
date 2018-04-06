@@ -1,4 +1,8 @@
-package bataillenavale.game;
+package bataillenavale.game.menu;
+
+import bataillenavale.game.Game;
+import bataillenavale.game.GameState;
+import bataillenavale.game.menu.Menu;
 
 public class ResumeGame extends Menu {
     private Game game;
