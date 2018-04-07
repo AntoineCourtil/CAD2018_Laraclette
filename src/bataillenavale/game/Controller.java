@@ -14,6 +14,7 @@ import bataillenavale.engine.GameController;
  */
 public class Controller implements GameController {
 
+
 	/**
 	 * commande en cours
 	 */
@@ -41,6 +42,7 @@ public class Controller implements GameController {
 	 * met a jour les commandes en fonctions des touches appuyees
 	 */
 	public void keyPressed(KeyEvent e) {
+
         switch (e.getKeyCode()) {
             case KeyEvent.VK_Q:
                 this.commandeEnCours = Cmd.QUIT;

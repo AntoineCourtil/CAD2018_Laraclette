@@ -12,7 +12,7 @@ public class ImageFactory {
     private BufferedImage background;
 
     private ImageFactory() {
-        loadBackground()
+        loadBackground();
     }
 
     public static ImageFactory getInstance() {
@@ -22,11 +22,15 @@ public class ImageFactory {
 
     private void loadBackground() {
         try {
-            background = ImageIO.read(new File("res/img/background.jpg"));
+            background = ImageIO.read(new File("res/img/background.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger une des image : ");
             System.out.println(ioe.getMessage());
             System.exit(-1);
         }
+    }
+
+    public BufferedImage getBackground() {
+        return background;
     }
 }

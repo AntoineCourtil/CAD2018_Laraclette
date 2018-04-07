@@ -1,5 +1,6 @@
 package bataillenavale;
 
+import bataillenavale.game.ImageFactory;
 import bataillenavale.game.Painter;
 import bataillenavale.engine.GameEngineGraphical;
 import bataillenavale.game.Controller;
@@ -12,12 +13,16 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		// creation du jeu particulier et de son afficheur
+        // On charge les images
+        ImageFactory.getInstance();
 		Game game = new Game();
 		Painter painter = new Painter(game);
 		Controller controller = new Controller();
 
-		// classe qui lance le moteur de jeu generique
+        System.out.println("HEIGHT : " + Painter.HEIGHT);
+        System.out.println("WIDTH : " + Painter.WIDTH);
+
+        // classe qui lance le moteur de jeu generique
 		GameEngineGraphical engine = new GameEngineGraphical(game, painter, controller);
 		engine.run();
 

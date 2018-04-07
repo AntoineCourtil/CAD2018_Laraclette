@@ -38,6 +38,7 @@ public class Game implements bataillenavale.engine.Game {
      */
     @Override
     public void evolve(Cmd cmd) {
+
         switch (gameState) {
             case MENU:
                 mainMenu.evolve(cmd);
@@ -51,6 +52,8 @@ public class Game implements bataillenavale.engine.Game {
             case RUNNING:
                 evolveRunning(cmd);
         }
+
+
     }
 
     /**

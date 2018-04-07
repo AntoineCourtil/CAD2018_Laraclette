@@ -11,7 +11,7 @@ public class ResumeGame extends Menu {
         this.game = game;
         this.selectedIndex = 0;
         this.menuEntries = new String[2];
-        menuEntries[0] = "Aucune partie sauvegardé";
+        menuEntries[0] = "Aucune partie trouvée";
         menuEntries[1] = "Retourner au menu";
     }
 
