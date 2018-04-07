@@ -10,9 +10,10 @@ public class ImageFactory {
     private static ImageFactory instance;
 
     private BufferedImage background;
+    private BufferedImage sea;
 
     private ImageFactory() {
-        loadBackground();
+        loadImages();
     }
 
     public static ImageFactory getInstance() {
@@ -20,9 +21,10 @@ public class ImageFactory {
         return instance;
     }
 
-    private void loadBackground() {
+    private void loadImages() {
         try {
             background = ImageIO.read(new File("res/img/background.png"));
+            sea = ImageIO.read(new File("res/img/sea.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger une des image : ");
             System.out.println(ioe.getMessage());
@@ -32,5 +34,9 @@ public class ImageFactory {
 
     public BufferedImage getBackground() {
         return background;
+    }
+
+    public BufferedImage getSea() {
+        return sea;
     }
 }

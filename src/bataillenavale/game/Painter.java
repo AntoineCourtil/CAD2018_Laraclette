@@ -18,6 +18,10 @@ public class Painter implements GamePainter {
     private final static int OFFSET_SIDE = 15;
     private final static int OFFSET_MIDDLE = 60;
     private final static int BOTTOM_SIZE = 150;
+    private final static int OFFSET_SIDE_TEXT = 40;
+
+    private final static Color GRID_COLOR = new Color(0xffb8e3ee);
+    private static final Color TEXT_COLOR = new Color(0xff161B21);
 
     private Game game;
 
@@ -74,7 +78,10 @@ public class Painter implements GamePainter {
 
 
     private void drawRunning(Graphics2D crayon) {
-	    crayon.setColor(Color.black);
+
+	    crayon.drawImage(ImageFactory.getInstance().getSea(), 0, 0, null);
+
+	    crayon.setColor(GRID_COLOR);
 
 
 	    // On dessine la grille de gauche
@@ -91,13 +98,14 @@ public class Painter implements GamePainter {
             }
         }
 
+        crayon.setColor(TEXT_COLOR);
         crayon.setFont(new Font(" Serif ", Font.PLAIN, 20));
         crayon.setRenderingHint(
                 RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        crayon.drawString("Epoch : " + game.getCurrentEpoch(), OFFSET_SIDE, HEIGHT - 100);
-        crayon.drawString("Sauvegarder (S)", OFFSET_SIDE, HEIGHT - 70);
-        crayon.drawString("Quitter (Q)", OFFSET_SIDE, HEIGHT - 40);
+        crayon.drawString("Epoque : " + game.getCurrentEpoch(), OFFSET_SIDE_TEXT, HEIGHT - 100);
+        crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 70);
+        crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 40);
 
     }
 
