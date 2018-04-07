@@ -1,9 +1,12 @@
 package bataillenavale.game;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import bataillenavale.engine.Cmd;
 import bataillenavale.engine.GameController;
+import bataillenavale.modele.Point2D;
 
 
 /**
@@ -12,13 +15,14 @@ import bataillenavale.engine.GameController;
  * controleur de type KeyListener
  * 
  */
-public class Controller implements GameController {
+public class Controller implements GameController, MouseListener {
 
 
 	/**
 	 * commande en cours
 	 */
 	private Cmd commandeEnCours;
+	private Point2D lastClickPos;
 	
 	/**
 	 * construction du controleur par defaut le controleur n'a pas de commande
@@ -78,4 +82,29 @@ public class Controller implements GameController {
 
 	}
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        commandeEnCours = Cmd.CLICK;
+        lastClickPos = new Point2D(e.getX(), e.getY());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
