@@ -4,6 +4,7 @@ import bataillenavale.engine.Cmd;
 import bataillenavale.game.menu.EpochChoose;
 import bataillenavale.game.menu.MainMenu;
 import bataillenavale.game.menu.ResumeGame;
+import bataillenavale.modele.BatailleNavale;
 import bataillenavale.modele.Point2D;
 
 import javax.swing.*;
@@ -24,11 +25,14 @@ public class Game implements bataillenavale.engine.Game {
     private boolean fileChooserIsOpen = false;
     private boolean isSaved = false;
 
+    private BatailleNavale batailleNavale;
+
     public Game() {
         gameState = GameState.MENU;
         mainMenu = new MainMenu(this);
         epochChoose = new EpochChoose(this);
         resumeGame = new ResumeGame(this);
+        batailleNavale = new BatailleNavale();
     }
 
     /**
@@ -121,5 +125,9 @@ public class Game implements bataillenavale.engine.Game {
 
     public void setCurrentEpoch(String currentEpoch) {
         this.currentEpoch = currentEpoch;
+    }
+
+    public BatailleNavale getBatailleNavale() {
+        return batailleNavale;
     }
 }

@@ -3,7 +3,10 @@ package bataillenavale.game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import bataillenavale.boatFactory.abstractBoat.Bateau;
 import bataillenavale.engine.GamePainter;
+import bataillenavale.modele.BatailleNavale;
+import bataillenavale.modele.Player;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -13,7 +16,7 @@ import bataillenavale.engine.GamePainter;
  */
 public class Painter implements GamePainter {
 
-    private final static int NB_CASES = 10;
+    private final static int NB_CASES = BatailleNavale.WIDTH;
     private final static int TAILLE_CASES = 30;
     private final static int OFFSET_SIDE = 15;
     private final static int OFFSET_MIDDLE = 60;
@@ -81,12 +84,18 @@ public class Painter implements GamePainter {
 
 	    crayon.drawImage(ImageFactory.getInstance().getSea(), 0, 0, null);
 
-	    crayon.setColor(GRID_COLOR);
+	    drawRunningGrid(crayon);
+	    drawRunningBoat(crayon);
+        drawRunningText(crayon);
+    }
+
+    private void drawRunningGrid(Graphics2D crayon) {
+        crayon.setColor(GRID_COLOR);
 
 
-	    // On dessine la grille de gauche
-	    for (int i = 0; i < NB_CASES; i++) {
-	        for (int j = 0; j < NB_CASES; j++) {
+        // On dessine la grille de gauche
+        for (int i = 0; i < NB_CASES; i++) {
+            for (int j = 0; j < NB_CASES; j++) {
                 crayon.drawRect(OFFSET_SIDE + i * TAILLE_CASES,OFFSET_SIDE + j * TAILLE_CASES, TAILLE_CASES, TAILLE_CASES);
             }
         }
@@ -97,7 +106,9 @@ public class Painter implements GamePainter {
                 crayon.drawRect(NB_CASES * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + i * TAILLE_CASES,OFFSET_SIDE + j * TAILLE_CASES, TAILLE_CASES, TAILLE_CASES);
             }
         }
+    }
 
+    private void drawRunningText(Graphics2D crayon) {
         crayon.setColor(TEXT_COLOR);
         crayon.setFont(new Font(" Serif ", Font.PLAIN, 20));
         crayon.setRenderingHint(
@@ -106,7 +117,33 @@ public class Painter implements GamePainter {
         crayon.drawString("Epoque : " + game.getCurrentEpoch(), OFFSET_SIDE_TEXT, HEIGHT - 100);
         crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 70);
         crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 40);
+    }
 
+    private void drawRunningBoat(Graphics2D crayon) {
+        Player humain = game.getBatailleNavale().getHumain();
+
+        crayon.setColor(Color.red);
+        for (Bateau bateau : humain.getBoatList()) {
+            switch (bateau.getOrientation()) {
+                case EST:
+                    crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                            OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                    break;
+                case OUEST:
+                    crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES - TAILLE_CASES * (bateau.getSize() - 1),
+                            OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                    break;
+                case NORD:
+                    crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                            OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES - TAILLE_CASES  * (bateau.getSize() - 1), TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                    break;
+                case SUD:
+                    crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                            OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                    break;
+            }
+
+        }
     }
 
 }

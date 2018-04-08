@@ -29,6 +29,7 @@ public abstract class Bateau {
         setPortee(portee);
         setPosition(position);
         setMunitions(munitions);
+        setSize(size);
 
         pointsTouches = new ArrayList<>();
     }

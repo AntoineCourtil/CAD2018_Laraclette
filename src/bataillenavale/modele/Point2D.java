@@ -42,4 +42,8 @@ public class Point2D {
 
         return Objects.hash(getX(), getY());
     }
+
+    public String toString() {
+        return "" + x + " | " + y;
+    }
 }

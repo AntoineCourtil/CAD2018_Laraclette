@@ -18,7 +18,7 @@ public class Player implements Serializable {
     private List<Point2D> tirsEchoues;
 
 
-    public Player(ArrayList<Bateau> boatArrayList) {
+    public Player(List<Bateau> boatArrayList) {
 
         boatList = boatArrayList;
         tirsEchoues = new ArrayList<>();
@@ -171,5 +171,7 @@ public class Player implements Serializable {
         strategie = s;
     }
 
-
+    public List<Bateau> getBoatList() {
+        return boatList;
+    }
 }

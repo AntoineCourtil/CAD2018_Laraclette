@@ -13,5 +13,4 @@ public abstract class Bateau2Cases extends Bateau{
     }
 
 
-
 }

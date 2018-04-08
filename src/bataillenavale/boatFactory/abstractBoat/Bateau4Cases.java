@@ -11,7 +11,7 @@ public abstract class Bateau4Cases extends Bateau{
 
 
     public Bateau4Cases(int HP, float precision, int degat, int portee, Point2D position, int munitions) {
-        super(HP, precision, degat, portee, position, munitions, 2);
+        super(HP, precision, degat, portee, position, munitions, 4);
     }
 
 }
