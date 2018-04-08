@@ -15,14 +15,14 @@ import bataillenavale.modele.Point2D;
  * controleur de type KeyListener
  * 
  */
-public class Controller implements GameController, MouseListener {
+public class Controller implements GameController {
 
 
 	/**
 	 * commande en cours
 	 */
 	private Cmd commandeEnCours;
-	private Point2D lastClickPos;
+	private static Point2D lastClickPos;
 	
 	/**
 	 * construction du controleur par defaut le controleur n'a pas de commande
@@ -84,18 +84,18 @@ public class Controller implements GameController, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("Mouse event");
         commandeEnCours = Cmd.CLICK;
         lastClickPos = new Point2D(e.getX(), e.getY());
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
     public void mouseReleased(MouseEvent e) {
-
+        commandeEnCours = Cmd.IDLE;
     }
 
     @Override
@@ -106,5 +106,9 @@ public class Controller implements GameController, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    public static Point2D getLastClickPos() {
+	    return lastClickPos;
     }
 }

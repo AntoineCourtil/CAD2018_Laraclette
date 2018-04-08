@@ -71,6 +71,11 @@ public class Game implements bataillenavale.engine.Game {
 
     private void evolveRunning(Cmd cmd) {
         switch (cmd) {
+            case CLICK:
+                /*System.out.println("Click position : " + Controller.getLastClickPos());
+                System.out.println("Is on left grid : " + Painter.isClickOnLeftGrid(Controller.getLastClickPos()));
+                System.out.println("Is on right grid : " + Painter.isClickOnRightGrid(Controller.getLastClickPos()));*/
+                break;
             case QUIT:
                 gameState = GameState.MENU;
                 break;

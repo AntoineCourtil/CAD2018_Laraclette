@@ -32,7 +32,8 @@ public class GraphicalInterface  {
 		f.setContentPane(this.panel);
 		
 		// attacher controller au panel du game
-		this.panel.addKeyListener(gameController);	
+		this.panel.addKeyListener(gameController);
+		this.panel.addMouseListener(gameController);
 		
 		f.pack();
 		f.setVisible(true);

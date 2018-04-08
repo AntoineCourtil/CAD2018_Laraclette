@@ -7,6 +7,7 @@ import bataillenavale.boatFactory.abstractBoat.Bateau;
 import bataillenavale.engine.GamePainter;
 import bataillenavale.modele.BatailleNavale;
 import bataillenavale.modele.Player;
+import bataillenavale.modele.Point2D;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -87,6 +88,13 @@ public class Painter implements GamePainter {
 	    drawRunningGrid(crayon);
 	    drawRunningBoat(crayon);
         drawRunningText(crayon);
+
+        // Debug
+        if (isClickOnLeftGrid(Controller.getLastClickPos())) {
+            crayon.setColor(Color.green);
+            Point2D pos = clickPosToPosForLeftGrid(Controller.getLastClickPos());
+            crayon.drawRect(pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+        }
     }
 
     private void drawRunningGrid(Graphics2D crayon) {
@@ -144,6 +152,50 @@ public class Painter implements GamePainter {
             }
 
         }
+    }
+
+    public static boolean isClickOnLeftGrid(Point2D clickPos) {
+	    if (clickPos == null) return false;
+	    if (clickPos.getX() > OFFSET_SIDE && clickPos.getX() < NB_CASES * TAILLE_CASES + OFFSET_SIDE) {
+	        if (clickPos.getY() > OFFSET_SIDE && clickPos.getY() < NB_CASES * TAILLE_CASES + OFFSET_SIDE) {
+	            return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isClickOnRightGrid(Point2D clickPos) {
+        if (clickPos == null) return false;
+        if (clickPos.getX() > OFFSET_SIDE + OFFSET_MIDDLE + NB_CASES * TAILLE_CASES
+                && clickPos.getX() < 2 * NB_CASES * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE) {
+            if (clickPos.getY() > OFFSET_SIDE && clickPos.getY() < NB_CASES * TAILLE_CASES + OFFSET_SIDE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Point2D clickPosToPosForLeftGrid(Point2D clickPos) {
+        int clickX = clickPos.getX();
+        int clickY = clickPos.getY();
+
+        //System.out.println("Click : " + clickPos);
+
+        clickX -= OFFSET_SIDE;
+        clickY -= OFFSET_SIDE;
+
+        clickX /= TAILLE_CASES;
+        clickY /= TAILLE_CASES;
+
+        Point2D res = new Point2D(clickX, clickY);
+
+        //System.out.println("Res : " + res);
+
+        return res;
+    }
+
+    public static Point2D clickPosToPosForRightGrid(Point2D clickPos) {
+        return null;
     }
 
 }
