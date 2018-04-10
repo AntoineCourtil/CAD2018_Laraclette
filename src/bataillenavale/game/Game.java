@@ -87,6 +87,9 @@ public class Game implements bataillenavale.engine.Game {
                         System.out.println("Le player veut select le bateau en " + pos);
                         int boatIndexAtPos = humain.getBoatIndexFromPos(pos);
                         System.out.println("Index du bateau à cette pos : " + boatIndexAtPos);
+                        humain.chooseBoat(pos);
+                    } else {
+                        System.out.println("L'humain a déjà select un bateau ptin");
                     }
                 } else {
                     System.out.println("Clique : Detends toi c'est le tour de l'ia wesh");

@@ -176,8 +176,10 @@ public class Painter implements GamePainter {
         Player humain = game.getBatailleNavale().getHumain();
         Player ia = game.getBatailleNavale().getIa();
 
-        for (Bateau bateau : humain.getBoatList()) {
-            this.drawRunningBoatLeftGrid(crayon, bateau, Color.red);
+        for (int i = 0; i < humain.getBoatList().size(); i++) {
+            Bateau bateau = humain.getBoatList().get(i);
+            if (i == humain.getCurrentBoatIndex()) this.drawRunningBoatLeftGrid(crayon, bateau, Color.yellow);
+            else this.drawRunningBoatLeftGrid(crayon, bateau, Color.red);
         }
 
         // Si mode débug
