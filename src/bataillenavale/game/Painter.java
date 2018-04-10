@@ -90,11 +90,18 @@ public class Painter implements GamePainter {
 	    drawRunningBoats(crayon);
         drawRunningText(crayon);
 
-        // Debug
+        // Debug clique left
         if (isClickOnLeftGrid(Controller.getLastClickPos())) {
             crayon.setColor(Color.green);
             Point2D pos = clickPosToPosForLeftGrid(Controller.getLastClickPos());
             crayon.drawRect(pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+        }
+
+        // Debug clique right
+        if (isClickOnRightGrid(Controller.getLastClickPos())) {
+            crayon.setColor(Color.magenta);
+            Point2D pos = clickPosToPosForRightGrid(Controller.getLastClickPos());
+            crayon.drawRect(OFFSET_MIDDLE + TAILLE_CASES * NB_CASES + pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
         }
     }
 
@@ -225,13 +232,28 @@ public class Painter implements GamePainter {
 
         Point2D res = new Point2D(clickX, clickY);
 
-        //System.out.println("Res : " + res);
-
         return res;
     }
 
     public static Point2D clickPosToPosForRightGrid(Point2D clickPos) {
-        return null;
+        int clickX = clickPos.getX();
+        int clickY = clickPos.getY();
+
+        System.out.println("Click : " + clickPos);
+
+        clickX = clickX - OFFSET_SIDE - OFFSET_MIDDLE - (NB_CASES * TAILLE_CASES);
+        clickY = clickY - OFFSET_SIDE;
+
+        System.out.println("Click : " + clickX + " | " + clickY);
+
+        clickX /= TAILLE_CASES;
+        clickY /= TAILLE_CASES;
+
+        Point2D res = new Point2D(clickX, clickY);
+
+        System.out.println("Res " + res);
+
+        return res;
     }
 
 }
