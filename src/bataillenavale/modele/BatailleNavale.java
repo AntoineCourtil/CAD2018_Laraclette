@@ -79,11 +79,15 @@ public class BatailleNavale implements Serializable {
             System.out.println("tir IA : " + tirIA.getX() + " " + tirIA.getY());
             playerShoot(tirIA);
 
-        } else{
+        } else{//IA
             boolean touche = humain.receiveShoot(pos, 1);
 
-            if(!touche) ia.addFailedShoot(pos);
-
+            if(!touche){
+                ia.addFailedShoot(pos);
+                ia.getStrategie().setLastShootTouched(null);
+            } else {
+                ia.getStrategie().setLastShootTouched(pos);
+            }
             turnPlayer = true;
         }
 

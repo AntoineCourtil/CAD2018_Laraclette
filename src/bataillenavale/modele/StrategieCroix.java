@@ -6,12 +6,7 @@ import java.util.Random;
 
 public class StrategieCroix implements Strategie{
 
-
-    public boolean lastShootHasTouched(){
-
-        return false;
-
-    }
+    private Point2D lastShootTouched;
 
     @Override
     public Point2D generateShoot(List<Point2D> tirsEchoues) {
@@ -20,25 +15,38 @@ public class StrategieCroix implements Strategie{
         int y = 0;
 
         while(!isShootOk) {
+            if (lastShootTouched != null) {
+                System.out.println(lastShootTouched);
+                return lastShootTouched;
+            } else {
 
-            Boolean echoue = false;
-            for(Point2D tEchoue : tirsEchoues){
-                if(tEchoue.equals(new Point2D(x, y))){
-                    echoue = true;
-                    break;
+                Boolean echoue = false;
+                for (Point2D tEchoue : tirsEchoues) {
+                    if (tEchoue.equals(new Point2D(x, y))) {
+                        echoue = true;
+                        break;
+                    }
                 }
-            }
-            if(!echoue){
-                isShootOk = true;
-            }else{
-                x += 2;
-                if(x >= BatailleNavale.WIDTH){
-                    if(y%2 == 0) x = 0;
-                    else x = 1;
-                    y += 1;
+                if (!echoue) {
+                    isShootOk = true;
+                } else {
+                    x += 2;
+                    if (x >= BatailleNavale.WIDTH) {
+                        if (y % 2 == 0) x = 0;
+                        else x = 1;
+                        y += 1;
+                    }
                 }
             }
         }
         return new Point2D(x,y);
+    }
+
+    public Point2D getLastShootTouched() {
+        return lastShootTouched;
+    }
+
+    public void setLastShootTouched(Point2D lastShootTouched) {
+        this.lastShootTouched = lastShootTouched;
     }
 }
