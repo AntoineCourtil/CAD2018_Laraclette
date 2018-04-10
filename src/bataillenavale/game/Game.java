@@ -103,6 +103,7 @@ public class Game implements bataillenavale.engine.Game {
                             } else {
                                 System.out.println("T'as raté t'es nul");
                             }
+                            batailleNavale.playerShoot(pos);
                         } else {
                             System.out.println("NOOO, select un bateau avant de faire le malin");
                         }
