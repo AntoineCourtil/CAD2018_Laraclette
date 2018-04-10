@@ -24,20 +24,34 @@ public class BatailleNavale implements Serializable {
         ConcreteBateauFactory factory = AbstractBateauFactory.getFactoryByEpoque(epoch);
 
         List<Bateau> bateauxHumain = new ArrayList<>();
-        List<Bateau> bateauxIA = new ArrayList<>();
 
-        Bateau b = factory.getBateau4Cases();
+
+        Bateau b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau5Cases();
         bateauxHumain.add(b);
-        b.setPosition(new Point2D(5, 5));
-        b.setOrientation(Bateau.Orientation.OUEST);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
 
-        b = factory.getBateau3Cases();
-        bateauxIA.add(b);
-        b.setPosition(new Point2D(3, 3));
-        b.setOrientation(Bateau.Orientation.SUD);
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        bateauxHumain.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau3Cases();
+        bateauxHumain.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau2Cases();
+        bateauxHumain.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
 
         humain = new Player(bateauxHumain);
-        ia = new Player(bateauxIA);
+        ia = new Player(bateauxHumain);
+
+        // TODO placeBoatAlea : boucle infinie ou jsaispasquoi ptinnnnnnnnnn
+        humain.placeBoatAlea();
+
 
         turnPlayer = true;
     }

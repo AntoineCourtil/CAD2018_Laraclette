@@ -1,9 +1,11 @@
 package bataillenavale.boatFactory.abstractBoat;
 
+import bataillenavale.modele.BatailleNavale;
 import bataillenavale.modele.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by simon on 05/04/18.
@@ -107,6 +109,54 @@ public abstract class Bateau {
         this.size = size;
     }
 
+    public Point2D getFinBateau(){
+        switch (orientation){
+            case NORD:
+                return new Point2D(position.getX(), position.getY()-size);
+            case SUD:
+                return new Point2D(position.getX(), position.getY()+size);
+            case EST:
+                return new Point2D(position.getX()+size, position.getY());
+            default:
+                return new Point2D(position.getX()-size, position.getY());
+        }
+    }
 
+    public boolean isOutOfScreen(){
 
+        if(position.getX() < 0 || getFinBateau().getX() < 0) return true;
+        if(position.getY() < 0 || getFinBateau().getY() < 0) return true;
+
+        if(position.getX() >= BatailleNavale.WIDTH || getFinBateau().getX() >= BatailleNavale.WIDTH) return true;
+        if(position.getY() >= BatailleNavale.HEIGHT || getFinBateau().getY() >= BatailleNavale.HEIGHT) return true;
+
+//        System.out.println("Debut : " + position.getX() + " " + position.getY());
+//        System.out.println("Fin : " + getFinBateau().getX() + " " + getFinBateau().getY());
+//        System.out.println("Orientation : " + orientation);
+//        System.out.println("Size : " + size);
+
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bateau)) return false;
+        Bateau bateau = (Bateau) o;
+        return getHP() == bateau.getHP() &&
+                Float.compare(bateau.getPrecision(), getPrecision()) == 0 &&
+                getDegat() == bateau.getDegat() &&
+                getPortee() == bateau.getPortee() &&
+                getMunitions() == bateau.getMunitions() &&
+                getSize() == bateau.getSize() &&
+                Objects.equals(getPosition(), bateau.getPosition()) &&
+                Objects.equals(getPointsTouches(), bateau.getPointsTouches()) &&
+                getOrientation() == bateau.getOrientation();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getHP(), getPrecision(), getDegat(), getPortee(), getPosition(), getMunitions(), getPointsTouches(), getOrientation(), getSize());
+    }
 }
