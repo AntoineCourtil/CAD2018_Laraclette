@@ -81,8 +81,7 @@ public class Player implements Serializable {
         do{
             Random rand = new Random();
             currentBoatIndex = rand.nextInt(boatList.size());
-        }
-        while(boatList.get(currentBoatIndex).getHP() > 0 && boatList.get(currentBoatIndex).getMunitions() > 0);
+        } while(!(boatList.get(currentBoatIndex).getHP() > 0 && boatList.get(currentBoatIndex).getMunitions() > 0));
 
         return getStrategie().generateShoot(tirsEchoues);
     }
