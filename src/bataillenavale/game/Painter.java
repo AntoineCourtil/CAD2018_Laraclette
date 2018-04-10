@@ -23,6 +23,7 @@ public class Painter implements GamePainter {
     private final static int OFFSET_MIDDLE = 60;
     private final static int BOTTOM_SIZE = 150;
     private final static int OFFSET_SIDE_TEXT = 40;
+    private final boolean DEBUG = true;
 
     private final static Color GRID_COLOR = new Color(0xffb8e3ee);
     private static final Color TEXT_COLOR = new Color(0xff161B21);
@@ -86,7 +87,7 @@ public class Painter implements GamePainter {
 	    crayon.drawImage(ImageFactory.getInstance().getSea(), 0, 0, null);
 
 	    drawRunningGrid(crayon);
-	    drawRunningBoat(crayon);
+	    drawRunningBoats(crayon);
         drawRunningText(crayon);
 
         // Debug
@@ -127,30 +128,63 @@ public class Painter implements GamePainter {
         crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 40);
     }
 
-    private void drawRunningBoat(Graphics2D crayon) {
+    private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau, Color color) {
+	    crayon.setColor(color);
+        switch (bateau.getOrientation()) {
+            case EST:
+                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                break;
+            case OUEST:
+                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES - TAILLE_CASES * (bateau.getSize() - 1),
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                break;
+            case NORD:
+                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES - TAILLE_CASES  * (bateau.getSize() - 1), TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                break;
+            case SUD:
+                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                break;
+        }
+    }
+
+    private void drawRunningBoatRightGrid(Graphics2D crayon, Bateau bateau, Color color) {
+        crayon.setColor(color);
+        switch (bateau.getOrientation()) {
+            case EST:
+                crayon.drawRect(OFFSET_MIDDLE + NB_CASES * TAILLE_CASES + OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                break;
+            case OUEST:
+                crayon.drawRect(OFFSET_MIDDLE + NB_CASES * TAILLE_CASES +OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES - TAILLE_CASES * (bateau.getSize() - 1),
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                break;
+            case NORD:
+                crayon.drawRect(OFFSET_MIDDLE + NB_CASES * TAILLE_CASES +OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES - TAILLE_CASES  * (bateau.getSize() - 1), TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                break;
+            case SUD:
+                crayon.drawRect(OFFSET_MIDDLE + NB_CASES * TAILLE_CASES +OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                break;
+        }
+    }
+
+    private void drawRunningBoats(Graphics2D crayon) {
         Player humain = game.getBatailleNavale().getHumain();
+        Player ia = game.getBatailleNavale().getIa();
 
-        crayon.setColor(Color.red);
         for (Bateau bateau : humain.getBoatList()) {
-            switch (bateau.getOrientation()) {
-                case EST:
-                    crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
-                            OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
-                    break;
-                case OUEST:
-                    crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES - TAILLE_CASES * (bateau.getSize() - 1),
-                            OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
-                    break;
-                case NORD:
-                    crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
-                            OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES - TAILLE_CASES  * (bateau.getSize() - 1), TAILLE_CASES, TAILLE_CASES * bateau.getSize());
-                    break;
-                case SUD:
-                    crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
-                            OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES, TAILLE_CASES * bateau.getSize());
-                    break;
-            }
+            this.drawRunningBoatLeftGrid(crayon, bateau, Color.red);
+        }
 
+        // Si mode débug
+        if (DEBUG) {
+            for (Bateau bateau : ia.getBoatList()) {
+                this.drawRunningBoatRightGrid(crayon, bateau, Color.pink);
+            }
         }
     }
 

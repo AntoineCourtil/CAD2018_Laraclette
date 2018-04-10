@@ -10,7 +10,7 @@ import java.util.Random;
 public class Player implements Serializable {
 
     private int currentBoatIndex;
-    private boolean hasChoosedBoat;
+    private boolean hasChosenBoat;
     private Strategie strategie;
 
 
@@ -24,7 +24,7 @@ public class Player implements Serializable {
         tirsEchoues = new ArrayList<>();
 
         currentBoatIndex = -1;
-        hasChoosedBoat = false;
+        hasChosenBoat = false;
 
     }
 
@@ -101,15 +101,11 @@ public class Player implements Serializable {
      * @return -1 si pas de bateau sinon l'index du bateau dans la list listboat
      */
     public int getBoatIndexFromPos(Point2D pos) {
-        int index = 0;
-        boolean trouve = false;
-        for (Bateau bateau : boatList) {
-            trouve = detectBoat(bateau, pos);
-            if (trouve) break;
-            index++;
+        for (int i = 0; i < boatList.size(); i++) {
+            System.out.println("Calling detect boat " + pos);
+            if (detectBoat(boatList.get(i), pos)) return i;
         }
-        if (trouve) return index;
-        else return -1;
+        return -1;
     }
 
     private boolean detectBoat(Bateau bateau, Point2D pos) {
@@ -120,7 +116,7 @@ public class Player implements Serializable {
         int y = bateau.getPosition().getY();
 
         for (int i = 0; i < size; i++) {
-            if(x >= BatailleNavale.WIDTH || y >= BatailleNavale.HEIGHT || x<0 || y<0){
+            if(x >= BatailleNavale.WIDTH || y >= BatailleNavale.HEIGHT || x < 0 || y < 0){
                 //On sort du plateau donc on simule un bateau trouve afin de dire que la case est non valide
                 trouve = true;
                 break;
@@ -137,12 +133,12 @@ public class Player implements Serializable {
 
                 case OUEST:
                     if (pos.equals(new Point2D(x, y))) trouve = true;
-                    else x++;
+                    else x--;
                     break;
 
                 case EST:
                     if (pos.equals(new Point2D(x, y))) trouve = true;
-                    else x--;
+                    else x++;
                     break;
             }
 
@@ -173,5 +169,9 @@ public class Player implements Serializable {
 
     public List<Bateau> getBoatList() {
         return boatList;
+    }
+
+    public boolean hasChosenBoat() {
+        return hasChosenBoat;
     }
 }

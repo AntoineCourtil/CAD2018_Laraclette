@@ -1,10 +1,12 @@
 package bataillenavale.game;
 
+import bataillenavale.boatFactory.abstractBoat.Bateau;
 import bataillenavale.engine.Cmd;
 import bataillenavale.game.menu.EpochChoose;
 import bataillenavale.game.menu.MainMenu;
 import bataillenavale.game.menu.ResumeGame;
 import bataillenavale.modele.BatailleNavale;
+import bataillenavale.modele.Player;
 import bataillenavale.modele.Point2D;
 
 import javax.swing.*;
@@ -72,9 +74,23 @@ public class Game implements bataillenavale.engine.Game {
     private void evolveRunning(Cmd cmd) {
         switch (cmd) {
             case CLICK:
-                /*System.out.println("Click position : " + Controller.getLastClickPos());
-                System.out.println("Is on left grid : " + Painter.isClickOnLeftGrid(Controller.getLastClickPos()));
-                System.out.println("Is on right grid : " + Painter.isClickOnRightGrid(Controller.getLastClickPos()));*/
+                // C'est le tour du joueur
+                if (batailleNavale.isTurnPlayer()) {
+                    System.out.println("C'est le tour du player (humain)");
+                    Player humain = batailleNavale.getHumain();
+                    // Il n'a pas select de bateau (donc il doit en select un hmmm)
+                    // Le clique doit etre dans la left grid
+                    if (!humain.hasChosenBoat() && Painter.isClickOnLeftGrid(Controller.getLastClickPos())) {
+                        System.out.println("Le player n'a pas de bateau select et le clique est dans sa grille");
+                        // Coords de la case cliqué
+                        Point2D pos = Painter.clickPosToPosForLeftGrid(Controller.getLastClickPos());
+                        System.out.println("Le player veut select le bateau en " + pos);
+                        int boatIndexAtPos = humain.getBoatIndexFromPos(pos);
+                        System.out.println("Index du bateau à cette pos : " + boatIndexAtPos);
+                    }
+                } else {
+                    System.out.println("Clique : Detends toi c'est le tour de l'ia wesh");
+                }
                 break;
             case QUIT:
                 gameState = GameState.MENU;
