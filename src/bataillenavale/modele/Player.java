@@ -75,23 +75,24 @@ public class Player implements Serializable {
 
     }
 
-    public void shootIA() {
-        getStrategie().generateShoot(tirsEchoues);
+    public Point2D shootIA() {
+        return getStrategie().generateShoot(tirsEchoues);
     }
 
     public boolean receiveShoot(Point2D pos, int damage) {
 
-        boolean trouve = false;
+        boolean touche = false;
         for (Bateau bateau : boatList) {
             if (bateau.getHP() > 0) {
-                trouve = bateau.detectBoat(pos);
-                if (trouve) {
+                touche = bateau.detectBoat(pos);
+                if (touche) {
                     bateau.setHP(bateau.getHP() - damage);
+//                    System.out.println("            TOUCHEEEEEEEEEEEEE");
                 }
             }
 
         }
-        return trouve;
+        return touche;
 
     }
 

@@ -32,6 +32,8 @@ public class BatailleNavale implements Serializable {
         humain.placeBoatAlea();
         ia.placeBoatAlea();
 
+//        ia.setStrategie(new StrategieAlea());
+        ia.setStrategie(new StrategieCroix());
 
         turnPlayer = true;
     }
@@ -64,6 +66,28 @@ public class BatailleNavale implements Serializable {
     }
 
     public void playerShoot(Point2D pos){
+//        System.out.println("            TIR EFFECTUE");
+
+        if(turnPlayer){
+            boolean touche = ia.receiveShoot(pos, 1);
+
+            if(!touche) humain.addFailedShoot(pos);
+
+            turnPlayer = false;
+
+            Point2D tirIA = ia.shootIA();
+            System.out.println("tir IA : " + tirIA.getX() + " " + tirIA.getY());
+            playerShoot(tirIA);
+
+        } else{
+            boolean touche = humain.receiveShoot(pos, 1);
+
+            if(!touche) ia.addFailedShoot(pos);
+
+            turnPlayer = true;
+        }
+
+
 
     }
 
