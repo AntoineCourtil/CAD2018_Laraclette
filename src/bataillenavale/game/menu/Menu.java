@@ -7,8 +7,8 @@ import java.awt.*;
 
 public abstract class Menu {
 
-    private static final int OFFSET_LEFT = 50;
-    private static final int OFFSET_TOP = 300;
+    private static final int OFFSET_LEFT = 70;
+    private static final int OFFSET_TOP = 450;
     // Offset entre les éléments en fonction du nombre de choix dans le menu, à compléter
     private static final int[] OFFSET_BETWEEN = {0, 0, 120, 65};
     private static final Color DEFAULT_COLOR = new Color(0xff161B21);

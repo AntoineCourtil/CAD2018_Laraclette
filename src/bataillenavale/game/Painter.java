@@ -18,12 +18,12 @@ import bataillenavale.modele.Point2D;
 public class Painter implements GamePainter {
 
     private final static int NB_CASES = BatailleNavale.WIDTH;
-    private final static int TAILLE_CASES = 30;
-    private final static int OFFSET_SIDE = 15;
+    private final static int TAILLE_CASES = 45;
+    private final static int OFFSET_SIDE = 20;
     private final static int OFFSET_MIDDLE = 60;
     private final static int BOTTOM_SIZE = 150;
-    private final static int OFFSET_SIDE_TEXT = 40;
-    private final static int OFFSET_MIDDLE_TEXT = 265;
+    private final static int OFFSET_SIDE_TEXT = 60;
+    private final static int OFFSET_MIDDLE_TEXT = 400;
     private final boolean DEBUG = true;
 
     private final static Color GRID_COLOR = new Color(0xffb8e3ee);
