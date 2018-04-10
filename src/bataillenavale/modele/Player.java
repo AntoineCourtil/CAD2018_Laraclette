@@ -10,7 +10,6 @@ import java.util.Random;
 public class Player implements Serializable {
 
     private int currentBoatIndex;
-    private boolean hasChosenBoat;
     private Strategie strategie;
 
 
@@ -24,8 +23,6 @@ public class Player implements Serializable {
         tirsEchoues = new ArrayList<>();
 
         currentBoatIndex = -1;
-        hasChosenBoat = false;
-
     }
 
     /**
@@ -106,6 +103,7 @@ public class Player implements Serializable {
             if (bateau.getHP() > 0) {
                 trouve = detectBoat(bateau, pos);
                 if (trouve) {
+                    System.out.println("Choosing boat " + index);
                     currentBoatIndex = index;
                 }
             }
@@ -172,6 +170,9 @@ public class Player implements Serializable {
     public Bateau getCurrentBoat() {
         return boatList.get(currentBoatIndex);
     }
+    public int getCurrentBoatIndex() {
+        return currentBoatIndex;
+    }
 
     public void addFailedShoot(Point2D pos) {
         tirsEchoues.add(pos);
@@ -192,6 +193,7 @@ public class Player implements Serializable {
     }
 
     public boolean hasChosenBoat() {
-        return hasChosenBoat;
+        return currentBoatIndex != -1;
     }
+
 }
