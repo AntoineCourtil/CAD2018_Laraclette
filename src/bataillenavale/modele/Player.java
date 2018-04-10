@@ -77,6 +77,13 @@ public class Player implements Serializable {
     }
 
     public Point2D shootIA() {
+
+        do{
+            Random rand = new Random();
+            currentBoatIndex = rand.nextInt(boatList.size());
+        }
+        while(boatList.get(currentBoatIndex).getHP() > 0 && boatList.get(currentBoatIndex).getMunitions() > 0);
+
         return getStrategie().generateShoot(tirsEchoues);
     }
 
@@ -89,6 +96,9 @@ public class Player implements Serializable {
                 if (touche) {
                     bateau.setHP(bateau.getHP() - damage);
 //                    System.out.println("            TOUCHEEEEEEEEEEEEE");
+
+                    if(bateau.getHP() <= 0) currentBoatIndex = -1;
+
                 }
             }
 
@@ -123,7 +133,7 @@ public class Player implements Serializable {
     public int getBoatIndexFromPos(Point2D pos) {
         for (int i = 0; i < boatList.size(); i++) {
             System.out.println("Calling detect boat " + pos);
-            if (boatList.get(i).detectBoat(pos)) return i;
+            if (boatList.get(i).detectBoat(pos) && boatList.get(i).getHP() > 0) return i;
         }
         return -1;
     }

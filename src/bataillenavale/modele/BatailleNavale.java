@@ -69,7 +69,9 @@ public class BatailleNavale implements Serializable {
 //        System.out.println("            TIR EFFECTUE");
 
         if(turnPlayer){
-            boolean touche = ia.receiveShoot(pos, 1);
+            boolean touche = ia.receiveShoot(pos, humain.getCurrentBoat().getDegat());
+
+            humain.getCurrentBoat().setMunitions(humain.getCurrentBoat().getMunitions() - 1);
 
             if(!touche) humain.addFailedShoot(pos);
 
@@ -80,7 +82,9 @@ public class BatailleNavale implements Serializable {
             playerShoot(tirIA);
 
         } else{
-            boolean touche = humain.receiveShoot(pos, 1);
+            boolean touche = humain.receiveShoot(pos, ia.getCurrentBoat().getDegat());
+
+            ia.getCurrentBoat().setMunitions(ia.getCurrentBoat().getMunitions() - 1);
 
             if(!touche) ia.addFailedShoot(pos);
 
