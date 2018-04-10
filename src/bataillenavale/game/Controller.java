@@ -88,7 +88,6 @@ public class Controller implements GameController {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("Mouse event");
         commandeEnCours = Cmd.CLICK;
         lastClickPos = new Point2D(e.getX(), e.getY());
     }

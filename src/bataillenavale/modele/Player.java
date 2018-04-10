@@ -10,7 +10,7 @@ import java.util.Random;
 public class Player implements Serializable {
 
     private int currentBoatIndex;
-    private boolean hasChoosedBoat;
+    private boolean hasChosenBoat;
     private Strategie strategie;
 
 
@@ -24,7 +24,7 @@ public class Player implements Serializable {
         tirsEchoues = new ArrayList<>();
 
         currentBoatIndex = -1;
-        hasChoosedBoat = false;
+        hasChosenBoat = false;
 
     }
 
@@ -49,28 +49,31 @@ public class Player implements Serializable {
                 bateau.setOrientation(orientations[orientationAlea]);
                 bateau.setPosition(new Point2D(x, y));
 
-                for (int i = 0; i < index; i++) {
-                    Bateau verifBoat = boatList.get(i);
+                isValide = true;
 
-                    if(verifBoat != bateau) {
-                        //DetectBoat dit s'il trouve un boat ou non, s'il trouve un boat c'est pas valide.
-                        isValide = !detectBoat(verifBoat, new Point2D(x, y));
+                if (index == 1) {
+                    isValide = true;
+                } else {
+                    for (Bateau verifBoat : boatList) {
 
-                        System.out.println(isValide + " " + x + " " + y);
+                        if (verifBoat != bateau) {
+
+                            if(isValide) {
+                                //DetectBoat dit s'il trouve un boat ou non, s'il trouve un boat c'est pas valide.
+                                isValide = !detectBoat(verifBoat, new Point2D(x, y));
+
+                                System.out.println(isValide + " " + x + " " + y);
+                            }
+                        }
+
+                        if (bateau.isOutOfScreen()) {
+                            isValide = false;
+                        }
+
                     }
-
-                    if(index == 1){
-                        isValide = true;
-                    }
-
-                    if(bateau.isOutOfScreen()){
-                        isValide = false;
-                    }
-
                 }
-//                isValide=true;
             }
-            index++;
+//            index++;
         }
 
     }
@@ -118,15 +121,11 @@ public class Player implements Serializable {
      * @return -1 si pas de bateau sinon l'index du bateau dans la list listboat
      */
     public int getBoatIndexFromPos(Point2D pos) {
-        int index = 0;
-        boolean trouve = false;
-        for (Bateau bateau : boatList) {
-            trouve = detectBoat(bateau, pos);
-            if (trouve) break;
-            index++;
+        for (int i = 0; i < boatList.size(); i++) {
+            System.out.println("Calling detect boat " + pos);
+            if (detectBoat(boatList.get(i), pos)) return i;
         }
-        if (trouve) return index;
-        else return -1;
+        return -1;
     }
 
     private boolean detectBoat(Bateau bateau, Point2D pos) {
@@ -154,12 +153,12 @@ public class Player implements Serializable {
 
                 case OUEST:
                     if (pos.equals(new Point2D(x, y))) trouve = true;
-                    else x++;
+                    else x--;
                     break;
 
                 case EST:
                     if (pos.equals(new Point2D(x, y))) trouve = true;
-                    else x--;
+                    else x++;
                     break;
             }
 
@@ -190,5 +189,9 @@ public class Player implements Serializable {
 
     public List<Bateau> getBoatList() {
         return boatList;
+    }
+
+    public boolean hasChosenBoat() {
+        return hasChosenBoat;
     }
 }
