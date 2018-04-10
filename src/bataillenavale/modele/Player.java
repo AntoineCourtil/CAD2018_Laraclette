@@ -129,6 +129,7 @@ public class Player implements Serializable {
 
 
     public Bateau getCurrentBoat() {
+        if (currentBoatIndex == -1) return null;
         return boatList.get(currentBoatIndex);
     }
     public int getCurrentBoatIndex() {

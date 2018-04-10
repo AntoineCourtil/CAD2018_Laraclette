@@ -23,6 +23,7 @@ public class Painter implements GamePainter {
     private final static int OFFSET_MIDDLE = 60;
     private final static int BOTTOM_SIZE = 150;
     private final static int OFFSET_SIDE_TEXT = 40;
+    private final static int OFFSET_MIDDLE_TEXT = 265;
     private final boolean DEBUG = true;
 
     private final static Color GRID_COLOR = new Color(0xffb8e3ee);
@@ -89,20 +90,10 @@ public class Painter implements GamePainter {
 	    drawRunningGrid(crayon);
 	    drawRunningBoats(crayon);
         drawRunningText(crayon);
+        drawRunningCurrentBoatStats(crayon);
+        drawClick(crayon);
 
-        // Debug clique left
-        if (isClickOnLeftGrid(Controller.getLastClickPos())) {
-            crayon.setColor(Color.green);
-            Point2D pos = clickPosToPosForLeftGrid(Controller.getLastClickPos());
-            crayon.drawRect(pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
-        }
 
-        // Debug clique right
-        if (isClickOnRightGrid(Controller.getLastClickPos())) {
-            crayon.setColor(Color.magenta);
-            Point2D pos = clickPosToPosForRightGrid(Controller.getLastClickPos());
-            crayon.drawRect(OFFSET_MIDDLE + TAILLE_CASES * NB_CASES + pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
-        }
     }
 
     private void drawRunningGrid(Graphics2D crayon) {
@@ -130,9 +121,9 @@ public class Painter implements GamePainter {
         crayon.setRenderingHint(
                 RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        crayon.drawString("Epoque : " + game.getCurrentEpoch(), OFFSET_SIDE_TEXT, HEIGHT - 100);
-        crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 70);
-        crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 40);
+        crayon.drawString("Epoque : " + game.getCurrentEpoch(), OFFSET_SIDE_TEXT, HEIGHT - 90);
+        crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 60);
+        crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
     }
 
     private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau, Color color) {
@@ -248,6 +239,46 @@ public class Painter implements GamePainter {
         Point2D res = new Point2D(clickX, clickY);
 
         return res;
+    }
+
+    private void drawClick(Graphics2D crayon) {
+        if (isClickOnLeftGrid(Controller.getLastClickPos())) {
+            crayon.setColor(Color.green);
+            Point2D pos = clickPosToPosForLeftGrid(Controller.getLastClickPos());
+            crayon.drawRect(pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+        }
+
+        if (isClickOnRightGrid(Controller.getLastClickPos())) {
+            crayon.setColor(Color.magenta);
+            Point2D pos = clickPosToPosForRightGrid(Controller.getLastClickPos());
+            crayon.drawRect(OFFSET_MIDDLE + TAILLE_CASES * NB_CASES + pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+        }
+    }
+
+    /**
+     * Pendant la partie (état running), affiche les stats du boat select
+     * @param crayon
+     */
+    private void drawRunningCurrentBoatStats(Graphics2D crayon) {
+        crayon.setColor(TEXT_COLOR);
+        crayon.setFont(new Font(" Serif ", Font.PLAIN, 20));
+        crayon.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        Player humain = game.getBatailleNavale().getHumain();
+        Bateau currentBoat = humain.getCurrentBoat();
+
+        if (currentBoat != null) {
+            crayon.drawString("HP : " + currentBoat.getHP(), OFFSET_MIDDLE_TEXT, HEIGHT - 90);
+            crayon.drawString("Munitions : " + currentBoat.getMunitions(), OFFSET_MIDDLE_TEXT, HEIGHT - 60);
+            crayon.drawString("Dégats : " + currentBoat.getDegat(), OFFSET_MIDDLE_TEXT, HEIGHT - 30);
+        } else {
+            crayon.drawString("Choisis un", OFFSET_MIDDLE_TEXT, HEIGHT - 90);
+            crayon.drawString("bateau", OFFSET_MIDDLE_TEXT, HEIGHT - 60);
+            crayon.drawString("putain", OFFSET_MIDDLE_TEXT, HEIGHT - 30);
+        }
+
     }
 
 }
