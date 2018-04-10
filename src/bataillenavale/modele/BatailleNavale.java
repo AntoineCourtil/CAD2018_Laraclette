@@ -73,6 +73,7 @@ public class BatailleNavale implements Serializable {
 
             if (!touche) humain.addFailedShoot(pos);
 
+
             turnPlayer = false;
 
             Point2D tirIA = ia.shootIA();
