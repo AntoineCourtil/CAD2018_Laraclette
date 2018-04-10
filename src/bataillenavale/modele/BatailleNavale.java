@@ -116,4 +116,8 @@ public class BatailleNavale implements Serializable {
     public Player getIa() {
         return ia;
     }
+
+    public void setEpoch(int epoch) {
+        this.epoch = epoch;
+    }
 }

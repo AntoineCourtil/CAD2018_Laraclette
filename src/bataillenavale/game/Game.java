@@ -166,6 +166,15 @@ public class Game implements bataillenavale.engine.Game {
 
     public void setCurrentEpoch(String currentEpoch) {
         this.currentEpoch = currentEpoch;
+        switch (currentEpoch) {
+            case "XVIII":
+                this.batailleNavale.setEpoch(XVIII);
+                break;
+            case "XIX":
+                this.batailleNavale.setEpoch(XIX);
+                break;
+        }
+
     }
 
     public BatailleNavale getBatailleNavale() {
