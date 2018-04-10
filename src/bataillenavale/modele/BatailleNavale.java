@@ -23,37 +23,69 @@ public class BatailleNavale implements Serializable {
     public BatailleNavale(){
         ConcreteBateauFactory factory = AbstractBateauFactory.getFactoryByEpoque(epoch);
 
-        List<Bateau> bateauxHumain = new ArrayList<>();
+
+
+        humain = new Player(initListBateau());
+        ia = new Player(initListBateau());
+
+        // TODO placeBoatAlea : boucle infinie ou jsaispasquoi ptinnnnnnnnnn
+        humain.placeBoatAlea();
+        ia.placeBoatAlea();
+
+
+        turnPlayer = true;
+    }
+
+    private List<Bateau> initListBateau(){
+        List<Bateau> listBateaux = new ArrayList<>();
 
 
         Bateau b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau5Cases();
-        bateauxHumain.add(b);
+        listBateaux.add(b);
         b.setPosition(new Point2D(0, 0));
         b.setOrientation(Bateau.Orientation.EST);
 
         b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
-        bateauxHumain.add(b);
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
         b.setPosition(new Point2D(0, 0));
         b.setOrientation(Bateau.Orientation.EST);
 
         b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau3Cases();
-        bateauxHumain.add(b);
+        listBateaux.add(b);
         b.setPosition(new Point2D(0, 0));
         b.setOrientation(Bateau.Orientation.EST);
 
         b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau2Cases();
-        bateauxHumain.add(b);
+        listBateaux.add(b);
         b.setPosition(new Point2D(0, 0));
         b.setOrientation(Bateau.Orientation.EST);
 
-        humain = new Player(bateauxHumain);
-        ia = new Player(bateauxHumain);
-
-        // TODO placeBoatAlea : boucle infinie ou jsaispasquoi ptinnnnnnnnnn
-        humain.placeBoatAlea();
-
-
-        turnPlayer = true;
+        return listBateaux;
     }
 
     public void playerShoot(Point2D pos){

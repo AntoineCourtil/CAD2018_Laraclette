@@ -138,6 +138,82 @@ public abstract class Bateau {
         return false;
     }
 
+    public boolean detectBoat(Point2D pos) {
+        boolean trouve = false;
+        Orientation orientation = this.getOrientation();
+        int size = this.getSize();
+        int x = this.getPosition().getX();
+        int y = this.getPosition().getY();
+
+        for (int i = 0; i < size; i++) {
+            if (x >= BatailleNavale.WIDTH || y >= BatailleNavale.HEIGHT || x < 0 || y < 0) {
+                //On sort du plateau donc on simule un bateau trouve afin de dire que la case est non valide
+                trouve = true;
+                break;
+            }
+            switch (orientation) {
+                case NORD:
+                    if (pos.equals(new Point2D(x, y))) trouve = true;
+                    else y--;
+                    break;
+                case SUD:
+                    if (pos.equals(new Point2D(x, y))) trouve = true;
+                    else y++;
+                    break;
+
+                case OUEST:
+                    if (pos.equals(new Point2D(x, y))) trouve = true;
+                    else x--;
+                    break;
+
+                case EST:
+                    if (pos.equals(new Point2D(x, y))) trouve = true;
+                    else x++;
+                    break;
+            }
+
+            if (trouve) break;
+        }
+        return trouve;
+
+    }
+
+    public boolean collisionBoat(Bateau bateau){
+
+        boolean trouve = false;
+
+        int x = bateau.getPosition().getX();
+        int y = bateau.getPosition().getY();
+
+        for (int i = 0; i < size; i++) {
+
+            switch (bateau.getOrientation()) {
+                case NORD:
+                    if (detectBoat(new Point2D(x, y))) trouve = true;
+                    else y--;
+                    break;
+                case SUD:
+                    if (detectBoat(new Point2D(x, y))) trouve = true;
+                    else y++;
+                    break;
+
+                case OUEST:
+                    if (detectBoat(new Point2D(x, y))) trouve = true;
+                    else x--;
+                    break;
+
+                case EST:
+                    if (detectBoat(new Point2D(x, y))) trouve = true;
+                    else x++;
+                    break;
+            }
+
+            if (trouve) break;
+        }
+        return trouve;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
