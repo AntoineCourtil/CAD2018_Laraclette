@@ -39,4 +39,14 @@ public class StrategieAlea implements Strategie{
 
         return new Point2D(x,y);
     }
+
+    @Override
+    public Point2D getLastShootTouched() {
+        return null;
+    }
+
+    @Override
+    public void setLastShootTouched(Point2D lastShootTouched) {
+
+    }
 }

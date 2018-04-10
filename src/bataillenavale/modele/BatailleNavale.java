@@ -3,7 +3,6 @@ package bataillenavale.modele;
 import bataillenavale.boatFactory.AbstractBateauFactory;
 import bataillenavale.boatFactory.ConcreteBateauFactory;
 import bataillenavale.boatFactory.abstractBoat.Bateau;
-import bataillenavale.boatFactory.boatXIX.XIXBateauFactory;
 import bataillenavale.game.Game;
 
 import java.io.Serializable;
@@ -20,9 +19,8 @@ public class BatailleNavale implements Serializable {
     private Player humain;
     private Player ia;
 
-    public BatailleNavale(){
+    public BatailleNavale() {
         ConcreteBateauFactory factory = AbstractBateauFactory.getFactoryByEpoque(epoch);
-
 
 
         humain = new Player(initListBateau());
@@ -38,7 +36,7 @@ public class BatailleNavale implements Serializable {
         turnPlayer = true;
     }
 
-    private List<Bateau> initListBateau(){
+    private List<Bateau> initListBateau() {
         List<Bateau> listBateaux = new ArrayList<>();
 
 
@@ -65,15 +63,15 @@ public class BatailleNavale implements Serializable {
         return listBateaux;
     }
 
-    public void playerShoot(Point2D pos){
+    public void playerShoot(Point2D pos) {
 //        System.out.println("            TIR EFFECTUE");
 
-        if(turnPlayer){
+        if (turnPlayer) {
             boolean touche = ia.receiveShoot(pos, humain.getCurrentBoat().getDegat());
 
             humain.getCurrentBoat().setMunitions(humain.getCurrentBoat().getMunitions() - 1);
 
-            if(!touche) humain.addFailedShoot(pos);
+            if (!touche) humain.addFailedShoot(pos);
 
 
             turnPlayer = false;
@@ -82,27 +80,30 @@ public class BatailleNavale implements Serializable {
             System.out.println("tir IA : " + tirIA.getX() + " " + tirIA.getY());
             playerShoot(tirIA);
 
-        } else{
+        } else {//IA
             boolean touche = humain.receiveShoot(pos, ia.getCurrentBoat().getDegat());
 
             ia.getCurrentBoat().setMunitions(ia.getCurrentBoat().getMunitions() - 1);
 
-            if(!touche) ia.addFailedShoot(pos);
-
+            if (!touche) {
+                ia.addFailedShoot(pos);
+                ia.getStrategie().setLastShootTouched(null);
+            } else {
+                ia.getStrategie().setLastShootTouched(pos);
+            }
             turnPlayer = true;
         }
 
 
-
     }
 
-    public BatailleNavale loadFromFile(String filename){
+    public BatailleNavale loadFromFile(String filename) {
 
         return new BatailleNavale();
 
     }
 
-    public void saveToFile(String filename){
+    public void saveToFile(String filename) {
 
     }
 
