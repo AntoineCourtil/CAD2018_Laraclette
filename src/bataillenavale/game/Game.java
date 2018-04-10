@@ -88,8 +88,24 @@ public class Game implements bataillenavale.engine.Game {
                         int boatIndexAtPos = humain.getBoatIndexFromPos(pos);
                         System.out.println("Index du bateau à cette pos : " + boatIndexAtPos);
                         humain.chooseBoat(pos);
-                    } else {
+                    } else if (Painter.isClickOnRightGrid(Controller.getLastClickPos())){
                         System.out.println("T'as clickey sur la grille de l'ia c'est ça ?");
+                        System.out.println("Mais as-tu select un boat ?????????");
+                        if (humain.hasChosenBoat()) {
+                            System.out.println("OUII, passons à la castagne");
+                            Point2D pos = Painter.clickPosToPosForRightGrid(Controller.getLastClickPos());
+                            System.out.println("Je vois que tu as cliqué en " + pos);
+                            System.out.println("Mais ya t'il un bateau à cette pos ?????????");
+                            Player ia = batailleNavale.getIa();
+                            int index = ia.getBoatIndexFromPos(pos);
+                            if (index != -1) {
+                                System.out.println("YESSSS t'as flingué le boat d'index " + index );
+                            } else {
+                                System.out.println("T'as raté t'es nul");
+                            }
+                        } else {
+                            System.out.println("NOOO, select un bateau avant de faire le malin");
+                        }
                     }
                 } else {
                     System.out.println("Clique : Detends toi c'est le tour de l'ia wesh");

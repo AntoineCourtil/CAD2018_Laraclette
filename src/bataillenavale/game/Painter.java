@@ -239,19 +239,13 @@ public class Painter implements GamePainter {
         int clickX = clickPos.getX();
         int clickY = clickPos.getY();
 
-        System.out.println("Click : " + clickPos);
-
         clickX = clickX - OFFSET_SIDE - OFFSET_MIDDLE - (NB_CASES * TAILLE_CASES);
         clickY = clickY - OFFSET_SIDE;
-
-        System.out.println("Click : " + clickX + " | " + clickY);
 
         clickX /= TAILLE_CASES;
         clickY /= TAILLE_CASES;
 
         Point2D res = new Point2D(clickX, clickY);
-
-        System.out.println("Res " + res);
 
         return res;
     }
