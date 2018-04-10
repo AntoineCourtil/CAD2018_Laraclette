@@ -88,10 +88,11 @@ public class Painter implements GamePainter {
 	    crayon.drawImage(ImageFactory.getInstance().getSea(), 0, 0, null);
 
 	    drawRunningGrid(crayon);
+        drawClick(crayon);
 	    drawRunningBoats(crayon);
         drawRunningText(crayon);
         drawRunningCurrentBoatStats(crayon);
-        drawClick(crayon);
+        drawRunningFailedShoot(crayon);
 
 
     }
@@ -279,6 +280,22 @@ public class Painter implements GamePainter {
             crayon.drawString("putain", OFFSET_MIDDLE_TEXT, HEIGHT - 30);
         }
 
+    }
+
+    private void drawRunningFailedShoot(Graphics2D crayon) {
+        // On déssine les tirs échoués pour la grille de droite
+        Player humain = game.getBatailleNavale().getHumain();
+        crayon.setColor(Color.red);
+        for (Point2D tir : humain.getTirsEchoues()) {
+            crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + TAILLE_CASES * NB_CASES, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+        }
+
+        // On déssine les tirs échoués pour la grille de gauche
+        Player ia = game.getBatailleNavale().getIa();
+        crayon.setColor(Color.orange);
+        for (Point2D tir : ia.getTirsEchoues()) {
+            crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+        }
     }
 
 }

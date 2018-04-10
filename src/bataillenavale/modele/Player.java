@@ -2,6 +2,7 @@ package bataillenavale.modele;
 
 import bataillenavale.boatFactory.abstractBoat.Bateau;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -157,6 +158,10 @@ public class Player implements Serializable {
 
     public boolean hasChosenBoat() {
         return currentBoatIndex != -1;
+    }
+
+    public List<Point2D> getTirsEchoues() {
+        return tirsEchoues;
     }
 
 }
