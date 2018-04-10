@@ -93,6 +93,7 @@ public class Painter implements GamePainter {
         drawRunningText(crayon);
         drawRunningCurrentBoatStats(crayon);
         drawRunningFailedShoot(crayon);
+        drawRunningSuccessfulShoot(crayon);
 
 
     }
@@ -295,6 +296,26 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.orange);
         for (Point2D tir : ia.getTirsEchoues()) {
             crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+        }
+    }
+
+    private void drawRunningSuccessfulShoot(Graphics2D crayon) {
+        // On déssine les tirs réussis sur les bateaux de l'humain
+        Player humain = game.getBatailleNavale().getHumain();
+        crayon.setColor(Color.black);
+        for (Bateau boat : humain.getBoatList()) {
+            for (Point2D tir : boat.getPointsTouches()) {
+                crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+            }
+        }
+
+        // On déssine les tirs réussis sur les bateaux de l'ia
+        Player ia = game.getBatailleNavale().getIa();
+        crayon.setColor(Color.black);
+        for (Bateau boat : ia.getBoatList()) {
+            for (Point2D tir : boat.getPointsTouches()) {
+                crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + TAILLE_CASES * NB_CASES, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+            }
         }
     }
 
