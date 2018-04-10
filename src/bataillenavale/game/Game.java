@@ -80,7 +80,7 @@ public class Game implements bataillenavale.engine.Game {
                     Player humain = batailleNavale.getHumain();
                     // Il n'a pas select de bateau (donc il doit en select un hmmm)
                     // Le clique doit etre dans la left grid
-                    if (!humain.hasChosenBoat() && Painter.isClickOnLeftGrid(Controller.getLastClickPos())) {
+                    if (Painter.isClickOnLeftGrid(Controller.getLastClickPos())) {
                         System.out.println("Le player n'a pas de bateau select et le clique est dans sa grille");
                         // Coords de la case cliqué
                         Point2D pos = Painter.clickPosToPosForLeftGrid(Controller.getLastClickPos());
@@ -89,7 +89,7 @@ public class Game implements bataillenavale.engine.Game {
                         System.out.println("Index du bateau à cette pos : " + boatIndexAtPos);
                         humain.chooseBoat(pos);
                     } else {
-                        System.out.println("L'humain a déjà select un bateau ptin");
+                        System.out.println("T'as clickey sur la grille de l'ia c'est ça ?");
                     }
                 } else {
                     System.out.println("Clique : Detends toi c'est le tour de l'ia wesh");
