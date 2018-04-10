@@ -57,7 +57,7 @@ public class Player implements Serializable {
 
                             if(isValide) {
                                 //DetectBoat dit s'il trouve un boat ou non, s'il trouve un boat c'est pas valide.
-                                isValide = !detectBoat(verifBoat, new Point2D(x, y));
+                                isValide = !verifBoat.collisionBoat(bateau);
 
                                 System.out.println(isValide + " " + x + " " + y);
                             }
@@ -84,7 +84,7 @@ public class Player implements Serializable {
         boolean trouve = false;
         for (Bateau bateau : boatList) {
             if (bateau.getHP() > 0) {
-                trouve = detectBoat(bateau, pos);
+                trouve = bateau.detectBoat(pos);
                 if (trouve) {
                     bateau.setHP(bateau.getHP() - damage);
                 }
@@ -101,7 +101,7 @@ public class Player implements Serializable {
         int index = 0;
         for (Bateau bateau : boatList) {
             if (bateau.getHP() > 0) {
-                trouve = detectBoat(bateau, pos);
+                trouve = bateau.detectBoat(pos);
                 if (trouve) {
                     System.out.println("Choosing boat " + index);
                     currentBoatIndex = index;
@@ -121,50 +121,11 @@ public class Player implements Serializable {
     public int getBoatIndexFromPos(Point2D pos) {
         for (int i = 0; i < boatList.size(); i++) {
             System.out.println("Calling detect boat " + pos);
-            if (detectBoat(boatList.get(i), pos)) return i;
+            if (boatList.get(i).detectBoat(pos)) return i;
         }
         return -1;
     }
 
-    private boolean detectBoat(Bateau bateau, Point2D pos) {
-        boolean trouve = false;
-        Bateau.Orientation orientation = bateau.getOrientation();
-        int size = bateau.getSize();
-        int x = bateau.getPosition().getX();
-        int y = bateau.getPosition().getY();
-
-        for (int i = 0; i < size; i++) {
-            if (x >= BatailleNavale.WIDTH || y >= BatailleNavale.HEIGHT || x < 0 || y < 0) {
-                //On sort du plateau donc on simule un bateau trouve afin de dire que la case est non valide
-                trouve = true;
-                break;
-            }
-            switch (orientation) {
-                case NORD:
-                    if (pos.equals(new Point2D(x, y))) trouve = true;
-                    else y--;
-                    break;
-                case SUD:
-                    if (pos.equals(new Point2D(x, y))) trouve = true;
-                    else y++;
-                    break;
-
-                case OUEST:
-                    if (pos.equals(new Point2D(x, y))) trouve = true;
-                    else x--;
-                    break;
-
-                case EST:
-                    if (pos.equals(new Point2D(x, y))) trouve = true;
-                    else x++;
-                    break;
-            }
-
-            if (trouve) break;
-        }
-        return trouve;
-
-    }
 
 
     public Bateau getCurrentBoat() {

@@ -50,6 +50,31 @@ public class BatailleNavale implements Serializable {
         b.setPosition(new Point2D(0, 0));
         b.setOrientation(Bateau.Orientation.EST);
 
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        listBateaux.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
         b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau3Cases();
         listBateaux.add(b);
         b.setPosition(new Point2D(0, 0));
