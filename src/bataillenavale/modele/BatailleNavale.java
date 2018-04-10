@@ -20,14 +20,21 @@ public class BatailleNavale implements Serializable {
 
     public BatailleNavale(){
         List<Bateau> bateauxHumain = new ArrayList<>();
+
         Bateau b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
         bateauxHumain.add(b);
         b.setPosition(new Point2D(5, 5));
         b.setOrientation(Bateau.Orientation.OUEST);
+
+        b = AbstractBateauFactory.getFactoryByEpoque(epoch).getBateau4Cases();
+        bateauxHumain.add(b);
+        b.setPosition(new Point2D(0, 0));
+        b.setOrientation(Bateau.Orientation.EST);
+
         humain = new Player(bateauxHumain);
 
         // TODO placeBoatAlea : boucle infinie ou jsaispasquoi ptinnnnnnnnnn
-        //humain.placeBoatAlea();
+        humain.placeBoatAlea();
 
         ia = new Player(new ArrayList<>());
     }

@@ -31,29 +31,46 @@ public class Player implements Serializable {
     /**
      * Place tous les boats du joueur aléatoirement, dans une position valide
      */
-    public void placeBoatAlea(){
+    public void placeBoatAlea() {
         Random rand = new Random();
         //TODO A TESTER
         int x = 0;
         int y = 0;
         int orientationAlea = 0;
-        int index = 0;
+        int index = boatList.size();
         Bateau.Orientation[] orientations = {Bateau.Orientation.EST, Bateau.Orientation.NORD, Bateau.Orientation.SUD, Bateau.Orientation.OUEST};
-        for(Bateau bateau : boatList){
+        for (Bateau bateau : boatList) {
             boolean isValide = false;
-            while(!isValide) {
+            while (!isValide) {
                 x = rand.nextInt(BatailleNavale.WIDTH - 1);
                 y = rand.nextInt(BatailleNavale.HEIGHT - 1);
                 orientationAlea = rand.nextInt(3);
+
                 bateau.setOrientation(orientations[orientationAlea]);
                 bateau.setPosition(new Point2D(x, y));
-                for(int i = 0; i<index; i++){
+
+                for (int i = 0; i < index; i++) {
                     Bateau verifBoat = boatList.get(i);
-                    //DetectBoat dit s'il trouve un boat ou non, s'il trouve un boat c'est pas valide.
-                    isValide = !detectBoat(verifBoat, new Point2D(x, y));
+
+                    if(verifBoat != bateau) {
+                        //DetectBoat dit s'il trouve un boat ou non, s'il trouve un boat c'est pas valide.
+                        isValide = !detectBoat(verifBoat, new Point2D(x, y));
+
+                        System.out.println(isValide + " " + x + " " + y);
+                    }
+
+                    if(index == 1){
+                        isValide = true;
+                    }
+
+                    if(bateau.isOutOfScreen()){
+                        isValide = false;
+                    }
+
                 }
+//                isValide=true;
             }
-            index ++;
+            index++;
         }
 
     }
@@ -89,7 +106,7 @@ public class Player implements Serializable {
                     currentBoatIndex = index;
                 }
             }
-            index ++;
+            index++;
 
         }
         return trouve;
@@ -120,7 +137,7 @@ public class Player implements Serializable {
         int y = bateau.getPosition().getY();
 
         for (int i = 0; i < size; i++) {
-            if(x >= BatailleNavale.WIDTH || y >= BatailleNavale.HEIGHT || x<0 || y<0){
+            if (x >= BatailleNavale.WIDTH || y >= BatailleNavale.HEIGHT || x < 0 || y < 0) {
                 //On sort du plateau donc on simule un bateau trouve afin de dire que la case est non valide
                 trouve = true;
                 break;
