@@ -36,6 +36,10 @@ public abstract class Bateau {
         pointsTouches = new ArrayList<>();
     }
 
+    public void addPointTouche(Point2D pos){
+        pointsTouches.add(pos);
+    }
+
     public int getHP() {
         return HP;
     }

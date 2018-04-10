@@ -95,6 +95,7 @@ public class Player implements Serializable {
                 touche = bateau.detectBoat(pos);
                 if (touche) {
                     bateau.setHP(bateau.getHP() - damage);
+                    bateau.addPointTouche(pos);
 //                    System.out.println("            TOUCHEEEEEEEEEEEEE");
 
                     if(bateau.getHP() <= 0) currentBoatIndex = -1;
