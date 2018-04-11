@@ -8,6 +8,7 @@ import bataillenavale.engine.GamePainter;
 import bataillenavale.modele.BatailleNavale;
 import bataillenavale.modele.Player;
 import bataillenavale.modele.Point2D;
+import bataillenavale.modele.Strategie;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -24,6 +25,7 @@ public class Painter implements GamePainter {
     private final static int BOTTOM_SIZE = 150;
     private final static int OFFSET_SIDE_TEXT = 60;
     private final static int OFFSET_MIDDLE_TEXT = 400;
+    private final static int OFFSET_RIGHT_TEXT = 730;
     private final boolean DEBUG = true;
 
     private final static Color GRID_COLOR = new Color(0xffb8e3ee);
@@ -92,6 +94,7 @@ public class Painter implements GamePainter {
 	    drawRunningBoats(crayon);
         drawRunningText(crayon);
         drawRunningCurrentBoatStats(crayon);
+        drawRunningStrategies(crayon);
         drawRunningFailedShoot(crayon);
         drawRunningSuccessfulShoot(crayon);
 
@@ -278,9 +281,7 @@ public class Painter implements GamePainter {
             crayon.drawString("Munitions : " + currentBoat.getMunitions(), OFFSET_MIDDLE_TEXT, HEIGHT - 60);
             crayon.drawString("Dégats : " + currentBoat.getDegat(), OFFSET_MIDDLE_TEXT, HEIGHT - 30);
         } else {
-            crayon.drawString("Choisis un", OFFSET_MIDDLE_TEXT, HEIGHT - 90);
-            crayon.drawString("bateau", OFFSET_MIDDLE_TEXT, HEIGHT - 60);
-            crayon.drawString("putain", OFFSET_MIDDLE_TEXT, HEIGHT - 30);
+            crayon.drawString("Choisissez un bateau", OFFSET_MIDDLE_TEXT, HEIGHT - 90);
         }
 
     }
@@ -319,6 +320,20 @@ public class Painter implements GamePainter {
                 crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + TAILLE_CASES * NB_CASES, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
             }
         }
+    }
+
+    private void drawRunningStrategies(Graphics2D crayon) {
+        crayon.setColor(TEXT_COLOR);
+        crayon.setFont(new Font(" Serif ", Font.PLAIN, 20));
+        crayon.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        Player ia = game.getBatailleNavale().getIa();
+        Strategie s = ia.getStrategie();
+        crayon.drawString("Stratégie : " + s.toString(), OFFSET_RIGHT_TEXT, HEIGHT - 90);
+        crayon.drawString("Changer de stratégie (C)", OFFSET_RIGHT_TEXT, HEIGHT - 60);
+
     }
 
 }

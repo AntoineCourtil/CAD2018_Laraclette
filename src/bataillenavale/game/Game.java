@@ -85,10 +85,7 @@ public class Game implements bataillenavale.engine.Game {
                         // Coords de la case cliqué
                         Point2D pos = Painter.clickPosToPosForLeftGrid(Controller.getLastClickPos());
                         System.out.println("Le player veut select le bateau en " + pos);
-                        int boatIndexAtPos = humain.getBoatIndexFromPos(pos);
-                        System.out.println("Index du bateau à cette pos : " + boatIndexAtPos);
-
-                        if(boatIndexAtPos != -1) humain.chooseBoat(pos);
+                        humain.chooseBoat(pos);
 
                     } else if (Painter.isClickOnRightGrid(Controller.getLastClickPos())){
                         System.out.println("T'as clickey sur la grille de l'ia c'est ça ?");

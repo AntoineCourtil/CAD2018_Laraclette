@@ -49,4 +49,8 @@ public class StrategieAlea implements Strategie{
     public void setLastShootTouched(Point2D lastShootTouched) {
 
     }
+
+    public String toString() {
+        return "Aléatoire";
+    }
 }

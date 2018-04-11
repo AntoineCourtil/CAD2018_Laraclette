@@ -108,22 +108,20 @@ public class Player implements Serializable {
     }
 
     public boolean chooseBoat(Point2D pos) {
-
-        boolean trouve = false;
         int index = 0;
         for (Bateau bateau : boatList) {
             if (bateau.getHP() > 0) {
-                trouve = bateau.detectBoat(pos);
-                if (trouve) {
+                if (bateau.detectBoat(pos)) {
                     System.out.println("Choosing boat " + index);
                     currentBoatIndex = index;
+                    return true;
                 }
             }
             index++;
-
         }
-        return trouve;
-
+        System.out.println("SETTING CURRENT BOAT TO -1");
+        currentBoatIndex = -1;
+        return false;
     }
 
     /**

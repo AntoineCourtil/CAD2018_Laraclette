@@ -9,4 +9,6 @@ public interface Strategie {
     public Point2D getLastShootTouched();
 
     public void setLastShootTouched(Point2D lastShootTouched);
+
+    String toString();
 }
