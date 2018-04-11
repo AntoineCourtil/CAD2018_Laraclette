@@ -20,10 +20,6 @@ public class Game implements bataillenavale.engine.Game {
     private EpochChoose epochChoose;
     private ResumeGame resumeGame;
 
-    public static final int XIX = 19;
-    public static final int XVIII = 18;
-
-    private String currentEpoch = "";
     private boolean fileChooserIsOpen = false;
     private boolean isSaved = false;
 
@@ -34,7 +30,6 @@ public class Game implements bataillenavale.engine.Game {
         mainMenu = new MainMenu(this);
         epochChoose = new EpochChoose(this);
         resumeGame = new ResumeGame(this);
-        batailleNavale = new BatailleNavale();
     }
 
     /**
@@ -169,24 +164,12 @@ public class Game implements bataillenavale.engine.Game {
         return resumeGame;
     }
 
-    public String getCurrentEpoch() {
-        return currentEpoch;
-    }
-
-    public void setCurrentEpoch(String currentEpoch) {
-        this.currentEpoch = currentEpoch;
-        switch (currentEpoch) {
-            case "XVIII":
-                this.batailleNavale.setEpoch(XVIII);
-                break;
-            case "XIX":
-                this.batailleNavale.setEpoch(XIX);
-                break;
-        }
-
-    }
-
     public BatailleNavale getBatailleNavale() {
         return batailleNavale;
+    }
+
+    public void launchBatailleNavale(String epoque) {
+        batailleNavale = new BatailleNavale(epoque);
+        setGameState(GameState.RUNNING);
     }
 }

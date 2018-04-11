@@ -126,7 +126,8 @@ public class Painter implements GamePainter {
         crayon.setRenderingHint(
                 RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        crayon.drawString("Epoque : " + game.getCurrentEpoch(), OFFSET_SIDE_TEXT, HEIGHT - 90);
+
+        crayon.drawString("Epoque : " + game.getBatailleNavale().getEpoque(), OFFSET_SIDE_TEXT, HEIGHT - 90);
         crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 60);
         crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
     }
