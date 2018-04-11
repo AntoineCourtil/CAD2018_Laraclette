@@ -61,7 +61,7 @@ public class Player implements Serializable {
                                 //DetectBoat dit s'il trouve un boat ou non, s'il trouve un boat c'est pas valide.
                                 isValide = !verifBoat.collisionBoat(bateau);
 
-                                System.out.println(isValide + " " + x + " " + y);
+                                //System.out.println(isValide + " " + x + " " + y);
                             }
                         }
 
@@ -113,7 +113,6 @@ public class Player implements Serializable {
         for (Bateau bateau : boatList) {
             if (bateau.getHP() > 0) {
                 if (bateau.detectBoat(pos)) {
-                    System.out.println("Choosing boat " + index);
                     currentBoatIndex = index;
                     return true;
                 }
@@ -131,7 +130,6 @@ public class Player implements Serializable {
      */
     public int getBoatIndexFromPos(Point2D pos) {
         for (int i = 0; i < boatList.size(); i++) {
-            System.out.println("Calling detect boat " + pos);
             if (boatList.get(i).detectBoat(pos) && boatList.get(i).getHP() > 0) return i;
         }
         return -1;

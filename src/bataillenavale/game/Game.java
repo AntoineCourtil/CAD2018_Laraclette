@@ -71,43 +71,30 @@ public class Game implements bataillenavale.engine.Game {
             case CLICK:
                 // C'est le tour du joueur
                 if (batailleNavale.isTurnPlayer()) {
-                    System.out.println("C'est le tour du player (humain)");
                     Player humain = batailleNavale.getHumain();
                     // Il n'a pas select de bateau (donc il doit en select un hmmm)
                     // Le clique doit etre dans la left grid
                     if (Painter.isClickOnLeftGrid(Controller.getLastClickPos())) {
-                        System.out.println("Le player n'a pas de bateau select et le clique est dans sa grille");
                         // Coords de la case cliqué
                         Point2D pos = Painter.clickPosToPosForLeftGrid(Controller.getLastClickPos());
-                        System.out.println("Le player veut select le bateau en " + pos);
                         humain.chooseBoat(pos);
 
                     } else if (Painter.isClickOnRightGrid(Controller.getLastClickPos())){
-                        System.out.println("T'as clickey sur la grille de l'ia c'est ça ?");
-                        System.out.println("Mais as-tu select un boat ?????????");
                         if (humain.hasChosenBoat()) {
-                            System.out.println("OUII, passons à la castagne");
                             Point2D pos = Painter.clickPosToPosForRightGrid(Controller.getLastClickPos());
-                            System.out.println("Je vois que tu as cliqué en " + pos);
-                            System.out.println("Mais ya t'il un bateau à cette pos ?????????");
 
                             if(humain.getCurrentBoat().getMunitions() > 0) {
 
                                 Player ia = batailleNavale.getIa();
                                 int index = ia.getBoatIndexFromPos(pos);
-                                if (index != -1) {
-                                    System.out.println("YESSSS t'as flingué le boat d'index " + index);
-                                } else {
-                                    System.out.println("T'as raté t'es nul");
-                                }
                                 batailleNavale.playerShoot(pos);
                             }
                         } else {
-                            System.out.println("NOOO, select un bateau avant de faire le malin");
+                            // Pas de bateau select !
                         }
                     }
                 } else {
-                    System.out.println("Clique : Detends toi c'est le tour de l'ia wesh");
+                    // C'est le tour de l'IA
                 }
                 break;
             case CHANGE:
