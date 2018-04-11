@@ -1,0 +1,37 @@
+<project>
+
+    <path id="test.classpath">
+        <pathelement location="build/classes/test" />
+    </path>
+
+    <path id="project.classpath">
+        <pathelement location="build/classes/" />
+    </path>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/BatailleNavale.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="bataillenavale.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="runJar">
+        <java jar="build/jar/BatailleNavale.jar" fork="true"/>
+    </target>
+
+    <target name="run" depends="clean,compile,jar,runJar">
+
+    </target>
+
+</project>
