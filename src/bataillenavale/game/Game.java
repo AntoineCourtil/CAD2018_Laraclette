@@ -115,6 +115,12 @@ public class Game implements bataillenavale.engine.Game {
                     System.out.println("Clique : Detends toi c'est le tour de l'ia wesh");
                 }
                 break;
+            case CHANGE:
+                if (gameState == GameState.RUNNING) {
+                    Player ia = batailleNavale.getIa();
+                    ia.nextStrategie();
+                }
+                break;
             case QUIT:
                 gameState = GameState.MENU;
                 break;

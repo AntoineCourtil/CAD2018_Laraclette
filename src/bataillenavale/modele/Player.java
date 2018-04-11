@@ -11,11 +11,12 @@ import java.util.Random;
 public class Player implements Serializable {
 
     private int currentBoatIndex;
-    private Strategie strategie;
-
 
     private List<Bateau> boatList;
     private List<Point2D> tirsEchoues;
+
+    private Strategie[] strategies = {new StrategieCroix(), new StrategieAlea()};
+    private int currentStrategie = 0;
 
 
     public Player(List<Bateau> boatArrayList) {
@@ -153,11 +154,12 @@ public class Player implements Serializable {
     //------------ GETTERS && SETTERS
 
     public Strategie getStrategie() {
-        return strategie;
+        return strategies[currentStrategie];
     }
 
-    public void setStrategie(Strategie s) {
-        strategie = s;
+    public void nextStrategie() {
+        currentStrategie++;
+        if (currentStrategie == strategies.length) currentStrategie = 0;
     }
 
     public List<Bateau> getBoatList() {

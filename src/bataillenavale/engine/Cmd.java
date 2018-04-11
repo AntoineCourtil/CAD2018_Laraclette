@@ -5,13 +5,12 @@ package bataillenavale.engine;
  *
  */
 public enum Cmd {
-	 LEFT,
-	RIGHT,
 	UP,
 	DOWN,
 	IDLE,
     ENTER,
     QUIT,
     SAVE,
-    CLICK
+    CLICK,
+	CHANGE
 }

@@ -63,6 +63,8 @@ public class Controller implements GameController {
             case KeyEvent.VK_ENTER:
                 this.commandeEnCours = Cmd.ENTER;
                 break;
+            case KeyEvent.VK_C:
+                this.commandeEnCours = Cmd.CHANGE;
         }
 	}
 
