@@ -42,6 +42,10 @@ public class StrategieCroix implements Strategie{
         return new Point2D(x,y);
     }
 
+    public String toString() {
+        return "En croix";
+    }
+
     public Point2D getLastShootTouched() {
         return lastShootTouched;
     }

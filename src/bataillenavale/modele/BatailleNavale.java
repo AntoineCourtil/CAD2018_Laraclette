@@ -26,12 +26,8 @@ public class BatailleNavale implements Serializable {
         humain = new Player(initListBateau());
         ia = new Player(initListBateau());
 
-        // TODO placeBoatAlea : boucle infinie ou jsaispasquoi ptinnnnnnnnnn
         humain.placeBoatAlea();
         ia.placeBoatAlea();
-
-//        ia.setStrategie(new StrategieAlea());
-        ia.setStrategie(new StrategieCroix());
 
         turnPlayer = true;
     }

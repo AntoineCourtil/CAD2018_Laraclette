@@ -11,11 +11,12 @@ import java.util.Random;
 public class Player implements Serializable {
 
     private int currentBoatIndex;
-    private Strategie strategie;
-
 
     private List<Bateau> boatList;
     private List<Point2D> tirsEchoues;
+
+    private Strategie[] strategies = {new StrategieCroix(), new StrategieAlea()};
+    private int currentStrategie = 0;
 
 
     public Player(List<Bateau> boatArrayList) {
@@ -108,22 +109,20 @@ public class Player implements Serializable {
     }
 
     public boolean chooseBoat(Point2D pos) {
-
-        boolean trouve = false;
         int index = 0;
         for (Bateau bateau : boatList) {
             if (bateau.getHP() > 0) {
-                trouve = bateau.detectBoat(pos);
-                if (trouve) {
+                if (bateau.detectBoat(pos)) {
                     System.out.println("Choosing boat " + index);
                     currentBoatIndex = index;
+                    return true;
                 }
             }
             index++;
-
         }
-        return trouve;
-
+        System.out.println("SETTING CURRENT BOAT TO -1");
+        currentBoatIndex = -1;
+        return false;
     }
 
     /**
@@ -155,11 +154,12 @@ public class Player implements Serializable {
     //------------ GETTERS && SETTERS
 
     public Strategie getStrategie() {
-        return strategie;
+        return strategies[currentStrategie];
     }
 
-    public void setStrategie(Strategie s) {
-        strategie = s;
+    public void nextStrategie() {
+        currentStrategie++;
+        if (currentStrategie == strategies.length) currentStrategie = 0;
     }
 
     public List<Bateau> getBoatList() {
