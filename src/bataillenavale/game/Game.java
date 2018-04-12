@@ -3,6 +3,7 @@ package bataillenavale.game;
 import bataillenavale.boatFactory.abstractBoat.Bateau;
 import bataillenavale.engine.Cmd;
 import bataillenavale.game.menu.EpochChoose;
+import bataillenavale.game.menu.FinishedGame;
 import bataillenavale.game.menu.MainMenu;
 import bataillenavale.game.menu.ResumeGame;
 import bataillenavale.modele.BatailleNavale;
@@ -19,6 +20,8 @@ public class Game implements bataillenavale.engine.Game {
     private MainMenu mainMenu;
     private EpochChoose epochChoose;
     private ResumeGame resumeGame;
+    private FinishedGame finishedGame;
+    private String currentEpoch;
 
     private boolean fileChooserIsOpen = false;
     private boolean isSaved = false;
@@ -30,6 +33,7 @@ public class Game implements bataillenavale.engine.Game {
         mainMenu = new MainMenu(this);
         epochChoose = new EpochChoose(this);
         resumeGame = new ResumeGame(this);
+        finishedGame = new FinishedGame(this);
     }
 
     /**
@@ -52,6 +56,9 @@ public class Game implements bataillenavale.engine.Game {
                 break;
             case RUNNING:
                 evolveRunning(cmd);
+                break;
+            case FINISHED:
+                finishedGame.evolve(cmd);
         }
 
 
@@ -64,6 +71,10 @@ public class Game implements bataillenavale.engine.Game {
     public boolean isFinished() {
         // le jeu n'est jamais fini
         return false;
+    }
+
+    public void restart(){
+        batailleNavale = new BatailleNavale(currentEpoch);
     }
 
     private void evolveRunning(Cmd cmd) {
@@ -152,11 +163,11 @@ public class Game implements bataillenavale.engine.Game {
 
         if(iaLoose){
             ia.setLosed(true);
-            this.gameState = GameState.LOOSE;
+            this.gameState = GameState.FINISHED;
         }
         if(humainLoose){
             humain.setLosed(true);
-            this.gameState = GameState.LOOSE;
+            this.gameState = GameState.FINISHED;
         }
 
         System.out.println(" finish ? "+ (humainLoose || iaLoose));
@@ -196,8 +207,19 @@ public class Game implements bataillenavale.engine.Game {
         return batailleNavale;
     }
 
+
     public void launchBatailleNavale(String epoque) {
         batailleNavale = new BatailleNavale(epoque);
         setGameState(GameState.RUNNING);
+        currentEpoch = epoque;
+    }
+
+    public FinishedGame getFinishedGame() {
+        return finishedGame;
+    }
+
+    public void setFinishedGame(FinishedGame finishedGame) {
+        this.finishedGame = finishedGame;
+
     }
 }
