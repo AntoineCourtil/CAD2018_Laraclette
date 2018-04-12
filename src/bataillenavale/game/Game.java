@@ -3,6 +3,7 @@ package bataillenavale.game;
 import bataillenavale.boatFactory.abstractBoat.Bateau;
 import bataillenavale.engine.Cmd;
 import bataillenavale.game.menu.EpochChoose;
+import bataillenavale.game.menu.FinishedGame;
 import bataillenavale.game.menu.MainMenu;
 import bataillenavale.game.menu.ResumeGame;
 import bataillenavale.modele.BatailleNavale;
@@ -19,6 +20,7 @@ public class Game implements bataillenavale.engine.Game {
     private MainMenu mainMenu;
     private EpochChoose epochChoose;
     private ResumeGame resumeGame;
+    private FinishedGame finishedGame;
 
     public static final int XIX = 19;
     public static final int XVIII = 18;
@@ -34,6 +36,7 @@ public class Game implements bataillenavale.engine.Game {
         mainMenu = new MainMenu(this);
         epochChoose = new EpochChoose(this);
         resumeGame = new ResumeGame(this);
+        finishedGame = new FinishedGame(this);
         batailleNavale = new BatailleNavale();
     }
 
@@ -57,6 +60,9 @@ public class Game implements bataillenavale.engine.Game {
                 break;
             case RUNNING:
                 evolveRunning(cmd);
+                break;
+            case FINISHED:
+                finishedGame.evolve(cmd);
         }
 
 
@@ -69,6 +75,10 @@ public class Game implements bataillenavale.engine.Game {
     public boolean isFinished() {
         // le jeu n'est jamais fini
         return false;
+    }
+
+    public void restart(){
+        batailleNavale = new BatailleNavale();
     }
 
     private void evolveRunning(Cmd cmd) {
@@ -170,11 +180,11 @@ public class Game implements bataillenavale.engine.Game {
 
         if(iaLoose){
             ia.setLosed(true);
-            this.gameState = GameState.LOOSE;
+            this.gameState = GameState.FINISHED;
         }
         if(humainLoose){
             humain.setLosed(true);
-            this.gameState = GameState.LOOSE;
+            this.gameState = GameState.FINISHED;
         }
 
         System.out.println(" finish ? "+ (humainLoose || iaLoose));
@@ -229,5 +239,13 @@ public class Game implements bataillenavale.engine.Game {
 
     public BatailleNavale getBatailleNavale() {
         return batailleNavale;
+    }
+
+    public FinishedGame getFinishedGame() {
+        return finishedGame;
+    }
+
+    public void setFinishedGame(FinishedGame finishedGame) {
+        this.finishedGame = finishedGame;
     }
 }

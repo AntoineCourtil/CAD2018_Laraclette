@@ -58,6 +58,9 @@ public class Painter implements GamePainter {
                 break;
             case RUNNING:
                 drawRunning(crayon);
+                break;
+            case FINISHED:
+                drawFinished(crayon);
         }
 
 	}
@@ -74,6 +77,10 @@ public class Painter implements GamePainter {
 
 	private void drawMenu(Graphics2D crayon) {
         game.getMainMenu().paint(crayon);
+    }
+
+    private void drawFinished(Graphics2D crayon) {
+        game.getFinishedGame().paint(crayon);
     }
 
     private void drawEpochChoose(Graphics2D crayon) {

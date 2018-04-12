@@ -3,16 +3,16 @@ package bataillenavale.game.menu;
 import bataillenavale.game.Game;
 import bataillenavale.game.GameState;
 
-public class MainMenu extends Menu {
+public class FinishedGame extends Menu {
 
     private Game game;
 
-    public MainMenu(Game game) {
+    public FinishedGame(Game game) {
         this.game = game;
         this.selectedIndex = 0;
         this.menuEntries = new String[3];
-        menuEntries[0] = "Nouvelle partie";
-        menuEntries[1] = "Reprendre une partie";
+        menuEntries[0] = "Recommencer";
+        menuEntries[1] = "Revenir au menu principal";
         menuEntries[2] = "Quitter";
     }
 
@@ -20,12 +20,12 @@ public class MainMenu extends Menu {
     void handleEnter() {
         String selectedItem = menuEntries[selectedIndex];
         switch (selectedItem) {
-            case "Nouvelle partie":
+            case "Recommencer":
                 game.restart();
                 game.setGameState(GameState.EPOCH_CHOOSE);
                 break;
-            case "Reprendre une partie":
-                game.setGameState(GameState.RESUME_GAME);
+            case "Revenir au menu principal":
+                game.setGameState(GameState.MENU);
                 break;
             case "Quitter":
                 System.exit(0);
