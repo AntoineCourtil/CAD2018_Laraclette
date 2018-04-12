@@ -30,6 +30,9 @@ public class BatailleNavale implements Serializable {
         ia = new Player(initListBateau());
 
         humain.placeBoatAlea();
+        for (Bateau b :humain.getBoatList()) {
+            System.out.println(b.getPosition() + " --> " + b.getSize());
+        }
         ia.placeBoatAlea();
 
         turnPlayer = true;

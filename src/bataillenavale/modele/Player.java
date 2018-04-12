@@ -39,13 +39,13 @@ public class Player implements Serializable {
         int orientationAlea = 0;
         int index = boatList.size();
         Bateau.Orientation[] orientations = {Bateau.Orientation.EST, Bateau.Orientation.NORD, Bateau.Orientation.SUD, Bateau.Orientation.OUEST};
+
         for (Bateau bateau : boatList) {
             boolean isValide = false;
             while (!isValide) {
                 x = rand.nextInt(BatailleNavale.WIDTH - 1);
                 y = rand.nextInt(BatailleNavale.HEIGHT - 1);
-                orientationAlea = rand.nextInt(3);
-
+                orientationAlea = rand.nextInt(4);
                 bateau.setOrientation(orientations[orientationAlea]);
                 bateau.setPosition(new Point2D(x, y));
 
