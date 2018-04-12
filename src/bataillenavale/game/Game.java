@@ -88,6 +88,14 @@ public class Game implements bataillenavale.engine.Game {
                                 Player ia = batailleNavale.getIa();
                                 int index = ia.getBoatIndexFromPos(pos);
                                 batailleNavale.playerShoot(pos);
+                                //On regarde si la game n'est pas finie
+                                boolean finished = checkFinishedGame();
+                                //Tour de l'ia
+                                if(!finished) {
+                                    Point2D tirIA = ia.shootIA();
+                                    System.out.println("tir IA : " + tirIA.getX() + " " + tirIA.getY());
+                                    batailleNavale.playerShoot(tirIA);
+                                }
                             }
                         } else {
                             // Pas de bateau select !
@@ -123,12 +131,45 @@ public class Game implements bataillenavale.engine.Game {
         }
     }
 
+    private boolean checkFinishedGame(){
+        Player humain = batailleNavale.getHumain();
+        Player ia = batailleNavale.getIa();
+        boolean iaLoose = true;
+        for(Bateau boat : ia.getBoatList()){
+            if(boat.getHP() > 0 && boat.getMunitions() > 0){
+                System.out.println(boat.getPosition());
+                iaLoose = false;
+                break;
+            }
+        }
+        boolean humainLoose = true;
+        for(Bateau boat : humain.getBoatList()){
+            if(boat.getHP() > 0 && boat.getMunitions() > 0){
+                humainLoose= false;
+                break;
+            }
+        }
+
+        if(iaLoose){
+            ia.setLosed(true);
+            this.gameState = GameState.LOOSE;
+        }
+        if(humainLoose){
+            humain.setLosed(true);
+            this.gameState = GameState.LOOSE;
+        }
+
+        System.out.println(" finish ? "+ (humainLoose || iaLoose));
+        return humainLoose || iaLoose;
+
+
+    }
+
     private void playerChooseBoat(Point2D pos) {
 
     }
 
     private void playerShoot(Point2D pos) {
-
     }
 
     public GameState getGameState() {

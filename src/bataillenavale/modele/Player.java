@@ -17,6 +17,7 @@ public class Player implements Serializable {
 
     private Strategie[] strategies = {new StrategieCroix(), new StrategieAlea()};
     private int currentStrategie = 0;
+    private boolean losed = false;
 
 
     public Player(List<Bateau> boatArrayList) {
@@ -78,8 +79,9 @@ public class Player implements Serializable {
     }
 
     public Point2D shootIA() {
-
         do{
+            // Boucle infinie ici si plus de bateaux
+
             Random rand = new Random();
             currentBoatIndex = rand.nextInt(boatList.size());
         } while(!(boatList.get(currentBoatIndex).getHP() > 0 && boatList.get(currentBoatIndex).getMunitions() > 0));
@@ -172,4 +174,11 @@ public class Player implements Serializable {
         return tirsEchoues;
     }
 
+    public boolean isLosed() {
+        return losed;
+    }
+
+    public void setLosed(boolean losed) {
+        this.losed = losed;
+    }
 }
