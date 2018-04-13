@@ -17,6 +17,7 @@ public class Player implements Serializable {
 
     private Strategie[] strategies = {new StrategieCroix(), new StrategieAlea()};
     private int currentStrategie = 0;
+    private boolean losed = false;
 
 
     public Player(List<Bateau> boatArrayList) {
@@ -38,13 +39,13 @@ public class Player implements Serializable {
         int orientationAlea = 0;
         int index = boatList.size();
         Bateau.Orientation[] orientations = {Bateau.Orientation.EST, Bateau.Orientation.NORD, Bateau.Orientation.SUD, Bateau.Orientation.OUEST};
+
         for (Bateau bateau : boatList) {
             boolean isValide = false;
             while (!isValide) {
                 x = rand.nextInt(BatailleNavale.WIDTH - 1);
                 y = rand.nextInt(BatailleNavale.HEIGHT - 1);
-                orientationAlea = rand.nextInt(3);
-
+                orientationAlea = rand.nextInt(4);
                 bateau.setOrientation(orientations[orientationAlea]);
                 bateau.setPosition(new Point2D(x, y));
 
@@ -61,7 +62,7 @@ public class Player implements Serializable {
                                 //DetectBoat dit s'il trouve un boat ou non, s'il trouve un boat c'est pas valide.
                                 isValide = !verifBoat.collisionBoat(bateau);
 
-                                System.out.println(isValide + " " + x + " " + y);
+                                //System.out.println(isValide + " " + x + " " + y);
                             }
                         }
 
@@ -78,8 +79,9 @@ public class Player implements Serializable {
     }
 
     public Point2D shootIA() {
-
         do{
+            // Boucle infinie ici si plus de bateaux
+
             Random rand = new Random();
             currentBoatIndex = rand.nextInt(boatList.size());
         } while(!(boatList.get(currentBoatIndex).getHP() > 0 && boatList.get(currentBoatIndex).getMunitions() > 0));
@@ -113,7 +115,6 @@ public class Player implements Serializable {
         for (Bateau bateau : boatList) {
             if (bateau.getHP() > 0) {
                 if (bateau.detectBoat(pos)) {
-                    System.out.println("Choosing boat " + index);
                     currentBoatIndex = index;
                     return true;
                 }
@@ -131,7 +132,6 @@ public class Player implements Serializable {
      */
     public int getBoatIndexFromPos(Point2D pos) {
         for (int i = 0; i < boatList.size(); i++) {
-            System.out.println("Calling detect boat " + pos);
             if (boatList.get(i).detectBoat(pos) && boatList.get(i).getHP() > 0) return i;
         }
         return -1;
@@ -174,4 +174,11 @@ public class Player implements Serializable {
         return tirsEchoues;
     }
 
+    public boolean isLosed() {
+        return losed;
+    }
+
+    public void setLosed(boolean losed) {
+        this.losed = losed;
+    }
 }

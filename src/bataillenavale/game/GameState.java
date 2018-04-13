@@ -4,5 +4,6 @@ public enum GameState {
     MENU,
     RUNNING,
     EPOCH_CHOOSE,
-    RESUME_GAME
+    RESUME_GAME,
+    FINISHED
 }

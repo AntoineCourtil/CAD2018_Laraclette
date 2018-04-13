@@ -1,6 +1,5 @@
 package bataillenavale.boatFactory;
 
-import bataillenavale.game.Game;
 import bataillenavale.boatFactory.boatXIX.XIXBateauFactory;
 import bataillenavale.boatFactory.boatXVIII.XVIIIBateauFactory;
 
@@ -8,11 +7,11 @@ import bataillenavale.boatFactory.boatXVIII.XVIIIBateauFactory;
  * Created by simon on 05/04/18.
  */
 public abstract class AbstractBateauFactory {
-    public static ConcreteBateauFactory getFactoryByEpoque(int epoque) {
+    public static ConcreteBateauFactory getFactoryByEpoque(String epoque) {
         switch (epoque){
-            case Game.XIX :
+            case "XIX":
                 return new XIXBateauFactory();
-            case Game.XVIII :
+            case "XVIII":
                 return new XVIIIBateauFactory();
         }
         return null;

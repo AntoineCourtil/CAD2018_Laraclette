@@ -1,6 +1,7 @@
 package bataillenavale.game;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import bataillenavale.boatFactory.abstractBoat.Bateau;
@@ -58,6 +59,9 @@ public class Painter implements GamePainter {
                 break;
             case RUNNING:
                 drawRunning(crayon);
+                break;
+            case FINISHED:
+                drawFinished(crayon);
         }
 
 	}
@@ -74,6 +78,10 @@ public class Painter implements GamePainter {
 
 	private void drawMenu(Graphics2D crayon) {
         game.getMainMenu().paint(crayon);
+    }
+
+    private void drawFinished(Graphics2D crayon) {
+        game.getFinishedGame().paint(crayon);
     }
 
     private void drawEpochChoose(Graphics2D crayon) {
@@ -126,29 +134,91 @@ public class Painter implements GamePainter {
         crayon.setRenderingHint(
                 RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        crayon.drawString("Epoque : " + game.getCurrentEpoch(), OFFSET_SIDE_TEXT, HEIGHT - 90);
+
+        crayon.drawString("Epoque : " + game.getBatailleNavale().getEpoque(), OFFSET_SIDE_TEXT, HEIGHT - 90);
         crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 60);
         crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
     }
 
     private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau, Color color) {
+	    BufferedImage avant = ImageFactory.getInstance().getAvantBateauXIX();
+	    BufferedImage milieu = ImageFactory.getInstance().getMilieuBateauXIX();
+	    BufferedImage arriere = ImageFactory.getInstance().getArriereBateauXIX();
+
+	    int x = bateau.getPosition().getX() * TAILLE_CASES + OFFSET_SIDE;
+        int y = bateau.getPosition().getY() * TAILLE_CASES + OFFSET_SIDE;
+
 	    crayon.setColor(color);
+
+        AffineTransform at;
+
         switch (bateau.getOrientation()) {
             case EST:
-                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
-                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                at = new AffineTransform();
+                at.translate(x + TAILLE_CASES, y + TAILLE_CASES);
+                at.rotate(Math.PI);
+                crayon.drawImage(avant, at, null);
+
+                for (int i = 1; i < bateau.getSize()-1; i++) {
+                    x += TAILLE_CASES;
+                    crayon.drawImage(milieu, x, y, null);
+                }
+                x += TAILLE_CASES;
+                at = new AffineTransform();
+                at.translate(x + TAILLE_CASES, y + TAILLE_CASES);
+                at.rotate(Math.PI);
+                crayon.drawImage(arriere, at, null);
+
                 break;
             case OUEST:
-                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES - TAILLE_CASES * (bateau.getSize() - 1),
-                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                crayon.drawImage(avant, x, y, null);
+
+                for (int i = 1; i < bateau.getSize() - 1; i++) {
+                    x -= TAILLE_CASES;
+                    at = new AffineTransform();
+                    at.translate(x + TAILLE_CASES, y + TAILLE_CASES);
+                    at.rotate(Math.PI);
+                    crayon.drawImage(milieu, at, null);
+                }
+                x -= TAILLE_CASES;
+                crayon.drawImage(arriere, x, y, null);
                 break;
             case NORD:
-                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
-                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES - TAILLE_CASES  * (bateau.getSize() - 1), TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                at = new AffineTransform();
+                at.translate(x + TAILLE_CASES, y);
+                at.rotate(Math.PI/2);
+                crayon.drawImage(avant, at, null);
+
+                for (int i = 1; i < bateau.getSize() - 1; i++) {
+                    y -= TAILLE_CASES;
+                    at = new AffineTransform();
+                    at.translate(x, y + TAILLE_CASES);
+                    at.rotate(-Math.PI / 2);
+                    crayon.drawImage(milieu, at, null);
+                }
+                y -= TAILLE_CASES;
+                at = new AffineTransform();
+                at.translate(x + TAILLE_CASES, y);
+                at.rotate(Math.PI/2);
+                crayon.drawImage(arriere, at, null);
                 break;
             case SUD:
-                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
-                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                at = new AffineTransform();
+                at.translate(x, y + TAILLE_CASES);
+                at.rotate(-Math.PI/2);
+                crayon.drawImage(avant, at, null);
+                for (int i = 1; i < bateau.getSize()-1; i++) {
+                    y += TAILLE_CASES;
+                    at = new AffineTransform();
+                    at.translate(x + TAILLE_CASES, y);
+                    at.rotate(Math.PI/2);
+                    crayon.drawImage(milieu, at, null);
+                }
+                y += TAILLE_CASES;
+                at = new AffineTransform();
+                at.translate(x, y + TAILLE_CASES);
+                at.rotate(-Math.PI/2);
+                crayon.drawImage(arriere, at, null);
                 break;
         }
     }

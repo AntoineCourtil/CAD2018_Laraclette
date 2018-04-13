@@ -3,6 +3,7 @@ package bataillenavale.game;
 import bataillenavale.boatFactory.abstractBoat.Bateau;
 import bataillenavale.engine.Cmd;
 import bataillenavale.game.menu.EpochChoose;
+import bataillenavale.game.menu.FinishedGame;
 import bataillenavale.game.menu.MainMenu;
 import bataillenavale.game.menu.ResumeGame;
 import bataillenavale.modele.BatailleNavale;
@@ -19,11 +20,9 @@ public class Game implements bataillenavale.engine.Game {
     private MainMenu mainMenu;
     private EpochChoose epochChoose;
     private ResumeGame resumeGame;
+    private FinishedGame finishedGame;
+    private String currentEpoch;
 
-    public static final int XIX = 19;
-    public static final int XVIII = 18;
-
-    private String currentEpoch = "";
     private boolean fileChooserIsOpen = false;
     private boolean isSaved = false;
 
@@ -34,7 +33,7 @@ public class Game implements bataillenavale.engine.Game {
         mainMenu = new MainMenu(this);
         epochChoose = new EpochChoose(this);
         resumeGame = new ResumeGame(this);
-        batailleNavale = new BatailleNavale();
+        finishedGame = new FinishedGame(this);
     }
 
     /**
@@ -57,6 +56,9 @@ public class Game implements bataillenavale.engine.Game {
                 break;
             case RUNNING:
                 evolveRunning(cmd);
+                break;
+            case FINISHED:
+                finishedGame.evolve(cmd);
         }
 
 
@@ -71,48 +73,47 @@ public class Game implements bataillenavale.engine.Game {
         return false;
     }
 
+    public void restart(){
+        batailleNavale = new BatailleNavale(currentEpoch);
+    }
+
     private void evolveRunning(Cmd cmd) {
         switch (cmd) {
             case CLICK:
                 // C'est le tour du joueur
                 if (batailleNavale.isTurnPlayer()) {
-                    System.out.println("C'est le tour du player (humain)");
                     Player humain = batailleNavale.getHumain();
                     // Il n'a pas select de bateau (donc il doit en select un hmmm)
                     // Le clique doit etre dans la left grid
                     if (Painter.isClickOnLeftGrid(Controller.getLastClickPos())) {
-                        System.out.println("Le player n'a pas de bateau select et le clique est dans sa grille");
                         // Coords de la case cliqué
                         Point2D pos = Painter.clickPosToPosForLeftGrid(Controller.getLastClickPos());
-                        System.out.println("Le player veut select le bateau en " + pos);
                         humain.chooseBoat(pos);
 
                     } else if (Painter.isClickOnRightGrid(Controller.getLastClickPos())){
-                        System.out.println("T'as clickey sur la grille de l'ia c'est ça ?");
-                        System.out.println("Mais as-tu select un boat ?????????");
                         if (humain.hasChosenBoat()) {
-                            System.out.println("OUII, passons à la castagne");
                             Point2D pos = Painter.clickPosToPosForRightGrid(Controller.getLastClickPos());
-                            System.out.println("Je vois que tu as cliqué en " + pos);
-                            System.out.println("Mais ya t'il un bateau à cette pos ?????????");
 
                             if(humain.getCurrentBoat().getMunitions() > 0) {
 
                                 Player ia = batailleNavale.getIa();
                                 int index = ia.getBoatIndexFromPos(pos);
-                                if (index != -1) {
-                                    System.out.println("YESSSS t'as flingué le boat d'index " + index);
-                                } else {
-                                    System.out.println("T'as raté t'es nul");
-                                }
                                 batailleNavale.playerShoot(pos);
+                                //On regarde si la game n'est pas finie
+                                boolean finished = checkFinishedGame();
+                                //Tour de l'ia
+                                if(!finished) {
+                                    Point2D tirIA = ia.shootIA();
+                                    System.out.println("tir IA : " + tirIA.getX() + " " + tirIA.getY());
+                                    batailleNavale.playerShoot(tirIA);
+                                }
                             }
                         } else {
-                            System.out.println("NOOO, select un bateau avant de faire le malin");
+                            // Pas de bateau select !
                         }
                     }
                 } else {
-                    System.out.println("Clique : Detends toi c'est le tour de l'ia wesh");
+                    // C'est le tour de l'IA
                 }
                 break;
             case CHANGE:
@@ -141,12 +142,45 @@ public class Game implements bataillenavale.engine.Game {
         }
     }
 
+    private boolean checkFinishedGame(){
+        Player humain = batailleNavale.getHumain();
+        Player ia = batailleNavale.getIa();
+        boolean iaLoose = true;
+        for(Bateau boat : ia.getBoatList()){
+            if(boat.getHP() > 0 && boat.getMunitions() > 0){
+                System.out.println(boat.getPosition());
+                iaLoose = false;
+                break;
+            }
+        }
+        boolean humainLoose = true;
+        for(Bateau boat : humain.getBoatList()){
+            if(boat.getHP() > 0 && boat.getMunitions() > 0){
+                humainLoose= false;
+                break;
+            }
+        }
+
+        if(iaLoose){
+            ia.setLosed(true);
+            this.gameState = GameState.FINISHED;
+        }
+        if(humainLoose){
+            humain.setLosed(true);
+            this.gameState = GameState.FINISHED;
+        }
+
+        System.out.println(" finish ? "+ (humainLoose || iaLoose));
+        return humainLoose || iaLoose;
+
+
+    }
+
     private void playerChooseBoat(Point2D pos) {
 
     }
 
     private void playerShoot(Point2D pos) {
-
     }
 
     public GameState getGameState() {
@@ -169,24 +203,23 @@ public class Game implements bataillenavale.engine.Game {
         return resumeGame;
     }
 
-    public String getCurrentEpoch() {
-        return currentEpoch;
-    }
-
-    public void setCurrentEpoch(String currentEpoch) {
-        this.currentEpoch = currentEpoch;
-        switch (currentEpoch) {
-            case "XVIII":
-                this.batailleNavale.setEpoch(XVIII);
-                break;
-            case "XIX":
-                this.batailleNavale.setEpoch(XIX);
-                break;
-        }
-
-    }
-
     public BatailleNavale getBatailleNavale() {
         return batailleNavale;
+    }
+
+
+    public void launchBatailleNavale(String epoque) {
+        batailleNavale = new BatailleNavale(epoque);
+        setGameState(GameState.RUNNING);
+        currentEpoch = epoque;
+    }
+
+    public FinishedGame getFinishedGame() {
+        return finishedGame;
+    }
+
+    public void setFinishedGame(FinishedGame finishedGame) {
+        this.finishedGame = finishedGame;
+
     }
 }
