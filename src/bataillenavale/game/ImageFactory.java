@@ -72,4 +72,8 @@ public class ImageFactory {
     public BufferedImage getMilieuBateauXIX() {
         return milieuBateauXIX;
     }
+
+    public BufferedImage getExplosion() {
+        return explosion;
+    }
 }

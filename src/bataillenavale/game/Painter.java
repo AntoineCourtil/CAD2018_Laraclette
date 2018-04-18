@@ -377,7 +377,9 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.black);
         for (Bateau boat : humain.getBoatList()) {
             for (Point2D tir : boat.getPointsTouches()) {
-                crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+                int x = tir.getX() * TAILLE_CASES + OFFSET_SIDE;
+                int y = tir.getY() * TAILLE_CASES + OFFSET_SIDE;
+                crayon.drawImage(ImageFactory.getInstance().getExplosion(), x, y, null);
             }
         }
 
@@ -386,7 +388,9 @@ public class Painter implements GamePainter {
         crayon.setColor(Color.black);
         for (Bateau boat : ia.getBoatList()) {
             for (Point2D tir : boat.getPointsTouches()) {
-                crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + TAILLE_CASES * NB_CASES, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+                int x = tir.getX() * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + TAILLE_CASES * NB_CASES;
+                int y = tir.getY() * TAILLE_CASES + OFFSET_SIDE;
+                crayon.drawImage(ImageFactory.getInstance().getExplosion(), x, y, null);
             }
         }
     }
