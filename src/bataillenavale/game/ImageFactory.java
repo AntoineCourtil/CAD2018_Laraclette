@@ -18,6 +18,8 @@ public class ImageFactory {
     private BufferedImage boutBateauXIX;
     private BufferedImage milieuBateauXIX;
 
+    private BufferedImage explosion;
+
     private ImageFactory() {
         loadImages();
     }
@@ -37,6 +39,8 @@ public class ImageFactory {
 
             milieuBateauXIX = ImageIO.read(new File("res/img/milieu_bateau_moderne.png"));
             boutBateauXIX = ImageIO.read(new File("res/img/avant_bateau_moderne.png"));
+
+            explosion = ImageIO.read(new File("res/img/explosion.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger une des image : ");
             System.out.println(ioe.getMessage());
