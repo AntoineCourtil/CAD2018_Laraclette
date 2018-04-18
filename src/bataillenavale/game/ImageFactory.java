@@ -12,12 +12,10 @@ public class ImageFactory {
     private BufferedImage background;
     private BufferedImage sea;
 
-    private BufferedImage arriereBateauXVIII;
-    private BufferedImage avantBateauXVIII;
+    private BufferedImage boutBateauXVIII;
     private BufferedImage milieuBateauXVIII;
 
-    private BufferedImage arriereBateauXIX;
-    private BufferedImage avantBateauXIX;
+    private BufferedImage boutBateauXIX;
     private BufferedImage milieuBateauXIX;
 
     private ImageFactory() {
@@ -34,16 +32,15 @@ public class ImageFactory {
             background = ImageIO.read(new File("res/img/background.png"));
             sea = ImageIO.read(new File("res/img/sea.png"));
 
-            arriereBateauXVIII = ImageIO.read(new File("res/img/arriere_bateau.png"));
             milieuBateauXVIII = ImageIO.read(new File("res/img/milieu_bateau.png"));
-            avantBateauXVIII = ImageIO.read(new File("res/img/avant_bateau.png"));
+            boutBateauXVIII = ImageIO.read(new File("res/img/avant_bateau.png"));
 
-            arriereBateauXIX = ImageIO.read(new File("res/img/arriere_bateau_moderne.png"));
             milieuBateauXIX = ImageIO.read(new File("res/img/milieu_bateau_moderne.png"));
-            avantBateauXIX = ImageIO.read(new File("res/img/avant_bateau_moderne.png"));
+            boutBateauXIX = ImageIO.read(new File("res/img/avant_bateau_moderne.png"));
         } catch (IOException ioe) {
             System.out.println("Impossible de charger une des image : ");
             System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
             System.exit(-1);
         }
     }
@@ -56,24 +53,16 @@ public class ImageFactory {
         return sea;
     }
 
-    public BufferedImage getArriereBateauXVIII() {
-        return arriereBateauXVIII;
-    }
-
-    public BufferedImage getAvantBateauXVIII() {
-        return avantBateauXVIII;
+    public BufferedImage getBoutBateauXVIII() {
+        return boutBateauXVIII;
     }
 
     public BufferedImage getMilieuBateauXVIII() {
         return milieuBateauXVIII;
     }
 
-    public BufferedImage getArriereBateauXIX() {
-        return arriereBateauXIX;
-    }
-
-    public BufferedImage getAvantBateauXIX() {
-        return avantBateauXIX;
+    public BufferedImage getBoutBateauXIX() {
+        return boutBateauXIX;
     }
 
     public BufferedImage getMilieuBateauXIX() {

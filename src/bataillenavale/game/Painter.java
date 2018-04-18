@@ -141,9 +141,8 @@ public class Painter implements GamePainter {
     }
 
     private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau, Color color) {
-	    BufferedImage avant = ImageFactory.getInstance().getAvantBateauXIX();
+	    BufferedImage bout = ImageFactory.getInstance().getBoutBateauXIX();
 	    BufferedImage milieu = ImageFactory.getInstance().getMilieuBateauXIX();
-	    BufferedImage arriere = ImageFactory.getInstance().getArriereBateauXIX();
 
 	    int x = bateau.getPosition().getX() * TAILLE_CASES + OFFSET_SIDE;
         int y = bateau.getPosition().getY() * TAILLE_CASES + OFFSET_SIDE;
@@ -157,21 +156,18 @@ public class Painter implements GamePainter {
                 at = new AffineTransform();
                 at.translate(x + TAILLE_CASES, y + TAILLE_CASES);
                 at.rotate(Math.PI);
-                crayon.drawImage(avant, at, null);
+                crayon.drawImage(bout, at, null);
 
                 for (int i = 1; i < bateau.getSize()-1; i++) {
                     x += TAILLE_CASES;
                     crayon.drawImage(milieu, x, y, null);
                 }
                 x += TAILLE_CASES;
-                at = new AffineTransform();
-                at.translate(x + TAILLE_CASES, y + TAILLE_CASES);
-                at.rotate(Math.PI);
-                crayon.drawImage(arriere, at, null);
+                crayon.drawImage(bout, x, y, null);
 
                 break;
             case OUEST:
-                crayon.drawImage(avant, x, y, null);
+                crayon.drawImage(bout, x, y, null);
 
                 for (int i = 1; i < bateau.getSize() - 1; i++) {
                     x -= TAILLE_CASES;
@@ -181,13 +177,16 @@ public class Painter implements GamePainter {
                     crayon.drawImage(milieu, at, null);
                 }
                 x -= TAILLE_CASES;
-                crayon.drawImage(arriere, x, y, null);
+                at = new AffineTransform();
+                at.translate(x + TAILLE_CASES, y + TAILLE_CASES);
+                at.rotate(Math.PI);
+                crayon.drawImage(bout, at, null);
                 break;
             case NORD:
                 at = new AffineTransform();
                 at.translate(x + TAILLE_CASES, y);
                 at.rotate(Math.PI/2);
-                crayon.drawImage(avant, at, null);
+                crayon.drawImage(bout, at, null);
 
                 for (int i = 1; i < bateau.getSize() - 1; i++) {
                     y -= TAILLE_CASES;
@@ -198,15 +197,15 @@ public class Painter implements GamePainter {
                 }
                 y -= TAILLE_CASES;
                 at = new AffineTransform();
-                at.translate(x + TAILLE_CASES, y);
-                at.rotate(Math.PI/2);
-                crayon.drawImage(arriere, at, null);
+                at.translate(x, y + TAILLE_CASES);
+                at.rotate(-Math.PI/2);
+                crayon.drawImage(bout, at, null);
                 break;
             case SUD:
                 at = new AffineTransform();
                 at.translate(x, y + TAILLE_CASES);
                 at.rotate(-Math.PI/2);
-                crayon.drawImage(avant, at, null);
+                crayon.drawImage(bout, at, null);
                 for (int i = 1; i < bateau.getSize()-1; i++) {
                     y += TAILLE_CASES;
                     at = new AffineTransform();
@@ -216,9 +215,9 @@ public class Painter implements GamePainter {
                 }
                 y += TAILLE_CASES;
                 at = new AffineTransform();
-                at.translate(x, y + TAILLE_CASES);
-                at.rotate(-Math.PI/2);
-                crayon.drawImage(arriere, at, null);
+                at.translate(x + TAILLE_CASES, y);
+                at.rotate(Math.PI/2);
+                crayon.drawImage(bout, at, null);
                 break;
         }
     }
