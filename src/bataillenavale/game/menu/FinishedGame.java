@@ -12,7 +12,7 @@ public class FinishedGame extends Menu {
         this.selectedIndex = 0;
         this.menuEntries = new String[3];
         menuEntries[0] = "Recommencer";
-        menuEntries[1] = "Revenir au menu principal";
+        menuEntries[1] = "Menu principal";
         menuEntries[2] = "Quitter";
     }
 

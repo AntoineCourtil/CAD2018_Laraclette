@@ -31,6 +31,8 @@ public class Painter implements GamePainter {
 
     private final static Color GRID_COLOR = new Color(0xffb8e3ee);
     private static final Color TEXT_COLOR = new Color(0xff161B21);
+    private static final Color CLICK_COLOR = new Color(0xff2c3e50);
+    private static final Color SELECTED_COLOR = new Color(0xff16a085);
 
     private Game game;
 
@@ -99,11 +101,13 @@ public class Painter implements GamePainter {
 
 	    drawRunningGrid(crayon);
         drawClick(crayon);
-	    drawRunningBoats(crayon);
+
         drawRunningText(crayon);
         drawRunningCurrentBoatStats(crayon);
         drawRunningStrategies(crayon);
+
         drawRunningFailedShoot(crayon);
+        drawRunningBoats(crayon);
         drawRunningSuccessfulShoot(crayon);
 
 
@@ -140,14 +144,12 @@ public class Painter implements GamePainter {
         crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
     }
 
-    private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau, Color color) {
+    private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau) {
 	    BufferedImage bout = ImageFactory.getInstance().getBoutBateauXIX();
 	    BufferedImage milieu = ImageFactory.getInstance().getMilieuBateauXIX();
 
 	    int x = bateau.getPosition().getX() * TAILLE_CASES + OFFSET_SIDE;
         int y = bateau.getPosition().getY() * TAILLE_CASES + OFFSET_SIDE;
-
-	    crayon.setColor(color);
 
         AffineTransform at;
 
@@ -244,15 +246,39 @@ public class Painter implements GamePainter {
         }
     }
 
+    private void drawRunningSelectedBoat(Graphics2D crayon, Bateau bateau) {
+        crayon.setColor(SELECTED_COLOR);
+        switch (bateau.getOrientation()) {
+            case EST:
+                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                break;
+            case OUEST:
+                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES - TAILLE_CASES * (bateau.getSize() - 1),
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES * bateau.getSize(), TAILLE_CASES);
+                break;
+            case NORD:
+                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES - TAILLE_CASES  * (bateau.getSize() - 1), TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                break;
+            case SUD:
+                crayon.drawRect(OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
+                        OFFSET_SIDE + bateau.getPosition().getY() * TAILLE_CASES, TAILLE_CASES, TAILLE_CASES * bateau.getSize());
+                break;
+        }
+    }
+
     private void drawRunningBoats(Graphics2D crayon) {
         Player humain = game.getBatailleNavale().getHumain();
         Player ia = game.getBatailleNavale().getIa();
 
         for (int i = 0; i < humain.getBoatList().size(); i++) {
             Bateau bateau = humain.getBoatList().get(i);
-            if (bateau.getHP() == 0) this.drawRunningBoatLeftGrid(crayon, bateau, Color.black);
-            else if (i == humain.getCurrentBoatIndex()) this.drawRunningBoatLeftGrid(crayon, bateau, Color.yellow);
-            else this.drawRunningBoatLeftGrid(crayon, bateau, Color.red);
+            this.drawRunningBoatLeftGrid(crayon, bateau);
+            if (i == humain.getCurrentBoatIndex()) {
+                System.out.println("Drawing selected boat");
+                this.drawRunningSelectedBoat(crayon, bateau);
+            }
         }
 
         // Si mode débug
@@ -318,14 +344,13 @@ public class Painter implements GamePainter {
     }
 
     private void drawClick(Graphics2D crayon) {
+	    crayon.setColor(CLICK_COLOR);
         if (isClickOnLeftGrid(Controller.getLastClickPos())) {
-            crayon.setColor(Color.green);
             Point2D pos = clickPosToPosForLeftGrid(Controller.getLastClickPos());
             crayon.drawRect(pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
         }
 
         if (isClickOnRightGrid(Controller.getLastClickPos())) {
-            crayon.setColor(Color.magenta);
             Point2D pos = clickPosToPosForRightGrid(Controller.getLastClickPos());
             crayon.drawRect(OFFSET_MIDDLE + TAILLE_CASES * NB_CASES + pos.getX() * TAILLE_CASES + OFFSET_SIDE, pos.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
         }
