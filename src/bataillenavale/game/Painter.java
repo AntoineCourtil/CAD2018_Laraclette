@@ -360,14 +360,18 @@ public class Painter implements GamePainter {
         Player humain = game.getBatailleNavale().getHumain();
         crayon.setColor(Color.red);
         for (Point2D tir : humain.getTirsEchoues()) {
-            crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + TAILLE_CASES * NB_CASES, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+            int x = tir.getX() * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + TAILLE_CASES * NB_CASES;
+            int y = tir.getY() * TAILLE_CASES + OFFSET_SIDE;
+            crayon.drawImage(ImageFactory.getInstance().getFail(), x, y, null);
         }
 
         // On déssine les tirs échoués pour la grille de gauche
         Player ia = game.getBatailleNavale().getIa();
         crayon.setColor(Color.orange);
         for (Point2D tir : ia.getTirsEchoues()) {
-            crayon.drawRect(tir.getX() * TAILLE_CASES + OFFSET_SIDE, tir.getY() * TAILLE_CASES + OFFSET_SIDE, TAILLE_CASES, TAILLE_CASES);
+            int x = tir.getX() * TAILLE_CASES + OFFSET_SIDE;
+            int y = tir.getY() * TAILLE_CASES + OFFSET_SIDE;
+            crayon.drawImage(ImageFactory.getInstance().getFail(), x, y, null);
         }
     }
 
