@@ -145,8 +145,17 @@ public class Painter implements GamePainter {
     }
 
     private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau) {
-	    BufferedImage bout = ImageFactory.getInstance().getBoutBateauXIX();
-	    BufferedImage milieu = ImageFactory.getInstance().getMilieuBateauXIX();
+	    BufferedImage bout;
+	    BufferedImage milieu;
+
+	    if (game.getBatailleNavale().getEpoque() == "XIX") {
+            bout = ImageFactory.getInstance().getBoutBateauXIX();
+            milieu = ImageFactory.getInstance().getMilieuBateauXIX();
+        } else {
+            bout = ImageFactory.getInstance().getBoutBateauXVIII();
+            milieu = ImageFactory.getInstance().getMilieuBateauXVIII();
+        }
+
 
 	    int x = bateau.getPosition().getX() * TAILLE_CASES + OFFSET_SIDE;
         int y = bateau.getPosition().getY() * TAILLE_CASES + OFFSET_SIDE;
@@ -276,7 +285,6 @@ public class Painter implements GamePainter {
             Bateau bateau = humain.getBoatList().get(i);
             this.drawRunningBoatLeftGrid(crayon, bateau);
             if (i == humain.getCurrentBoatIndex()) {
-                System.out.println("Drawing selected boat");
                 this.drawRunningSelectedBoat(crayon, bateau);
             }
         }
