@@ -15,8 +15,14 @@ public class ImageFactory {
     private BufferedImage boutBateauXVIII;
     private BufferedImage milieuBateauXVIII;
 
+    private BufferedImage boutBreakBateauXVIII;
+    private BufferedImage milieuBreakBateauXVIII;
+
     private BufferedImage boutBateauXIX;
     private BufferedImage milieuBateauXIX;
+
+    private BufferedImage boutBreakBateauXIX;
+    private BufferedImage milieuBreakBateauXIX;
 
     private BufferedImage explosion;
     private BufferedImage fail;
@@ -38,8 +44,14 @@ public class ImageFactory {
             milieuBateauXVIII = ImageIO.read(new File("res/img/milieu_bateau.png"));
             boutBateauXVIII = ImageIO.read(new File("res/img/avant_bateau.png"));
 
+            milieuBreakBateauXVIII = ImageIO.read(new File("res/img/milieu_bateau_break.png"));
+            boutBreakBateauXVIII = ImageIO.read(new File("res/img/avant_bateau_break.png"));
+
             milieuBateauXIX = ImageIO.read(new File("res/img/milieu_bateau_moderne.png"));
             boutBateauXIX = ImageIO.read(new File("res/img/avant_bateau_moderne.png"));
+
+            milieuBreakBateauXIX = ImageIO.read(new File("res/img/milieu_bateau_moderne_break.png"));
+            boutBreakBateauXIX = ImageIO.read(new File("res/img/avant_bateau_moderne_break.png"));
 
             explosion = ImageIO.read(new File("res/img/explosion.png"));
             fail = ImageIO.read(new File("res/img/fail.png"));
@@ -81,5 +93,21 @@ public class ImageFactory {
 
     public BufferedImage getFail() {
         return fail;
+    }
+
+    public BufferedImage getBoutBreakBateauXIX() {
+        return boutBreakBateauXIX;
+    }
+
+    public BufferedImage getMilieuBreakBateauXIX() {
+        return milieuBreakBateauXIX;
+    }
+
+    public BufferedImage getBoutBreakBateauXVIII() {
+        return boutBreakBateauXVIII;
+    }
+
+    public BufferedImage getMilieuBreakBateauXVIII() {
+        return milieuBreakBateauXVIII;
     }
 }

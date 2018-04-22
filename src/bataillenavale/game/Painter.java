@@ -144,21 +144,29 @@ public class Painter implements GamePainter {
         crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
     }
 
-    private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau) {
+    private void drawRunningBoatGrid(Graphics2D crayon, Bateau bateau, int x, int y) {
+
 	    BufferedImage bout;
 	    BufferedImage milieu;
 
-	    if (game.getBatailleNavale().getEpoque() == "XIX") {
-            bout = ImageFactory.getInstance().getBoutBateauXIX();
-            milieu = ImageFactory.getInstance().getMilieuBateauXIX();
+        if (game.getBatailleNavale().getEpoque() == "XIX") {
+            if (bateau.getHP() > 0) {
+                bout = ImageFactory.getInstance().getBoutBateauXIX();
+                milieu = ImageFactory.getInstance().getMilieuBateauXIX();
+            } else {
+                bout = ImageFactory.getInstance().getBoutBreakBateauXIX();
+                milieu = ImageFactory.getInstance().getMilieuBreakBateauXIX();
+            }
+
         } else {
-            bout = ImageFactory.getInstance().getBoutBateauXVIII();
-            milieu = ImageFactory.getInstance().getMilieuBateauXVIII();
+            if (bateau.getHP() > 0) {
+                bout = ImageFactory.getInstance().getBoutBateauXVIII();
+                milieu = ImageFactory.getInstance().getMilieuBateauXVIII();
+            } else {
+                bout = ImageFactory.getInstance().getBoutBreakBateauXVIII();
+                milieu = ImageFactory.getInstance().getMilieuBreakBateauXVIII();
+            }
         }
-
-
-	    int x = bateau.getPosition().getX() * TAILLE_CASES + OFFSET_SIDE;
-        int y = bateau.getPosition().getY() * TAILLE_CASES + OFFSET_SIDE;
 
         AffineTransform at;
 
@@ -233,8 +241,24 @@ public class Painter implements GamePainter {
         }
     }
 
-    private void drawRunningBoatRightGrid(Graphics2D crayon, Bateau bateau, Color color) {
-        crayon.setColor(color);
+    private void drawRunningBoatLeftGrid(Graphics2D crayon, Bateau bateau) {
+
+	    int x = bateau.getPosition().getX() * TAILLE_CASES + OFFSET_SIDE;
+        int y = bateau.getPosition().getY() * TAILLE_CASES + OFFSET_SIDE;
+
+        drawRunningBoatGrid(crayon, bateau, x, y);
+    }
+
+    private void drawRunningBoatRightGrid(Graphics2D crayon, Bateau bateau) {
+
+        int x = bateau.getPosition().getX() * TAILLE_CASES + OFFSET_SIDE + OFFSET_MIDDLE + TAILLE_CASES * NB_CASES;
+        int y = bateau.getPosition().getY() * TAILLE_CASES + OFFSET_SIDE;
+
+        drawRunningBoatGrid(crayon, bateau, x, y);
+    }
+
+    private void drawRunningBoatRightGridDebug(Graphics2D crayon, Bateau bateau) {
+        crayon.setColor(Color.pink);
         switch (bateau.getOrientation()) {
             case EST:
                 crayon.drawRect(OFFSET_MIDDLE + NB_CASES * TAILLE_CASES + OFFSET_SIDE + bateau.getPosition().getX() * TAILLE_CASES,
@@ -290,12 +314,12 @@ public class Painter implements GamePainter {
         }
 
         // Si mode débug
-        if (DEBUG) {
-            for (Bateau bateau : ia.getBoatList()) {
-                if (bateau.getHP() == 0) this.drawRunningBoatRightGrid(crayon, bateau, Color.black);
-                else this.drawRunningBoatRightGrid(crayon, bateau, Color.pink);
-            }
+
+        for (Bateau bateau : ia.getBoatList()) {
+            if (bateau.getHP() == 0) this.drawRunningBoatRightGrid(crayon, bateau);
+            else this.drawRunningBoatRightGridDebug(crayon, bateau);
         }
+
     }
 
     public static boolean isClickOnLeftGrid(Point2D clickPos) {
