@@ -164,10 +164,12 @@ public class Game implements bataillenavale.engine.Game {
         if(iaLoose){
             ia.setLosed(true);
             this.gameState = GameState.FINISHED;
+            this.finishedGame.setTitle("Vous avez gagné");
         }
         if(humainLoose){
             humain.setLosed(true);
             this.gameState = GameState.FINISHED;
+            this.finishedGame.setTitle("Vous avez perdu");
         }
 
         System.out.println(" finish ? "+ (humainLoose || iaLoose));

@@ -16,6 +16,7 @@ public abstract class Menu {
 
     protected String[] menuEntries;
     protected int selectedIndex;
+    protected String title = "";
 
     public void evolve(Cmd cmd) {
         if (cmd == Cmd.UP) {
@@ -42,9 +43,16 @@ public abstract class Menu {
             if (i == selectedIndex) crayon.setColor(SELECTED_COLOR);
             else crayon.setColor(DEFAULT_COLOR);
             crayon.drawString(menuEntries[i], OFFSET_LEFT, OFFSET_TOP + i * OFFSET_BETWEEN[menuEntries.length]);
-
         }
+
+        crayon.setColor(new Color(0xffecf0f1));
+        crayon.setFont(new Font(" Serif ", Font.PLAIN, 50));
+        crayon.drawString(title, 50, 100);
     }
 
     abstract void handleEnter();
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

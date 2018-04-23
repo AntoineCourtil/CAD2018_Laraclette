@@ -14,6 +14,7 @@ public class FinishedGame extends Menu {
         menuEntries[0] = "Recommencer";
         menuEntries[1] = "Menu principal";
         menuEntries[2] = "Quitter";
+        title = "Vous avez gagné";
     }
 
     @Override
@@ -24,7 +25,7 @@ public class FinishedGame extends Menu {
                 game.restart();
                 game.setGameState(GameState.EPOCH_CHOOSE);
                 break;
-            case "Revenir au menu principal":
+            case "Menu principal":
                 game.setGameState(GameState.MENU);
                 break;
             case "Quitter":
