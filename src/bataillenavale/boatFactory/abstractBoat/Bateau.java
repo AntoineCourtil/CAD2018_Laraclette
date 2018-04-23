@@ -3,6 +3,7 @@ package bataillenavale.boatFactory.abstractBoat;
 import bataillenavale.modele.BatailleNavale;
 import bataillenavale.modele.Point2D;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
 /**
  * Created by simon on 05/04/18.
  */
-public abstract class Bateau {
+public abstract class Bateau implements Serializable {
 
 
     public enum Orientation{NORD, SUD, EST, OUEST}

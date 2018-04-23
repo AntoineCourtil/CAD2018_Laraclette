@@ -12,6 +12,9 @@ import bataillenavale.modele.Point2D;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 
 public class Game implements bataillenavale.engine.Game {
@@ -80,6 +83,7 @@ public class Game implements bataillenavale.engine.Game {
     private void evolveRunning(Cmd cmd) {
         switch (cmd) {
             case CLICK:
+                isSaved = false;
                 // C'est le tour du joueur
                 if (batailleNavale.isTurnPlayer()) {
                     Player humain = batailleNavale.getHumain();
@@ -126,20 +130,36 @@ public class Game implements bataillenavale.engine.Game {
                 gameState = GameState.MENU;
                 break;
             case SAVE:
-                if (fileChooserIsOpen || isSaved) break;
-                Runnable r = () -> {
-                    fileChooserIsOpen = true;
-                    JFileChooser jfc = new JFileChooser();
-                    if (jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                        File selected = jfc.getSelectedFile();
-                        System.out.println(selected);
-                    }
-                    fileChooserIsOpen = false;
-                    isSaved = true;
-                };
-                SwingUtilities.invokeLater(r);
+                save();
                 break;
         }
+    }
+
+    private void save() {
+        if (fileChooserIsOpen || isSaved) return;
+        Runnable r = () -> {
+            fileChooserIsOpen = true;
+            JFileChooser jfc = new JFileChooser();
+            if (jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                File selected = jfc.getSelectedFile();
+                System.out.println(selected);
+
+                // Le nom du fichier select est dans selected
+                try {
+                    FileOutputStream fout = new FileOutputStream(selected.getAbsoluteFile());
+                    ObjectOutputStream oos = new ObjectOutputStream(fout);
+                    oos.writeObject(batailleNavale);
+                    System.out.println("Sauvegarde réussie");
+                } catch (IOException ioe) {
+                    System.out.println("Impossible d'écrire dans " + selected);
+                }
+
+
+            }
+            fileChooserIsOpen = false;
+            isSaved = true;
+        };
+        SwingUtilities.invokeLater(r);
     }
 
     private boolean checkFinishedGame(){
@@ -223,5 +243,9 @@ public class Game implements bataillenavale.engine.Game {
     public void setFinishedGame(FinishedGame finishedGame) {
         this.finishedGame = finishedGame;
 
+    }
+
+    public void setBatailleNavale(BatailleNavale batailleNavale) {
+        this.batailleNavale = batailleNavale;
     }
 }

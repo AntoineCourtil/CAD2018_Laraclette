@@ -1,8 +1,9 @@
 package bataillenavale.modele;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Point2D {
+public class Point2D implements Serializable {
 
     private int x;
     private int y;
