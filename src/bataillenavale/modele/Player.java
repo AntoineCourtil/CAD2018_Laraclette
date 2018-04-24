@@ -15,7 +15,6 @@ public class Player implements Serializable {
 
     private Strategie[] strategies = {new StrategieCroix(), new StrategieAlea()};
     private int currentStrategie = 0;
-    private boolean losed = false;
 
 
     public Player(List<Bateau> boatArrayList) {
@@ -168,7 +167,4 @@ public class Player implements Serializable {
         return tirsEchoues;
     }
 
-    public void setLosed(boolean losed) {
-        this.losed = losed;
-    }
 }

@@ -10,15 +10,14 @@ package modele {
         - List<Point2D> tirsEchoues
         - Strategie[] strategies
         - int currentStrategie
-        - Strategie strategie
-        + shoot(Point2D pos)
+        + void placeBoatAlea()
+        + Point2D shootIA()
         + boolean receiveShoot(Point2D pos,int damage)
-        + boolean chooseBoat(pos : Point2D)
-        + int getBoatIndexFromPos(pos : Point2D)
+        + boolean chooseBoat(Point2D pos)
+        + int getBoatIndexFromPos(Point2D pos)
         + Bateau getCurrentBoat()
         + Point2D addFailedShoot(pos)
-        + Strategie getStrategie()
-        + Strategie setStrategie(strategie)
+        + nextStrategie()
     }
     Player --"*" boatFactory.Bateau
     Player -- "*" Point2D : "Tirs échoués"
@@ -26,15 +25,15 @@ package modele {
     Player ..> Serializable
 
     class BatailleNavale {
-        - width : int
-        - height : int
-        - turnPlayer : boolean
-        - epoque : int
+        - int width
+        - int height
+        - boolean turnPlayer
+        - int epoque
         - Player humain
         - Player ia
 
         - List<Bateau> initListBateau()
-        + playerShoot(pos : Point2D)
+        + playerShoot(Point2D pos)
         + boolean checkBoatsPosition()
 
     }
