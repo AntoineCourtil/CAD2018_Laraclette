@@ -1,0 +1,65 @@
+@startuml
+
+title Diagramme de classe du package game
+
+package game {
+    
+    enum Cmd {
+        ARROW_LEFT,
+        ARROW_RIGHT,
+        ARROW_UP,
+        ARROW_DOWN,
+        ENTER
+    }
+    
+    enum GameState {
+        MENU
+        RUNNING,
+        EPOCH_CHOOSE,
+        RESUME_GAME
+    }
+
+    class Game {
+        - gameState : GameState
+        - painter : Painter
+        + evolve(cmd : Cmd, click Point2D)
+        - evolveRunning(cmd : Cmd, click Point2D)
+        - evolveMenu(cmd : Cmd, click Point2D)
+        - evolveEpochChoose(cmd : Cmd, click Point2D)
+        - evolveResumeGame(cmd : Cmd, click Point2D)
+        - playerChooseBoat(pos : Point2D)
+        - playerShoot(pos : Point2D)
+    }
+    Game --"1" modele.BatailleNavale
+    Game ..> engine.Game
+
+    class Painter {
+        - drawMenu()
+        - drawEpochChoose()
+        - drawRunning()
+        - drawResumeGame()
+    }
+    Painter ..> engine.GamePainter
+    Painter -- "1" modele.BatailleNavale
+
+    class Controller {
+        - commandeEnCours : Cmd
+        - clickEnCours : Point2D
+        + keyPressed(e : KeyEvent) 
+        + mouseClicked(e : MouseEvent)
+    }
+    Controller ..> engine.GameController
+
+}
+
+package engine {
+    interface GameController
+    interface GamePainter
+    interface Game
+}
+
+package modele {
+    class BatailleNavale
+}
+
+@enduml

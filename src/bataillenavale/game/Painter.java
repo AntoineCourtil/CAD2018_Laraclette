@@ -144,6 +144,13 @@ public class Painter implements GamePainter {
         crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
     }
 
+    /**
+     * Dessine les bateaux en fonction de l'époque, de leurs points de vies et de leur position.
+     * @param crayon
+     * @param bateau
+     * @param x
+     * @param y
+     */
     private void drawRunningBoatGrid(Graphics2D crayon, Bateau bateau, int x, int y) {
 
 	    BufferedImage bout;
