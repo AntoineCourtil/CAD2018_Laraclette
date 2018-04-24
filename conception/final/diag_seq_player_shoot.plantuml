@@ -2,50 +2,49 @@
 
 title Le joueur sélectionne un bateau et tir 
 
-actor Joueur
-
-activate Joueur
+activate humain
 activate game
-activate player
+activate humain
 activate ia
 activate game.batailleNavale
 
-loop Tant qu'aucun bateau n'est sélectionné
-    Joueur -> game : Clique en (x, y) (Point2D dans l'application)
-    game -> game : this.playerChooseBoat(position)
-    game -> game.batailleNavale : player = this.batailleNavale.getPlayer()
-    game -> player : player.chooseBoat(position)
-    player -> player : boat = this.getBoatIndexFromPos(position)
-    alt Le bateau d'index i est en x, y
-        player --> player : currentBoatIndex = i (On set l'index du bateau sélectionné)
-        player --> game : true (Il y avait un bateau en x, y)
-        game -> Joueur : Le bateau est sélectionné
-    else 
-        player --> player : currentBoatIndex = -1
-        player --> game : false (Il n'y a pas de bateau en x, y)
-        game -> Joueur : Aucun bateau n'a été sélectionné
+opt Clique en (x, y) dans la grille de gauche (pos : Point2D dans l'application)
+    game -> game.batailleNavale : this.batailleNavale.getHumain()
+    game.batailleNavale --> game : humain
+    game -> humain : humain.chooseBoat(pos)
+    loop bateau in humain.boatList
+        humain -> bateau : detectBoat(pos)
+        bateau --> humain : touche
+        opt touche
+            humain -> humain : currentBoatIndex = index
+        end
     end
 end
 
-opt Un bateau a été sélectionné
-    Joueur -> game : Clique en (x, y) (Point2D dans l'application)
-    game -> game.batailleNavale : this.batailleNavale.playerShoot(position)
+opt Un bateau a été sélectionné et il y a un clique en (x, y) dans la grille de droite (pos: Point2D dans l'application)
+    game -> game.batailleNavale : this.batailleNavale.playerShoot(pos)
     
-    game.batailleNavale -> player : player.getCurrentBoat()
-    player --> game.batailleNavale : boat
-    game.batailleNavale -> boat : boat.getDamage()
-    boat --> game.batailleNavale : damage
+    game.batailleNavale -> humain : player.getCurrentBoat()
+    humain --> game.batailleNavale : boat
+    game.batailleNavale -> boat : boat.getDegat()
+    boat --> game.batailleNavale : degat
     
-    game.batailleNavale -> ia : this.ia.receiveShoot(position, damage)
-    ia -> ia : boat = findBoatIndexFromPos(position)
-    alt Le bateau d'index 3 est en x, y
-        ia -> ia : boat = boats.get(3)
-        ia -> boat : boat.receiveDamage(pos, damage) 
-        ia --> game.batailleNavale : true
-    else 
-        ia --> game.batailleNavale : false
-        game.batailleNavale -> player : player.addFailedShoot(position)
-    end 
+    game.batailleNavale -> ia : ia.receiveShoot(pos, damage)
+    loop bateau in ia.boatList
+        ia -> bateau : detectBoat(pos)
+        bateau --> ia : touche
+        opt touche
+            bateau -> bateau : bateau.setHP(bateau.getHP() - degat)
+        end
+    end
+ 
+    ia --> game.batailleNavale : touche
+
+    opt not touche
+        game.batailleNavale -> humain : humain.addFailedShoot(pos)
+    end
+    
+
 end
 
 
