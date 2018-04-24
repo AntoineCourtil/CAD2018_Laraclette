@@ -12,8 +12,7 @@ public class BatailleNavale implements Serializable {
 
     public static final int WIDTH = 10;
     public static final int HEIGHT = 10;
-    public static final int XIX = 19;
-    public static final int XVIII = 18;
+
 
     private boolean turnPlayer;
     private String epoque;
@@ -23,7 +22,6 @@ public class BatailleNavale implements Serializable {
 
     public BatailleNavale(String epoque) {
         this.epoque = epoque;
-        ConcreteBateauFactory factory = AbstractBateauFactory.getFactoryByEpoque(epoque);
 
 
         humain = new Player(initListBateau());
@@ -94,14 +92,6 @@ public class BatailleNavale implements Serializable {
             turnPlayer = true;
         }
 
-
-    }
-
-    public BatailleNavale loadFromFile(String filename) {
-        return null;
-    }
-
-    public void saveToFile(String filename) {
 
     }
 

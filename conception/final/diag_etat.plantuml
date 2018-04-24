@@ -1,19 +1,19 @@
 @startuml
 
-title Les différents états de l'application
+title Diagramme d'états de la bataille navale
 
 [*] --> Menu_principal
-Menu_principal --> Menu_choix_epoque : "Nouvelle partie"
-Menu_principal --> Menu_reprendre_partie : "Reprendre une partie"
-Menu_principal --> [*] : "Quitter"
+MENU --> EPOCH_CHOOSE : "Nouvelle partie"
+MENU --> RESUME_GAME : "Reprendre une partie"
+MENU --> [*] : "Quitter"
 
-Menu_choix_epoque --> En_jeux : "Commencer la partie"
-Menu_choix_epoque --> Menu_principal : "Retourner au menu"
+EPOCH_CHOOSE --> RUNNING : "Choix de l'époque"
+EPOCH_CHOOSE --> MENU : "Retourner au menu"
 
-Menu_reprendre_partie --> En_jeux : "Commencer la partie"
-Menu_reprendre_partie --> Menu_principal : "Retourner au menu"
+RESUME_GAME --> RUNNING : "Choisir un fichier"
+RESUME_GAME --> MENU : "Retourner au menu"
 
-En_jeux --> Menu_principal : "Sauvegarder et quitter"
-En_jeux --> Menu_principal : "Quitter sans sauvegarder"
+RUNNING --> MENU : "Sauvegarder et quitter"
+RUNNING --> MENU : "Quitter sans sauvegarder"
 
 @enduml
