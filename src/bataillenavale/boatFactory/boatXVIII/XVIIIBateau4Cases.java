@@ -9,7 +9,7 @@ import bataillenavale.boatFactory.abstractBoat.Bateau4Cases;
 public class XVIIIBateau4Cases extends Bateau4Cases{
     public XVIIIBateau4Cases() {
         //HP, precision, degat, portee, position, munitions
-        super(10, 10, 10, 10, null, 10);
+        super(8, 10, 4, 10, null, 10);
     }
 
     public int getHP(){
