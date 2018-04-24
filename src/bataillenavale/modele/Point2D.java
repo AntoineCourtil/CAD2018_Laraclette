@@ -18,6 +18,7 @@ public class Point2D implements Serializable {
     }
 
     public void setX(int x) {
+        if (x < 0 || x >= BatailleNavale.WIDTH) return;
         this.x = x;
     }
 
@@ -26,6 +27,7 @@ public class Point2D implements Serializable {
     }
 
     public void setY(int y) {
+        if (y < 0 || y >= BatailleNavale.HEIGHT) return;
         this.y = y;
     }
 
