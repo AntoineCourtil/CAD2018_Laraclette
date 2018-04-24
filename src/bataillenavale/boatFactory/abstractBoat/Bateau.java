@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by simon on 05/04/18.
- */
+
 public abstract class Bateau implements Serializable {
 
 

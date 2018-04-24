@@ -5,17 +5,20 @@ title Diagramme de classe du package modele
 package modele {
 
     class Player {
-        - currentBoatIndex : int
-        - hasChoosedBoat : boolean
-        - strategie : Strategie
-        + shoot(pos : Point2D)
-        + receiveShoot(pos: Point2D, damage : int) : boolean
-        + chooseBoat(pos : Point2D) : boolean
-        + getBoatIndexFromPos(pos : Point2D) : int
-        + getCurrentBoat() : Bateau
-        + addFailedShoot(pos : Point2D)
-        + getStrategie() : Strategie
-        + setStrategie(strategie : Strategie)
+        - int currentBoatIndex
+        - List<Bateau> boatList
+        - List<Point2D> tirsEchoues
+        - Strategie[] strategies
+        - int currentStrategie
+        - Strategie strategie
+        + shoot(Point2D pos)
+        + boolean receiveShoot(Point2D pos,int damage)
+        + boolean chooseBoat(pos : Point2D)
+        + int getBoatIndexFromPos(pos : Point2D)
+        + Bateau getCurrentBoat()
+        + Point2D addFailedShoot(pos)
+        + Strategie getStrategie()
+        + Strategie setStrategie(strategie)
     }
     Player --"*" boatFactory.Bateau
     Player -- "*" Point2D : "Tirs échoués"
@@ -27,23 +30,30 @@ package modele {
         - height : int
         - turnPlayer : boolean
         - epoque : int
+        - Player humain
+        - Player ia
+
+        - List<Bateau> initListBateau()
         + playerShoot(pos : Point2D)
-        + {static} loadFromFile(filename : String) : BatailleNavale
-        + saveToFile(filename : String)
+        + boolean checkBoatsPosition()
+
     }
     
     Interface Strategie {
         + generateShoot() : Point2D
     }
     
-    class strategieAlea{
+    class StrategieAlea{
         - lastShootHasTouched : boolean
         + generateShoot() : Point2D
     }
     
-    class strategieCroix{
+    class StrategieCroix{
         - lastShootHasTouched : boolean
         + generateShoot() : Point2D
+    }
+
+    class Point2D{
     }
     
     

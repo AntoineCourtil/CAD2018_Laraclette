@@ -17,7 +17,7 @@ public interface Game {
 	public void evolve(Cmd userCmd);
 
 	/**
-	 * @return true si et seulement si le jeu est fini
+	 * @return true si et seulement si le jeu est fini [Inutilisé]
 	 */
 	public boolean isFinished();
 

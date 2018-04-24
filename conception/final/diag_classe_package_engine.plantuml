@@ -20,7 +20,6 @@ package engine {
 
     interface GameController {
         + getCommand() : Cmd
-        + getClick() : Point2D
     }
 
     interface GamePainter {
@@ -29,13 +28,32 @@ package engine {
 	    + getHeight() : int
     }
 
+    enum Cmd{
+        UP
+        DOWN
+        IDLE
+        ENTER
+        QUIT
+        SAVE
+        CLICK
+        CHANGE
+    }
+
     class GameEngineGraphical {
         + run()
+    }
+
+    class KeyListener{
+    }
+    class MouseListener{
     }
     GameEngineGraphical --"1" Game
     GameEngineGraphical --"1" GamePainter
     GameEngineGraphical --"1" GameController
     GameEngineGraphical --"1" GraphicalInterface
+
+    GameController --> KeyListener
+    GameController --> MouseListener
 
     class GraphicalInterface {
         + paint()

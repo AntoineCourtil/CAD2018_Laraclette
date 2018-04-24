@@ -11,7 +11,6 @@ public class BatailleNavale implements Serializable {
 
     public static final int WIDTH = 10;
     public static final int HEIGHT = 10;
-
     private boolean turnPlayer;
     private boolean playerIsReady;
     private String epoque;

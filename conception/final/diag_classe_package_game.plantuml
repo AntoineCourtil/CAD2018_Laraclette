@@ -16,21 +16,33 @@ package game {
         MENU
         RUNNING,
         EPOCH_CHOOSE,
-        RESUME_GAME
+        RESUME_GAME,
+        FINISHED
     }
 
     class Game {
         - gameState : GameState
-        - painter : Painter
+        - String currentEpoch
+        - boolean fileChooserIsOpen
+        - boolean isSaved
+        - BatailleNavale batailleNavale
+
         + evolve(cmd : Cmd, click Point2D)
+        + restart()
+        + launchBatailleNavale(String epoque)
+        - save()
+        - checkFinishedGame()
         - evolveRunning(cmd : Cmd, click Point2D)
+        - evolveRunningNotReady(cmd : Cmd)
+        - evolveRunningReady(cmd : Cmd)
         - evolveMenu(cmd : Cmd, click Point2D)
         - evolveEpochChoose(cmd : Cmd, click Point2D)
         - evolveResumeGame(cmd : Cmd, click Point2D)
-        - playerChooseBoat(pos : Point2D)
-        - playerShoot(pos : Point2D)
+
     }
+
     Game --"1" modele.BatailleNavale
+
     Game ..> engine.Game
 
     class Painter {
@@ -50,7 +62,69 @@ package game {
     }
     Controller ..> engine.GameController
 
+    class ImageFactory << (S,#FF7700) Singleton >>{
+        - {static} ImageFactory instance
+
+        - BufferedImage background
+        - BufferedImage sea
+
+        - BufferedImage boutBateauXVIII
+        - BufferedImage milieuBateauXVIII
+
+        - BufferedImage boutBreakBateauXVIII
+        - BufferedImage milieuBreakBateauXVIII
+
+        - BufferedImage boutBateauXIX
+        - BufferedImage milieuBateauXIX
+
+        - BufferedImage boutBreakBateauXIX
+        - BufferedImage milieuBreakBateauXIX
+
+        - BufferedImage explosion
+        - BufferedImage fail
+
+        + {static} ImageFactory getInstance()
+        - loadImages()
+    }
+
+    package menu{
+        class EpochChoose{
+            - Game game
+            + void handleEnter();
+        }
+        class FinishedGame{
+            - Game game
+            + void handleEnter();
+        }
+        class MainMenu{
+                    - Game game
+                    + void handleEnter();
+        }
+        class ResumeGame{
+                    - Game game
+                    + void handleEnter();
+        }
+        abstract class Menu{
+            # String[] menuEntries
+            # int selectedIndex
+            # String title
+
+            + void elvolve(Cmd cmd)
+            + void paint(Graphics2D crayon)
+            # {abstract} void handleEnter()
+            + setTitle(String title)
+        }
+
+        EpochChoose --> Menu
+        FinishedGame --> Menu
+        MainMenu --> Menu
+        ResumeGame --> Menu
+
+    }
+        Game --"4" Menu
+
 }
+
 
 package engine {
     interface GameController

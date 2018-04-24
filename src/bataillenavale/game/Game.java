@@ -269,12 +269,6 @@ public class Game implements bataillenavale.engine.Game {
 
     }
 
-    private void playerChooseBoat(Point2D pos) {
-
-    }
-
-    private void playerShoot(Point2D pos) {
-    }
 
     public GameState getGameState() {
         return gameState;

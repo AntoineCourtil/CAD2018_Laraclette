@@ -99,6 +99,7 @@ package boatFactory #DDDDDD {
     package abstractBoat #FFFFFF {
 
         abstract class Bateau {
+            + enum Orientation{NORD, SUD, EST, OUEST}
             - int HP
             - float precision
             - int degat
@@ -106,13 +107,15 @@ package boatFactory #DDDDDD {
             - Point2D position
             - int munitions
             - List<Point2D> pointsTouches
+            - Orientation orientation
+            - int size
 
-            + {abstract} int getHP();
-            + {abstract} int getSize();
-            + {abstract} int getPrecision();
-            + {abstract} int getDegat();
-            + {abstract} int getPortee();
-            + {abstract} Point2D getPosition();
+            + void addPointTouche(Point2D pos);
+            + Point2D getFinBateau();
+            + boolean isOutOfScreen();
+            + void nextOrientation();
+            + boolean detectBoat(Point2D pos);
+            + boolean collisionBoat(Bateau bateau);
             + int getMunition();
             + List<Point2D> getPointsTouches();
         }
