@@ -37,6 +37,8 @@ package modele {
         + boolean checkBoatsPosition()
 
     }
+
+    Interface Serializable
     
     Interface Strategie {
         + generateShoot() : Point2D
