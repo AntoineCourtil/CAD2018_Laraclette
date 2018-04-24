@@ -123,13 +123,13 @@ public abstract class Bateau implements Serializable {
     public Point2D getFinBateau(){
         switch (orientation){
             case NORD:
-                return new Point2D(position.getX(), position.getY()-size);
+                return new Point2D(position.getX(), position.getY() - (size-1));
             case SUD:
-                return new Point2D(position.getX(), position.getY()+size);
+                return new Point2D(position.getX(), position.getY() + (size-1));
             case EST:
-                return new Point2D(position.getX()+size, position.getY());
+                return new Point2D(position.getX() + (size-1), position.getY());
             default:
-                return new Point2D(position.getX()-size, position.getY());
+                return new Point2D(position.getX() - (size-1), position.getY());
         }
     }
 
@@ -140,11 +140,6 @@ public abstract class Bateau implements Serializable {
 
         if(position.getX() >= BatailleNavale.WIDTH || getFinBateau().getX() >= BatailleNavale.WIDTH) return true;
         if(position.getY() >= BatailleNavale.HEIGHT || getFinBateau().getY() >= BatailleNavale.HEIGHT) return true;
-
-//        System.out.println("Debut : " + position.getX() + " " + position.getY());
-//        System.out.println("Fin : " + getFinBateau().getX() + " " + getFinBateau().getY());
-//        System.out.println("Orientation : " + orientation);
-//        System.out.println("Size : " + size);
 
         return false;
     }
