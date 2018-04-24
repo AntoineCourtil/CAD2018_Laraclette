@@ -9,7 +9,7 @@ public class XIXBateau2Cases extends Bateau2Cases{
 
     public XIXBateau2Cases() {
         //HP, precision, degat, portee, position, munitions
-        super(10, 10, 4, 10, null, 10);
+        super(8, 10, 4, 10, null, 10);
     }
 
     public int getHP(){

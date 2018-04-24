@@ -1,7 +1,6 @@
 package bataillenavale.modele;
 
 import bataillenavale.boatFactory.AbstractBateauFactory;
-import bataillenavale.boatFactory.ConcreteBateauFactory;
 import bataillenavale.boatFactory.abstractBoat.Bateau;
 
 import java.io.Serializable;
@@ -12,25 +11,22 @@ public class BatailleNavale implements Serializable {
 
     public static final int WIDTH = 10;
     public static final int HEIGHT = 10;
-
-
     private boolean turnPlayer;
+    private boolean playerIsReady;
     private String epoque;
 
     private Player humain;
     private Player ia;
 
+
+
     public BatailleNavale(String epoque) {
         this.epoque = epoque;
-
 
         humain = new Player(initListBateau());
         ia = new Player(initListBateau());
 
         humain.placeBoatAlea();
-        for (Bateau b :humain.getBoatList()) {
-            System.out.println(b.getPosition() + " --> " + b.getSize());
-        }
         ia.placeBoatAlea();
 
         turnPlayer = true;
@@ -64,8 +60,6 @@ public class BatailleNavale implements Serializable {
     }
 
     public void playerShoot(Point2D pos) {
-//        System.out.println("            TIR EFFECTUE");
-
         if (turnPlayer) {
             boolean touche = ia.receiveShoot(pos, humain.getCurrentBoat().getDegat());
 
@@ -111,7 +105,29 @@ public class BatailleNavale implements Serializable {
         return ia;
     }
 
-    public void setEpoque(String epoque) {
-        this.epoque = epoque;
+    public boolean playerIsReady() {
+        return playerIsReady;
+    }
+
+    public void setPlayerIsReady(boolean playerIsReady) {
+        this.playerIsReady = playerIsReady;
+    }
+
+    public boolean checkBoatsPosition() {
+        Player humain = getHumain();
+        List<Bateau> boatList = humain.getBoatList();
+        for (Bateau boat : boatList) {
+            for (Bateau verifBoat : boatList) {
+
+                if (verifBoat != boat) {
+                    if(verifBoat.collisionBoat(boat)) return false;
+                }
+
+                if (boat.isOutOfScreen()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

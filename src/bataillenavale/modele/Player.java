@@ -1,8 +1,6 @@
 package bataillenavale.modele;
 
 import bataillenavale.boatFactory.abstractBoat.Bateau;
-
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +31,9 @@ public class Player implements Serializable {
      */
     public void placeBoatAlea() {
         Random rand = new Random();
-        //TODO A TESTER
-        int x = 0;
-        int y = 0;
-        int orientationAlea = 0;
+        int x;
+        int y;
+        int orientationAlea;
         int index = boatList.size();
         Bateau.Orientation[] orientations = {Bateau.Orientation.EST, Bateau.Orientation.NORD, Bateau.Orientation.SUD, Bateau.Orientation.OUEST};
 
@@ -57,13 +54,7 @@ public class Player implements Serializable {
                     for (Bateau verifBoat : boatList) {
 
                         if (verifBoat != bateau) {
-
-                            if(isValide) {
-                                //DetectBoat dit s'il trouve un boat ou non, s'il trouve un boat c'est pas valide.
-                                isValide = !verifBoat.collisionBoat(bateau);
-
-                                //System.out.println(isValide + " " + x + " " + y);
-                            }
+                            if(isValide) isValide = !verifBoat.collisionBoat(bateau);
                         }
 
                         if (bateau.isOutOfScreen()) {
@@ -73,15 +64,16 @@ public class Player implements Serializable {
                     }
                 }
             }
-//            index++;
         }
 
     }
 
+    /**
+     * Génère un shoot en fonction de la stratégie
+     * @return la position du shoot
+     */
     public Point2D shootIA() {
-        do{
-            // Boucle infinie ici si plus de bateaux
-
+        do {
             Random rand = new Random();
             currentBoatIndex = rand.nextInt(boatList.size());
         } while(!(boatList.get(currentBoatIndex).getHP() > 0 && boatList.get(currentBoatIndex).getMunitions() > 0));
@@ -89,6 +81,12 @@ public class Player implements Serializable {
         return getStrategie().generateShoot(tirsEchoues);
     }
 
+    /**
+     * Reception d'un tir de l'adversaire
+     * @param pos la position du tir
+     * @param damage les domages du tir
+     * @return si un bateau a été touché
+     */
     public boolean receiveShoot(Point2D pos, int damage) {
 
         boolean touche = false;
@@ -98,10 +96,7 @@ public class Player implements Serializable {
                 if (touche) {
                     bateau.setHP(bateau.getHP() - damage);
                     bateau.addPointTouche(pos);
-                    System.out.println("            TOUCHEEEEEEEEEEEEE");
-
                     if(bateau.getHP() <= 0) {
-                        System.out.println("DEAD");
                         currentBoatIndex = -1;
                     }
 
@@ -113,20 +108,18 @@ public class Player implements Serializable {
 
     }
 
-    public boolean chooseBoat(Point2D pos) {
+    public void chooseBoat(Point2D pos) {
         int index = 0;
         for (Bateau bateau : boatList) {
             if (bateau.getHP() > 0) {
                 if (bateau.detectBoat(pos)) {
                     currentBoatIndex = index;
-                    return true;
+                    return;
                 }
             }
             index++;
         }
-        System.out.println("SETTING CURRENT BOAT TO -1");
         currentBoatIndex = -1;
-        return false;
     }
 
     /**
@@ -154,8 +147,6 @@ public class Player implements Serializable {
         tirsEchoues.add(pos);
     }
 
-    //------------ GETTERS && SETTERS
-
     public Strategie getStrategie() {
         return strategies[currentStrategie];
     }
@@ -175,10 +166,6 @@ public class Player implements Serializable {
 
     public List<Point2D> getTirsEchoues() {
         return tirsEchoues;
-    }
-
-    public boolean isLosed() {
-        return losed;
     }
 
     public void setLosed(boolean losed) {
