@@ -323,7 +323,7 @@ public class Painter implements GamePainter {
         // Si mode débug
 
         for (Bateau bateau : ia.getBoatList()) {
-            if (bateau.getHP() == 0) this.drawRunningBoatRightGrid(crayon, bateau);
+            if (bateau.getHP() <= 0) this.drawRunningBoatRightGrid(crayon, bateau);
             else this.drawRunningBoatRightGridDebug(crayon, bateau);
         }
 
@@ -411,7 +411,10 @@ public class Painter implements GamePainter {
 
         if (currentBoat != null) {
             crayon.drawString("HP : " + currentBoat.getHP(), OFFSET_MIDDLE_TEXT, HEIGHT - 90);
+            if (currentBoat.getMunitions() <= 0) crayon.setColor(new Color(0xffaa1923));
+            else crayon.setColor(TEXT_COLOR);
             crayon.drawString("Munitions : " + currentBoat.getMunitions(), OFFSET_MIDDLE_TEXT, HEIGHT - 60);
+            crayon.setColor(TEXT_COLOR);
             crayon.drawString("Dégats : " + currentBoat.getDegat(), OFFSET_MIDDLE_TEXT, HEIGHT - 30);
         } else {
             crayon.drawString("Choisissez un bateau", OFFSET_MIDDLE_TEXT, HEIGHT - 90);
