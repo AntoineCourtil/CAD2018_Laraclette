@@ -154,7 +154,8 @@ public class Game implements bataillenavale.engine.Game {
                 break;
             case START:
                 //TODO Check la position des bateaux
-                batailleNavale.setPlayerIsReady(true);
+                if (batailleNavale.checkBoatsPosition())
+                    batailleNavale.setPlayerIsReady(true);
                 break;
             case ROTATE:
                 if (b != null) {
@@ -313,8 +314,4 @@ public class Game implements bataillenavale.engine.Game {
         return finishedGame;
     }
 
-    public void setFinishedGame(FinishedGame finishedGame) {
-        this.finishedGame = finishedGame;
-
-    }
 }

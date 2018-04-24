@@ -113,4 +113,22 @@ public class BatailleNavale implements Serializable {
     public void setPlayerIsReady(boolean playerIsReady) {
         this.playerIsReady = playerIsReady;
     }
+
+    public boolean checkBoatsPosition() {
+        Player humain = getHumain();
+        List<Bateau> boatList = humain.getBoatList();
+        for (Bateau boat : boatList) {
+            for (Bateau verifBoat : boatList) {
+
+                if (verifBoat != boat) {
+                    if(verifBoat.collisionBoat(boat)) return false;
+                }
+
+                if (boat.isOutOfScreen()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
