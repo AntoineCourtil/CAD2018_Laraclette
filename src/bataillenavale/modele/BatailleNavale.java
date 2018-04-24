@@ -1,7 +1,6 @@
 package bataillenavale.modele;
 
 import bataillenavale.boatFactory.AbstractBateauFactory;
-import bataillenavale.boatFactory.ConcreteBateauFactory;
 import bataillenavale.boatFactory.abstractBoat.Bateau;
 
 import java.io.Serializable;
@@ -12,27 +11,23 @@ public class BatailleNavale implements Serializable {
 
     public static final int WIDTH = 10;
     public static final int HEIGHT = 10;
-    public static final int XIX = 19;
-    public static final int XVIII = 18;
 
     private boolean turnPlayer;
+    private boolean playerIsReady;
     private String epoque;
 
     private Player humain;
     private Player ia;
 
+
+
     public BatailleNavale(String epoque) {
         this.epoque = epoque;
-        ConcreteBateauFactory factory = AbstractBateauFactory.getFactoryByEpoque(epoque);
-
 
         humain = new Player(initListBateau());
         ia = new Player(initListBateau());
 
         humain.placeBoatAlea();
-        for (Bateau b :humain.getBoatList()) {
-            System.out.println(b.getPosition() + " --> " + b.getSize());
-        }
         ia.placeBoatAlea();
 
         turnPlayer = true;
@@ -66,8 +61,6 @@ public class BatailleNavale implements Serializable {
     }
 
     public void playerShoot(Point2D pos) {
-//        System.out.println("            TIR EFFECTUE");
-
         if (turnPlayer) {
             boolean touche = ia.receiveShoot(pos, humain.getCurrentBoat().getDegat());
 
@@ -97,14 +90,6 @@ public class BatailleNavale implements Serializable {
 
     }
 
-    public BatailleNavale loadFromFile(String filename) {
-        return null;
-    }
-
-    public void saveToFile(String filename) {
-
-    }
-
     public boolean isTurnPlayer() {
         return turnPlayer;
     }
@@ -121,7 +106,11 @@ public class BatailleNavale implements Serializable {
         return ia;
     }
 
-    public void setEpoque(String epoque) {
-        this.epoque = epoque;
+    public boolean playerIsReady() {
+        return playerIsReady;
+    }
+
+    public void setPlayerIsReady(boolean playerIsReady) {
+        this.playerIsReady = playerIsReady;
     }
 }

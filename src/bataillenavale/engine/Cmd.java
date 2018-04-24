@@ -12,5 +12,9 @@ public enum Cmd {
     QUIT,
     SAVE,
     CLICK,
-	CHANGE
+	CHANGE,
+    LEFT,
+    RIGHT,
+    ROTATE,
+    START
 }

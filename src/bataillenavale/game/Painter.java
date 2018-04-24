@@ -139,9 +139,16 @@ public class Painter implements GamePainter {
                 RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        crayon.drawString("Epoque : " + game.getBatailleNavale().getEpoque(), OFFSET_SIDE_TEXT, HEIGHT - 90);
-        crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 60);
-        crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
+        if (game.getBatailleNavale().playerIsReady()) {
+            crayon.drawString("Epoque : " + game.getBatailleNavale().getEpoque(), OFFSET_SIDE_TEXT, HEIGHT - 90);
+            crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 60);
+            crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
+        } else {
+            crayon.drawString("Positionnez vos bateaux", OFFSET_SIDE_TEXT, HEIGHT - 90);
+            crayon.drawString("Sauvegarder (S)", OFFSET_SIDE_TEXT, HEIGHT - 60);
+            crayon.drawString("Quitter (Q)", OFFSET_SIDE_TEXT, HEIGHT - 30);
+        }
+
     }
 
     /**
@@ -409,7 +416,11 @@ public class Painter implements GamePainter {
         Player humain = game.getBatailleNavale().getHumain();
         Bateau currentBoat = humain.getCurrentBoat();
 
-        if (currentBoat != null) {
+        if (!game.getBatailleNavale().playerIsReady()) {
+            crayon.drawString("Bouger : Fleches", OFFSET_MIDDLE_TEXT, HEIGHT - 90);
+            crayon.drawString("Rotation : R", OFFSET_MIDDLE_TEXT, HEIGHT - 60);
+            crayon.drawString("Commencer : SPACE", OFFSET_MIDDLE_TEXT, HEIGHT - 30);
+        } else if (currentBoat != null) {
             crayon.drawString("HP : " + currentBoat.getHP(), OFFSET_MIDDLE_TEXT, HEIGHT - 90);
             if (currentBoat.getMunitions() <= 0) crayon.setColor(new Color(0xffaa1923));
             else crayon.setColor(TEXT_COLOR);

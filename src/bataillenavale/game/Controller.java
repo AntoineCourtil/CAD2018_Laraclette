@@ -60,8 +60,20 @@ public class Controller implements GameController {
             case KeyEvent.VK_DOWN:
                 this.commandeEnCours = Cmd.DOWN;
                 break;
+            case KeyEvent.VK_LEFT:
+                this.commandeEnCours = Cmd.LEFT;
+                break;
+            case KeyEvent.VK_RIGHT:
+                this.commandeEnCours = Cmd.RIGHT;
+                break;
             case KeyEvent.VK_ENTER:
                 this.commandeEnCours = Cmd.ENTER;
+                break;
+            case KeyEvent.VK_R:
+                this.commandeEnCours = Cmd.ROTATE;
+                break;
+            case KeyEvent.VK_SPACE:
+                this.commandeEnCours = Cmd.START;
                 break;
             case KeyEvent.VK_C:
                 this.commandeEnCours = Cmd.CHANGE;

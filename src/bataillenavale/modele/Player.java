@@ -114,6 +114,7 @@ public class Player implements Serializable {
             if (bateau.getHP() > 0) {
                 if (bateau.detectBoat(pos)) {
                     currentBoatIndex = index;
+                    return;
                 }
             }
             index++;

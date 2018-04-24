@@ -97,6 +97,12 @@ public abstract class Bateau implements Serializable {
         this.pointsTouches = pointsTouches;
     }
 
+    public void nextOrientation() {
+        if (orientation == Orientation.SUD) orientation = Orientation.OUEST;
+        else if (orientation == Orientation.OUEST) orientation = Orientation.NORD;
+        else if (orientation == Orientation.NORD) orientation = Orientation.EST;
+        else if (orientation == Orientation.EST) orientation = Orientation.SUD;
+    }
 
     public Orientation getOrientation() {
         return orientation;

@@ -76,11 +76,11 @@ public class Game implements bataillenavale.engine.Game {
         return false;
     }
 
-    public void restart(){
+    public void restart() {
         batailleNavale = new BatailleNavale(currentEpoch);
     }
 
-    private void evolveRunning(Cmd cmd) {
+    private void evolveRunningReady(Cmd cmd) {
         switch (cmd) {
             case CLICK:
                 isSaved = false;
@@ -94,11 +94,11 @@ public class Game implements bataillenavale.engine.Game {
                         Point2D pos = Painter.clickPosToPosForLeftGrid(Controller.getLastClickPos());
                         humain.chooseBoat(pos);
 
-                    } else if (Painter.isClickOnRightGrid(Controller.getLastClickPos())){
+                    } else if (Painter.isClickOnRightGrid(Controller.getLastClickPos())) {
                         if (humain.hasChosenBoat()) {
                             Point2D pos = Painter.clickPosToPosForRightGrid(Controller.getLastClickPos());
 
-                            if(humain.getCurrentBoat().getMunitions() > 0) {
+                            if (humain.getCurrentBoat().getMunitions() > 0) {
 
                                 Player ia = batailleNavale.getIa();
                                 int index = ia.getBoatIndexFromPos(pos);
@@ -106,18 +106,14 @@ public class Game implements bataillenavale.engine.Game {
                                 //On regarde si la game n'est pas finie
                                 boolean finished = checkFinishedGame();
                                 //Tour de l'ia
-                                if(!finished) {
+                                if (!finished) {
                                     Point2D tirIA = ia.shootIA();
                                     System.out.println("tir IA : " + tirIA.getX() + " " + tirIA.getY());
                                     batailleNavale.playerShoot(tirIA);
                                 }
                             }
-                        } else {
-                            // Pas de bateau select !
                         }
                     }
-                } else {
-                    // C'est le tour de l'IA
                 }
                 break;
             case CHANGE:
@@ -133,6 +129,80 @@ public class Game implements bataillenavale.engine.Game {
                 save();
                 break;
         }
+    }
+
+    private void evolveRunningNotReady(Cmd cmd) {
+        Player humain = batailleNavale.getHumain();
+        Bateau b = humain.getCurrentBoat();
+        Point2D pos;
+
+        switch (cmd) {
+            case CLICK:
+                isSaved = false;
+                if (Painter.isClickOnLeftGrid(Controller.getLastClickPos())) {
+                    // Coords de la case cliqué
+                    pos = Painter.clickPosToPosForLeftGrid(Controller.getLastClickPos());
+                    humain.chooseBoat(pos);
+                }
+
+                break;
+            case QUIT:
+                gameState = GameState.MENU;
+                break;
+            case SAVE:
+                save();
+                break;
+            case START:
+                //TODO Check la position des bateaux
+                batailleNavale.setPlayerIsReady(true);
+                break;
+            case ROTATE:
+                if (b != null) {
+                    System.out.println("Rotate");
+                    b.nextOrientation();
+                }
+                break;
+            case UP:
+                if (b != null) {
+                    pos = b.getPosition();
+                    pos.setY(pos.getY() - 1);
+                    b.setPosition(pos);
+                }
+
+                break;
+            case DOWN:
+                if (b != null) {
+                    b = humain.getCurrentBoat();
+                    pos = b.getPosition();
+                    pos.setY(pos.getY() + 1);
+                    b.setPosition(pos);
+                }
+
+                break;
+            case LEFT:
+                if (b != null) {
+                    b = humain.getCurrentBoat();
+                    pos = b.getPosition();
+                    pos.setX(pos.getX() - 1);
+                    b.setPosition(pos);
+                }
+
+                break;
+            case RIGHT:
+                if (b != null) {
+                    b = humain.getCurrentBoat();
+                    pos = b.getPosition();
+                    pos.setX(pos.getX() + 1);
+                    b.setPosition(pos);
+                }
+
+                break;
+        }
+    }
+
+    private void evolveRunning(Cmd cmd) {
+        if (batailleNavale.playerIsReady()) evolveRunningReady(cmd);
+        else evolveRunningNotReady(cmd);
     }
 
     private void save() {
@@ -162,37 +232,37 @@ public class Game implements bataillenavale.engine.Game {
         SwingUtilities.invokeLater(r);
     }
 
-    private boolean checkFinishedGame(){
+    private boolean checkFinishedGame() {
         Player humain = batailleNavale.getHumain();
         Player ia = batailleNavale.getIa();
         boolean iaLoose = true;
-        for(Bateau boat : ia.getBoatList()){
-            if(boat.getHP() > 0 && boat.getMunitions() > 0){
+        for (Bateau boat : ia.getBoatList()) {
+            if (boat.getHP() > 0 && boat.getMunitions() > 0) {
                 System.out.println(boat.getPosition());
                 iaLoose = false;
                 break;
             }
         }
         boolean humainLoose = true;
-        for(Bateau boat : humain.getBoatList()){
-            if(boat.getHP() > 0 && boat.getMunitions() > 0){
-                humainLoose= false;
+        for (Bateau boat : humain.getBoatList()) {
+            if (boat.getHP() > 0 && boat.getMunitions() > 0) {
+                humainLoose = false;
                 break;
             }
         }
 
-        if(iaLoose){
+        if (iaLoose) {
             ia.setLosed(true);
             this.gameState = GameState.FINISHED;
             this.finishedGame.setTitle("Vous avez gagné");
         }
-        if(humainLoose){
+        if (humainLoose) {
             humain.setLosed(true);
             this.gameState = GameState.FINISHED;
             this.finishedGame.setTitle("Vous avez perdu");
         }
 
-        System.out.println(" finish ? "+ (humainLoose || iaLoose));
+        System.out.println(" finish ? " + (humainLoose || iaLoose));
         return humainLoose || iaLoose;
 
 
@@ -229,6 +299,9 @@ public class Game implements bataillenavale.engine.Game {
         return batailleNavale;
     }
 
+    public void setBatailleNavale(BatailleNavale batailleNavale) {
+        this.batailleNavale = batailleNavale;
+    }
 
     public void launchBatailleNavale(String epoque) {
         batailleNavale = new BatailleNavale(epoque);
@@ -243,9 +316,5 @@ public class Game implements bataillenavale.engine.Game {
     public void setFinishedGame(FinishedGame finishedGame) {
         this.finishedGame = finishedGame;
 
-    }
-
-    public void setBatailleNavale(BatailleNavale batailleNavale) {
-        this.batailleNavale = batailleNavale;
     }
 }
