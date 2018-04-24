@@ -7,8 +7,6 @@ public interface Strategie extends Serializable {
 
     public Point2D generateShoot(List<Point2D> tirsEchoues);
 
-    public Point2D getLastShootTouched();
-
     public void setLastShootTouched(Point2D lastShootTouched);
 
     String toString();

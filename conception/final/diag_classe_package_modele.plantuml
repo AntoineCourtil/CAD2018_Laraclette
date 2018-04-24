@@ -43,16 +43,18 @@ package modele {
     }
     
     class StrategieAlea{
-        - lastShootHasTouched : boolean
-        + generateShoot() : Point2D
+        - Point2D lastShootTouched
+        + Point2D generateShoot()
     }
     
     class StrategieCroix{
-        - lastShootHasTouched : boolean
-        + generateShoot() : Point2D
+        - Point2D lastShootHasTouched
+        + Point2D generateShoot()
     }
 
     class Point2D{
+        - int x
+        - int y
     }
     
     
@@ -61,6 +63,7 @@ package modele {
     BatailleNavale --"1" Player : "Humain"
     BatailleNavale --"1" Player : "IA"
     BatailleNavale ..> Serializable
+    Point2D ..> Serializable
 }
 
 

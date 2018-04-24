@@ -5,12 +5,7 @@ import java.util.Random;
 
 public class StrategieAlea implements Strategie{
 
-
-    public boolean lastShootHasTouched(){
-
-        return false;
-
-    }
+    private Point2D lastShootTouched;
 
     @Override
     public Point2D generateShoot(List<Point2D> tirsEchoues) {
@@ -38,11 +33,6 @@ public class StrategieAlea implements Strategie{
         }
 
         return new Point2D(x,y);
-    }
-
-    @Override
-    public Point2D getLastShootTouched() {
-        return null;
     }
 
     @Override

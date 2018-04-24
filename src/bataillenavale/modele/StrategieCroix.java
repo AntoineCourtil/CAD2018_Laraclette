@@ -46,10 +46,6 @@ public class StrategieCroix implements Strategie{
         return "En croix";
     }
 
-    public Point2D getLastShootTouched() {
-        return lastShootTouched;
-    }
-
     public void setLastShootTouched(Point2D lastShootTouched) {
         this.lastShootTouched = lastShootTouched;
     }
