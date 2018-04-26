@@ -1,5 +1,9 @@
 @startuml
-
+' Split into 2 pages
+page 2x1
+skinparam pageMargin 10
+skinparam pageExternalColor gray
+skinparam pageBorderColor black
 title Diagramme de classe du package game
 
 package game {
@@ -41,9 +45,9 @@ package game {
 
     }
 
-    Game --"1" modele.BatailleNavale
+    Game -down-"1" modele.BatailleNavale
 
-    Game ..> engine.Game
+    Game .down.> engine.Game
 
     class Painter {
         - drawMenu()
@@ -51,8 +55,8 @@ package game {
         - drawRunning()
         - drawResumeGame()
     }
-    Painter ..> engine.GamePainter
-    Painter -- "1" modele.BatailleNavale
+    Painter .down.> engine.GamePainter
+    Painter -down- "1" modele.BatailleNavale
 
     class Controller {
         - commandeEnCours : Cmd
@@ -60,7 +64,7 @@ package game {
         + keyPressed(e : KeyEvent) 
         + mouseClicked(e : MouseEvent)
     }
-    Controller ..> engine.GameController
+    Controller .down.> engine.GameController
 
     class ImageFactory << (S,#FF7700) Singleton >>{
         - {static} ImageFactory instance
@@ -121,7 +125,7 @@ package game {
         ResumeGame --> Menu
 
     }
-        Game --"4" Menu
+        Game -down-"4" Menu
 
 }
 

@@ -3,6 +3,10 @@ package bataillenavale.modele;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Stratégie de tir aléatoire, mais ne mémorise pas si un tir à touché ou non, vraiment du full aléatoire
+ * Ne retire pas au même endroit qu'un tir échoué
+ */
 public class StrategieAlea implements Strategie{
 
     private Point2D lastShootTouched;

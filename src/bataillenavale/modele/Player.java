@@ -107,6 +107,10 @@ public class Player implements Serializable {
 
     }
 
+    /**
+     * Set currentBoatIndex si sur la position il y a bien un boat
+     * @param pos
+     */
     public void chooseBoat(Point2D pos) {
         int index = 0;
         for (Bateau bateau : boatList) {

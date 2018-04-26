@@ -32,6 +32,10 @@ public class BatailleNavale implements Serializable {
         turnPlayer = true;
     }
 
+    /**
+     * Crée toute la liste de bateau pour le joueur courant et la renvoie
+     * @return la liste de bateaux
+     */
     private List<Bateau> initListBateau() {
         List<Bateau> listBateaux = new ArrayList<>();
 
@@ -59,6 +63,10 @@ public class BatailleNavale implements Serializable {
         return listBateaux;
     }
 
+    /**
+     * APplique un shoot à une position données au player a qui ce n'est pas le tour
+     * @param pos
+     */
     public void playerShoot(Point2D pos) {
         if (turnPlayer) {
             boolean touche = ia.receiveShoot(pos, humain.getCurrentBoat().getDegat());
@@ -113,6 +121,10 @@ public class BatailleNavale implements Serializable {
         this.playerIsReady = playerIsReady;
     }
 
+    /**
+     * Verifie si tous les bateaux sont bien placés
+     * @return true ou false selon si bien placés ou non
+     */
     public boolean checkBoatsPosition() {
         Player humain = getHumain();
         List<Bateau> boatList = humain.getBoatList();

@@ -4,8 +4,12 @@ package bataillenavale.modele;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Stratégie de tir en croix, tire toutes les deux cases en alternant selon que la ligne soit paire ou impaire
+ */
 public class StrategieCroix implements Strategie{
 
+    //Stock le dernier tir touché afin de pouvoir retirer dessus si le bateau n'a plus de vie
     private Point2D lastShootTouched;
 
     @Override
@@ -14,6 +18,7 @@ public class StrategieCroix implements Strategie{
         int x = 0;
         int y = 0;
 
+        //Tant que le shoot n'est pas bon, on génére à nouveau un autre shoot
         while(!isShootOk) {
             if (lastShootTouched != null) {
                 System.out.println(lastShootTouched);
