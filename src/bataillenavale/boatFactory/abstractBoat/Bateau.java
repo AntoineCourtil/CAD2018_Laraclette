@@ -142,6 +142,11 @@ public abstract class Bateau implements Serializable {
         return false;
     }
 
+    /**
+     * Est-ce que la postion est sur le bateau courant
+     * @param pos
+     * @return
+     */
     public boolean detectBoat(Point2D pos) {
         boolean trouve = false;
         Orientation orientation = this.getOrientation();
@@ -189,22 +194,18 @@ public abstract class Bateau implements Serializable {
         int x = bateau.getPosition().getX();
         int y = bateau.getPosition().getY();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < bateau.size; i++) {
 
             switch (bateau.getOrientation()) {
                 case NORD:
                     if (detectBoat(new Point2D(x, y))){
                         trouve = true;
-                        System.out.println(" NORD x : "+ x + "y : "+ y);
-
                     }
                     else y--;
                     break;
                 case SUD:
                     if (detectBoat(new Point2D(x, y))){
                         trouve = true;
-                        System.out.println(" SUD x : "+ x + "y : "+ y);
-
                     }
                     else y++;
                     break;
@@ -212,15 +213,12 @@ public abstract class Bateau implements Serializable {
                 case OUEST:
                     if (detectBoat(new Point2D(x, y))){
                         trouve = true;
-                        System.out.println(" OUEST x : "+ x + "y : "+ y);
-
                     }
                     else x--;
                     break;
                 case EST:
                     if (detectBoat(new Point2D(x, y))){
                         trouve = true;
-                        System.out.println(" EST x : "+ x + "y : "+ y);
                     }
                     else x++;
                     break;

@@ -132,7 +132,9 @@ public class BatailleNavale implements Serializable {
             for (Bateau verifBoat : boatList) {
 
                 if (verifBoat != boat) {
-                    if(verifBoat.collisionBoat(boat)) return false;
+                    if(verifBoat.collisionBoat(boat)) {
+                        return false;
+                    }
                 }
 
                 if (boat.isOutOfScreen()) {

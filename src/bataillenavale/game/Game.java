@@ -154,13 +154,11 @@ public class Game implements bataillenavale.engine.Game {
                 save();
                 break;
             case START:
-                //TODO Check la position des bateaux
                 if (batailleNavale.checkBoatsPosition())
                     batailleNavale.setPlayerIsReady(true);
                 break;
             case ROTATE:
                 if (b != null) {
-                    System.out.println("Rotate");
                     b.nextOrientation();
                 }
                 break;
