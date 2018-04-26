@@ -193,21 +193,35 @@ public abstract class Bateau implements Serializable {
 
             switch (bateau.getOrientation()) {
                 case NORD:
-                    if (detectBoat(new Point2D(x, y))) trouve = true;
+                    if (detectBoat(new Point2D(x, y))){
+                        trouve = true;
+                        System.out.println(" NORD x : "+ x + "y : "+ y);
+
+                    }
                     else y--;
                     break;
                 case SUD:
-                    if (detectBoat(new Point2D(x, y))) trouve = true;
+                    if (detectBoat(new Point2D(x, y))){
+                        trouve = true;
+                        System.out.println(" SUD x : "+ x + "y : "+ y);
+
+                    }
                     else y++;
                     break;
 
                 case OUEST:
-                    if (detectBoat(new Point2D(x, y))) trouve = true;
+                    if (detectBoat(new Point2D(x, y))){
+                        trouve = true;
+                        System.out.println(" OUEST x : "+ x + "y : "+ y);
+
+                    }
                     else x--;
                     break;
-
                 case EST:
-                    if (detectBoat(new Point2D(x, y))) trouve = true;
+                    if (detectBoat(new Point2D(x, y))){
+                        trouve = true;
+                        System.out.println(" EST x : "+ x + "y : "+ y);
+                    }
                     else x++;
                     break;
             }
