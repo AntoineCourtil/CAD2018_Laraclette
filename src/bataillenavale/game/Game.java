@@ -110,6 +110,7 @@ public class Game implements bataillenavale.engine.Game {
                                     Point2D tirIA = ia.shootIA();
                                     System.out.println("tir IA : " + tirIA.getX() + " " + tirIA.getY());
                                     batailleNavale.playerShoot(tirIA);
+                                    checkFinishedGame();
                                 }
                             }
                         }
