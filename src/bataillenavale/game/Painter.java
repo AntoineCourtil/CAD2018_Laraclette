@@ -331,7 +331,7 @@ public class Painter implements GamePainter {
 
         for (Bateau bateau : ia.getBoatList()) {
             if (bateau.getHP() <= 0) this.drawRunningBoatRightGrid(crayon, bateau);
-            else this.drawRunningBoatRightGridDebug(crayon, bateau);
+            //else this.drawRunningBoatRightGridDebug(crayon, bateau);
         }
 
     }
